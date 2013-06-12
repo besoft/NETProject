@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Zcu.StudentEvaluator.Domain;
 using Zcu.StudentEvaluator.Core.Data;
 using Zcu.StudentEvaluator.Core.Data.Schema;
+using System.Collections.ObjectModel;
 
 namespace Zcu.StudentEvaluator.Domain.Test
 {
@@ -32,23 +33,13 @@ namespace Zcu.StudentEvaluator.Domain.Test
         }
 
         public TestRepository()
-        {
-            const int Ecnt = 4;
-            var schema = new EvaluationDefinition[Ecnt]{
-                new EvaluationDefinition() {Name="Design"},
-                new EvaluationDefinition() {Name="Implementation"},
-                new EvaluationDefinition() {Name="CodeCulture"},
-                new EvaluationDefinition() {Name="Documentation"},
-            };
-            /*
-            var schema = new List<EvaluationDefinition>(Ecnt);
-            schema.Add(new EvaluationDefinition() { Name = "Design" });
-            schema.Add(new EvaluationDefinition() { Name = "Implementation" });
+        {           
+            var schema = new ObservableCollection<EvaluationDefinition>();
+            schema.Add(new EvaluationDefinition() { Name = "Design", MinPoints = 2m });
+            schema.Add(new EvaluationDefinition() { Name = "Implementation", MinPoints = 5m, MaxPoints=10, });
             schema.Add(new EvaluationDefinition() { Name = "CodeCulture" });
-            schema.Add(new EvaluationDefinition() { Name = "Documentation" });
-             * */
-
-
+            schema.Add(new EvaluationDefinition() { Name = "Documentation", MaxPoints = 2 });             
+            
             this.StudentsCourseEvaluation = new StudentCourseEvaluation[3]{
                 new StudentCourseEvaluation() {
                     Student = new Student() {PersonalNumber = "A12B0001P", FirstName="Anna", Surname="Aysle", },

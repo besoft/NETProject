@@ -50,7 +50,7 @@ namespace Zcu.StudentEvaluator.Core.Data.Schema
             else if (this.MinPoints.HasValue)
                 sb.AppendFormat(" [min {0}b]", this.MinPoints);
             else if (this.MaxPoints.HasValue)
-                sb.AppendFormat(" [max {0}b]", this.MinPoints);
+                sb.AppendFormat(" [max {0}b]", this.MaxPoints);
                         
             return sb.ToString();
         }

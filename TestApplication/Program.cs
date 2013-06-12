@@ -1,10 +1,12 @@
 ﻿using System;
+using Zcu.StudentEvaluator.Core.Data;
+using Zcu.StudentEvaluator.Core.Data.Schema;
 using Zcu.StudentEvaluator.Domain.Test;
 
 namespace TestApplication
 {
      /// <summary>
-    /// Tento program vychazi ze zakladu hodnoceni studentu na predmetu.
+    /// Tento 3. program testuje zaklad hodnoceni studentu na predmetu.
     /// </summary>
     /// <remarks>
     ///Lze si to predstavit jako Excelovskou tabulku MxN, kde N je pocet studentu (pocet radek tabulky) a M je pocet sloupcu, 
@@ -13,18 +15,16 @@ namespace TestApplication
     ///Protoze definice sloupcu (jmeno kategorie, min a max mozny pocet bodu) je spolecny pro kazdeho studenta, je vhodne definici udrzovat v pameti jen jednou, 
     ///jen jedna instance. Vlastni hodnoceni (pocet bodu a jejich zduvodneni) jsou uchovavany samozrejme pro kazdeho studenta.
     ///
-    /// Tento druhy navrh vychazi z prvniho a dosahuje nasledujicich zlepseni:
-    /// 1) Nektere tridy byly s pouzitim Refaktoringu prejmenovany pro lepsi citelnost, napr. EvaluationItemSchem -> EvaluationDefinition, ...
-    /// 2) Udaje o studentovi a udaje o jeho hodnoceni jsou oddeleny
-    /// 3) Hodnoceni a definice hodoceni (schema) jsou volne provazany, takze lze snadno zjistit, zda student splnil podminky, brat v uvahu soucet, ...
-    ///     Pozn. pro tento ucel bylo nezbytne zmenit EvaluationDefinition z hodnotoveho datoveho typu (struct) na referencni (class)
-    /// 4) Schema lze snadno modifikovat, protoze se jedna o kolekci (ackoliv vnitrni implementace v Repo je pres pole)
+    /// Tento 3. navrh vychazi z prvniho a dosahuje nasledujicich zlepseni:
+    /// 1) Hodnoceni a definice jsou lepe provazany    
+    /// 2) Definici lze libovolne menit a struktura hodnoceni se tomuto automaticky prizpusobi
+    /// 3) Bylo pridano nekolik uzitecnych metod
     /// 
     /// Nedostatky:
-    /// 1) Schema (definici) hodnoceni muze nyni obsahovat null polozky (povede k padu)
-    /// 2) Schema (definici) hodnoceni lze zmenit, aniz by se o tom prislusna instance CourseEvaluation dozvedela    
+    /// 1) Neni k dispozici seznam studentu a moznosti filtrovani seznamu studentu
+    /// 2) Otestovanu Core je zadouci
     /// 
-    /// Ukazane principy: kolekce, LINQ, refactoring
+    /// Ukazane principy: observable kolekce, interface, read-only,
     /// </remarks>    
     class Program
     {
@@ -34,38 +34,50 @@ namespace TestApplication
             var repo = new TestRepository();
 
             Console.WriteLine("Number of students: " + repo.StudentsCourseEvaluation.Length);
-            foreach (var st in repo.StudentsCourseEvaluation)
-            {
-                Console.WriteLine(st.ToString());
-            }
+            ListStudents(repo);
 
-            repo.StudentsCourseEvaluation[0].Evaluation.Evaluations[0].Points = 5.5m;
-            repo.StudentsCourseEvaluation[0].Evaluation.Evaluations[0].Reason = "Bad design";
+            CourseEvaluation student0 = repo.StudentsCourseEvaluation[0].Evaluation;
+            CourseEvaluation student1 = repo.StudentsCourseEvaluation[1].Evaluation;
 
-            repo.StudentsCourseEvaluation[0].Evaluation.Evaluations[1].Points = 4m;
-            repo.StudentsCourseEvaluation[0].Evaluation.Evaluations[1].Reason = "Bad implementation";
+            EvaluationValue val0 = student0.Evaluations[0].Value;
+            val0.Points = 5.5m; val0.Reason = "Bad design";
 
-            repo.StudentsCourseEvaluation[0].Evaluation.Evaluations[2].Points = 2m;
+            EvaluationValue val1 = student0.Evaluations[1].Value;
+            val1.Points = 4m; val1.Reason = "Bad implementation";
 
-            repo.StudentsCourseEvaluation[1].Evaluation.Evaluations[0].Points = 15m;
+            student0.Evaluations[3].Value.Points = 3m;
 
-            foreach (var st in repo.StudentsCourseEvaluation)
-            {
-                Console.WriteLine(st.ToString());
-            }
+            student1.Evaluations[0].Value.Points = 15m;
 
-            //zmena definice hodnoceni
-            repo.StudentsCourseEvaluation[2].Evaluation.EvaluationDefinitions[2] = null;
+            ListStudents(repo);
 
-            //Nefunguje pro pole => nutno upravit TestRepository
+            //zmena definice hodnoceni                        
             repo.StudentsCourseEvaluation[2].Evaluation.EvaluationDefinitions.RemoveAt(2);
+            repo.StudentsCourseEvaluation[2].Evaluation.EvaluationDefinitions.Move(0, 1);
+            repo.StudentsCourseEvaluation[2].Evaluation.EvaluationDefinitions.Add(
+                new EvaluationDefinition() {  Name = "Other", MinPoints=0m, MaxPoints=5m});
 
-            foreach (var st in repo.StudentsCourseEvaluation)
-            {
-                Console.WriteLine(st.ToString());
-            }            
+            ListStudents(repo);
+
+            repo.StudentsCourseEvaluation[2].Evaluation.EvaluationDefinitions[2].MinPoints = 3.5m;
+            student1.Evaluations[3].Value.Points = 4m;
+
+            ListStudents(repo);
+
+            repo.StudentsCourseEvaluation[2].Evaluation.EvaluationDefinitions[3] = null;
+            ListStudents(repo);
 
             Console.ReadLine();
+        }
+
+        private static void ListStudents(TestRepository repo)
+        {
+            foreach (var st in repo.StudentsCourseEvaluation)
+            {
+                Console.WriteLine(st.ToString());
+            }
+
+            Console.WriteLine("===================");
         }
     }
 }

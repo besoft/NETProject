@@ -40,9 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CourseEvaluation.cs" />
+    <Compile Include="Evaluation.cs" />
+    <Compile Include="ICourseEvaluation.cs" />
     <Compile Include="StudentCourseEvaluation.cs" />
     <Compile Include="Student.cs" />
-    <Compile Include="Evaluation.cs" />
+    <Compile Include="EvaluationValue.cs" />
     <Compile Include="EvaluationDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

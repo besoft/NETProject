@@ -9,7 +9,7 @@ namespace Zcu.StudentEvaluator.Core.Data.Schema
     /// <summary>
     /// This class contains settings for an evaluation
     /// </summary>
-    public struct EvaluationItemSchema
+    public class EvaluationDefinition
     {
         /// <summary>
         /// Gets or sets the name of the evaluation.

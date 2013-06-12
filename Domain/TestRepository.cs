@@ -11,7 +11,7 @@ namespace Zcu.StudentEvaluator.Domain.Test
 {
     public class TestRepository : IRepository
     {
-        private Student[] _students = null;
+        private StudentCourseEvaluation[] _students = null;
 
         /// <summary>
         /// Gets the list of students.
@@ -19,7 +19,7 @@ namespace Zcu.StudentEvaluator.Domain.Test
         /// <value>
         /// The list of students to be contained.
         /// </value>
-        public Student[] Students
+        public StudentCourseEvaluation[] StudentsCourseEvaluation
         {
             get
             {
@@ -34,22 +34,36 @@ namespace Zcu.StudentEvaluator.Domain.Test
         public TestRepository()
         {
             const int Ecnt = 4;
-            var schema = new EvaluationItemSchema[Ecnt]{
-                new EvaluationItemSchema() {Name="Design"},
-                new EvaluationItemSchema() {Name="Implementation"},
-                new EvaluationItemSchema() {Name="CodeCulture"},
-                new EvaluationItemSchema() {Name="Documentation"},
+            var schema = new EvaluationDefinition[Ecnt]{
+                new EvaluationDefinition() {Name="Design"},
+                new EvaluationDefinition() {Name="Implementation"},
+                new EvaluationDefinition() {Name="CodeCulture"},
+                new EvaluationDefinition() {Name="Documentation"},
             };
+            /*
+            var schema = new List<EvaluationDefinition>(Ecnt);
+            schema.Add(new EvaluationDefinition() { Name = "Design" });
+            schema.Add(new EvaluationDefinition() { Name = "Implementation" });
+            schema.Add(new EvaluationDefinition() { Name = "CodeCulture" });
+            schema.Add(new EvaluationDefinition() { Name = "Documentation" });
+             * */
 
-            this.Students = new Student[3]{
-                new Student() {PersonalNumber = "A12B0001P", FirstName="Anna", Surname="Aysle", 
-                    EvaluationSchema = schema, Evaluation = new EvaluationItem[Ecnt]},
 
-                new Student() {PersonalNumber = "A12B0002P", FirstName="Barbora", Surname="Bílá", 
-                    EvaluationSchema = schema, Evaluation = new EvaluationItem[Ecnt]},
+            this.StudentsCourseEvaluation = new StudentCourseEvaluation[3]{
+                new StudentCourseEvaluation() {
+                    Student = new Student() {PersonalNumber = "A12B0001P", FirstName="Anna", Surname="Aysle", },
+                    Evaluation = new CourseEvaluation(schema),
+                },
 
-                new Student() {PersonalNumber = "A12B0003P", FirstName="Cyril", Surname="Cejn", 
-                    EvaluationSchema = schema, Evaluation = new EvaluationItem[Ecnt]},
+                new StudentCourseEvaluation() {
+                    Student = new Student() {PersonalNumber = "A12B0002P", FirstName="Barbora", Surname="Bílá", },
+                    Evaluation = new CourseEvaluation(schema),
+                },
+
+                new StudentCourseEvaluation() {
+                    Student = new Student() {PersonalNumber = "A12B0003P", FirstName="Cyril", Surname="Cejn", },
+                    Evaluation = new CourseEvaluation(schema),
+                },
             };
         }
     }

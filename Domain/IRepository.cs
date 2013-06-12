@@ -15,6 +15,6 @@ namespace Zcu.StudentEvaluator.Domain
         /// <value>
         /// The list of students to be contained.
         /// </value>
-		Student[] Students { get; set; }
+		StudentCourseEvaluation[] StudentsCourseEvaluation { get; set; }
 	}    
 }

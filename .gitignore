@@ -1,1 +1,11 @@
 */obj/*
+*/Core/bin/*
+*/Domain/bin/*
+*/Core/bin/Debug/*
+*/Domain/bin/Debug/*
+Core/bin/Debug/Core.dll
+Core/bin/Debug/Core.pdb
+Domain/bin/Debug/Core.dll
+Domain/bin/Debug/Core.pdb
+Domain/bin/Debug/Domain.dll
+Domain/bin/Debug/Domain.pdb

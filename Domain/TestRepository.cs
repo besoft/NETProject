@@ -10,52 +10,31 @@ using System.Collections.ObjectModel;
 
 namespace Zcu.StudentEvaluator.Domain.Test
 {
-    public class TestRepository : IRepository
-    {
-        private StudentCourseEvaluation[] _students = null;
-
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TestRepository : IStudentsRepository
+    {        
         /// <summary>
         /// Gets the list of students.
         /// </summary>
         /// <value>
         /// The list of students to be contained.
         /// </value>
-        public StudentCourseEvaluation[] StudentsCourseEvaluation
-        {
-            get
-            {
-                return _students;
-            }
-            set
-            {
-                _students = value;
-            }
-        }
-
+        public StudentCourseEvaluationCollection StudentsCourseEvaluation {get; private set; }
+        
         public TestRepository()
-        {           
-            var schema = new ObservableCollection<EvaluationDefinition>();
+        {
+            var schema = new EvaluationDefinitionCollection();
             schema.Add(new EvaluationDefinition() { Name = "Design", MinPoints = 2m });
             schema.Add(new EvaluationDefinition() { Name = "Implementation", MinPoints = 5m, MaxPoints=10, });
             schema.Add(new EvaluationDefinition() { Name = "CodeCulture" });
-            schema.Add(new EvaluationDefinition() { Name = "Documentation", MaxPoints = 2 });             
-            
-            this.StudentsCourseEvaluation = new StudentCourseEvaluation[3]{
-                new StudentCourseEvaluation() {
-                    Student = new Student() {PersonalNumber = "A12B0001P", FirstName="Anna", Surname="Aysle", },
-                    Evaluation = new CourseEvaluation(schema),
-                },
+            schema.Add(new EvaluationDefinition() { Name = "Documentation", MaxPoints = 2 });
 
-                new StudentCourseEvaluation() {
-                    Student = new Student() {PersonalNumber = "A12B0002P", FirstName="Barbora", Surname="Bílá", },
-                    Evaluation = new CourseEvaluation(schema),
-                },
-
-                new StudentCourseEvaluation() {
-                    Student = new Student() {PersonalNumber = "A12B0003P", FirstName="Cyril", Surname="Cejn", },
-                    Evaluation = new CourseEvaluation(schema),
-                },
-            };
+            this.StudentsCourseEvaluation = new StudentCourseEvaluationCollection(schema);
+            this.StudentsCourseEvaluation.Add("A12B0001P", "Anna", "Aysle");
+            this.StudentsCourseEvaluation.Add("A12B0002P", "Barbora", "Bílá");
+            this.StudentsCourseEvaluation.Add("A12B0003P", "Cyril", "Cejn");
         }
     }
 }

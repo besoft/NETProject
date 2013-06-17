@@ -12,7 +12,7 @@ namespace Zcu.StudentEvaluator.Core.Data
     /// <remarks>The behaviour of this structure is similar to <seealso cref="KeyValuePair"/> but it adds useful properties to access
     /// the members of Definition and Value instances.</remarks>
     /// </summary>
-    public struct Evaluation
+    public struct Evaluation : IEvaluation
     {
         /// <summary>
         /// Gets or sets the definition.
@@ -94,8 +94,7 @@ namespace Zcu.StudentEvaluator.Core.Data
         /// Gets a value indicating whether the result of this evaluation is "Pass".
         /// </summary>
         /// <remarks>Evaluation result is "pass", if the number of received points is greater than or equal the minimum requested.
-        /// /// Note that If the points have not been entered, the result is neither "Pass" not "Fail" and, therefore, both
-        /// <see cref="HasResultPassed"/> and <see cref="HasResultFailed"/> returns false.</remarks>
+        /// Note that the result is also "Pass", if the minimum requested is not specified. </remarks>
         /// <value>
         /// <c>true</c> if the evaluation result is "passed"; otherwise, <c>false</c>.
         /// </value>
@@ -103,10 +102,10 @@ namespace Zcu.StudentEvaluator.Core.Data
         {
             get
             {
-                if (this.Points == null)
-                    return false;
-                else if (this.MinPoints == null)
+                if (this.MinPoints == null)
                     return true;
+                else if (this.Points == null)
+                    return false;                
                 else
                     return this.Points.Value >= this.MinPoints.Value;
             }
@@ -116,8 +115,8 @@ namespace Zcu.StudentEvaluator.Core.Data
         /// Gets a value indicating whether the result of this evaluation is "Fail".
         /// </summary>
         /// <remarks>Evaluation result is "Fail", if the number of received points is less than the minimum requested. 
-        /// Note that If the points have not been entered, the result is neither "Pass" not "Fail" and, therefore, both
-        /// <see cref="HasResultPassed"/> and <see cref="HasResultFailed"/> returns false.</remarks>
+        /// Note that the result is also "Fail", if the number of received points is not specified whilst the minimum requested is
+        /// but the result is NOT "Fail", if the minimum requested is not specified. </remarks>
         /// <value>
         /// <c>true</c> if the evaluation result is "Fail"; otherwise, <c>false</c>.
         /// </value>
@@ -125,12 +124,12 @@ namespace Zcu.StudentEvaluator.Core.Data
         {
             get
             {
-                if (this.Points == null)
+                if (this.MinPoints == null)
                     return false;
-                else if (this.MinPoints == null)
+                else if (this.Points == null)
                     return true;
                 else
-                    return this.Points.Value >= this.MinPoints.Value;
+                    return this.Points.Value < this.MinPoints.Value;
             }
         }
 

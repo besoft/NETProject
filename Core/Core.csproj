@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EvaluationDefinitionCollection.cs" />
+    <Compile Include="IEvaluation.cs" />
+    <Compile Include="StudentCourseEvaluationCollection.cs" />
     <Compile Include="CourseEvaluation.cs" />
     <Compile Include="Evaluation.cs" />
     <Compile Include="ICourseEvaluation.cs" />

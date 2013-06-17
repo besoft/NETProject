@@ -13,28 +13,28 @@ namespace Zcu.StudentEvaluator.Core.Data
     public class Student
     {
         /// <summary>
-        /// Gets or sets the personal number of the student.
+        /// Gets the personal number of the student.
         /// </summary>
         /// <value>
         /// The personal number, e.g. A12B0012P.
-        /// </value>
-        public string PersonalNumber { get; set; }
+        /// </value>        
+        public string PersonalNumber { get; private set; }
 
         /// <summary>
-        /// Gets or sets the first name.
+        /// Gets the first name.
         /// </summary>
         /// <value>
         /// The first name, e.g., "Josef".
         /// </value>
-        public string FirstName { get; set; }
+        public string FirstName { get; private set; }
 
         /// <summary>
-        /// Gets or sets the surname.
+        /// Gets the surname.
         /// </summary>
         /// <value>
         /// The surname, e.g., "Kohout".
         /// </value>
-        public string Surname { get; set; }
+        public string Surname { get; private set; }
 
         /// <summary>
         /// Gets the full name of the student.
@@ -48,7 +48,28 @@ namespace Zcu.StudentEvaluator.Core.Data
                 return this.Surname.ToUpper() + " " + this.FirstName;
             }
         }
-       
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Student" /> class.
+        /// </summary>
+        /// <param name="personalNumber">The personal number.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <exception cref="System.ArgumentNullException">if personalNumber, firstName or surname is null.</exception>
+        public Student(string personalNumber, string firstName, string surname)
+        {
+            if (personalNumber == null)
+                throw new ArgumentNullException("personalNumber");
+            if (firstName == null)
+                throw new ArgumentNullException("firstName");
+            if (surname == null)
+                throw new ArgumentNullException("surname");
+
+            this.PersonalNumber = personalNumber;
+            this.FirstName = firstName;
+            this.Surname = surname;
+        }
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>

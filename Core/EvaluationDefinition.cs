@@ -46,7 +46,7 @@ namespace Zcu.StudentEvaluator.Core.Data.Schema
             var sb = new StringBuilder(this.Name ?? "<?>");
                            
             if (this.MinPoints.HasValue && this.MaxPoints.HasValue)
-                sb.AppendFormat(" [{0}-{1}]", this.MinPoints, this.MaxPoints);
+                sb.AppendFormat(" [{0}-{1}b]", this.MinPoints, this.MaxPoints);
             else if (this.MinPoints.HasValue)
                 sb.AppendFormat(" [min {0}b]", this.MinPoints);
             else if (this.MaxPoints.HasValue)

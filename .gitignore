@@ -9,3 +9,6 @@ Domain/bin/Debug/Core.dll
 Domain/bin/Debug/Core.pdb
 Domain/bin/Debug/Domain.dll
 Domain/bin/Debug/Domain.pdb
+TestResults/*
+Core.UnitTest/bin/*
+Core/bin/*

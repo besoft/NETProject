@@ -6,7 +6,7 @@ using Zcu.StudentEvaluator.Domain.Test;
 namespace TestApplication
 {
      /// <summary>
-    /// Tento 3. program testuje zaklad hodnoceni studentu na predmetu.
+    /// Tento 4. program testuje zaklad hodnoceni studentu na predmetu.
     /// </summary>
     /// <remarks>
     ///Lze si to predstavit jako Excelovskou tabulku MxN, kde N je pocet studentu (pocet radek tabulky) a M je pocet sloupcu, 
@@ -15,16 +15,20 @@ namespace TestApplication
     ///Protoze definice sloupcu (jmeno kategorie, min a max mozny pocet bodu) je spolecny pro kazdeho studenta, je vhodne definici udrzovat v pameti jen jednou, 
     ///jen jedna instance. Vlastni hodnoceni (pocet bodu a jejich zduvodneni) jsou uchovavany samozrejme pro kazdeho studenta.
     ///
-    /// Tento 3. navrh vychazi z prvniho a dosahuje nasledujicich zlepseni:
-    /// 1) Hodnoceni a definice jsou lepe provazany    
-    /// 2) Definici lze libovolne menit a struktura hodnoceni se tomuto automaticky prizpusobi
-    /// 3) Bylo pridano nekolik uzitecnych metod
+    /// Tento 4. navrh vychazi z prvniho a dosahuje nasledujicich zlepseni:
+    /// 1) Zavedeny kolekce pro definice a pro StudentCourseEvaluation, coz umoznuje disponovat kolekci studentu, ktera muze byt poskytovana
+    /// prostrednictvim rozhrani IStudentsRepository tak, ze obsahuje vsechny studenty, jen studenty, kteri prosli, ...    
+    /// 2) Tridy Student, StudentCourseEvaluation upraveny tak, aby nebylo mozne zadat "null" pro klicove parametry
+    /// 3) Odstraneno nekolik bugu odhalenych na zaklade vypracovanychh unit testu
+    /// 4) Pridano nekolik unit testu, ktere overuji vsechny tridy, pokryti kodu je 100% az na CourseEvaluation
     /// 
     /// Nedostatky:
-    /// 1) Neni k dispozici seznam studentu a moznosti filtrovani seznamu studentu
-    /// 2) Otestovanu Core je zadouci
+    /// 1) Navrh je nekonzistentni: zatimco v pripade Studentu (a jejich hodnoceni) je oddelena kolekce od filtrovani teto kolekce,
+    /// CourseEvaluation spojuje dohromady oboje: kolekci hodnoceni a metody pro filtrovani a praci s touto kolekci
+    /// 2) Chybi funkcionalita pro vyber hodnoceni dle pozadavku (dle nejake definice)
+    /// 3) Chybi funkcionalita pro filtrovani studentu
     /// 
-    /// Ukazane principy: observable kolekce, interface, read-only,
+    /// Ukazane principy: observable kolekce, unit testy, 
     /// </remarks>    
     class Program
     {
@@ -33,7 +37,7 @@ namespace TestApplication
         {
             var repo = new TestRepository();
 
-            Console.WriteLine("Number of students: " + repo.StudentsCourseEvaluation.Length);
+            Console.WriteLine("Number of students: " + repo.StudentsCourseEvaluation.Count);
             ListStudents(repo);
 
             CourseEvaluation student0 = repo.StudentsCourseEvaluation[0].Evaluation;

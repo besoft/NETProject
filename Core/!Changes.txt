@@ -1,0 +1,15 @@
+﻿*30.7.2013
+- puvodni predstava, se kterou se NETProject zacal navrhovat, byla, ze na konci budeme mit pro kazdeho studenta
+komplexni hodnoceni, ktere bude mit hierarchickou strukturu, kde v koreni je uzel odpovidajici primo hodnoceni
+predmetu s metodami pro stanoveni znamky, zjisteni, zda student ma zapocet, zda splnil zkousku, a tento koren
+bude mit potomky Zapocet a Zkouska, kazdy z nich pak bude mit definovatelne kategorie, v nich pak hodnoceni.
+Kategorie jsou stejne pro vsechny studenty, kategorie lze menit (tj. cela hierarchicka struktura) lze definovat,
+pricemz zmena pochopitelne se musi projevit prislusnym zpusobem. A tohle vse bude mozne filtrovat na libovolne
+urovni, tj. napr. poskytnout kolekci studentu, kteri maji zapocet, a pro tyto studenty zpristupnit pouze hodnoceni
+1. zkouskoveho terminu. Ackoliv snaha byla zacit s jednodussim konceptem (nehierarchickym), vize, co ma byt na konci, 
+ovlivnovala znacne navrh, takze po ctyrech iteracich, kdy v kazde z nich se velka cast zmenila, jsme ve stavu, 
+ktery je neudrzitelny. A proto zpatky na stromy, tj. pojdme zacit hezky od zacatku a vytvorit jednoduchy zaklad:
+
+Student ma kolekci Evaluation, kazdy Evaluation ma sveho Studenta a EvaluationDefinition
+TestRepository obsahuje kolekci studentu, kolekci hodnoceni a kolekci definic hodnoceni.
+

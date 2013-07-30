@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Zcu.StudentEvaluator.Core.Data.CourseEvaluation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAgAAAAAhAIEAAQAgATACAAAAIAARAAQAAAACCA=</HashCode>
+      <FileName>CourseEvaluation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.Core.Data.EvaluationValue">
+    <Position X="10.25" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAIEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EvaluationValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.Core.Data.Student" Collapsed="true">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAIAEAAAAAAAABAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.Core.Data.StudentCourseEvaluation" Collapsed="true">
+    <Position X="0.75" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAQAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StudentCourseEvaluation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.Core.Data.StudentCourseEvaluationCollection" Collapsed="true">
+    <Position X="0.75" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEIAAEAAAAAAAAAAAAAABAAAAAAAAgAEAAIAAAAQAAA=</HashCode>
+      <FileName>StudentCourseEvaluationCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.Core.Data.Schema.EvaluationDefinition">
+    <Position X="10.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAASAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>EvaluationDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.Core.Data.Schema.EvaluationDefinitionCollection" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EvaluationDefinitionCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.EvaluationCollection">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EvaluationCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Zcu.StudentEvaluator.Core.Data.Evaluation" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAjAIEAAAAAASACAAAAIAAAAAgAAAAACA=</HashCode>
+      <FileName>Evaluation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Definition" />
+      <Property Name="Value" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Interface Name="Zcu.StudentEvaluator.Core.Data.ICourseEvaluation" Collapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAQAgAAACAAAAAAAQAAQAAAAAAA=</HashCode>
+      <FileName>ICourseEvaluation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Zcu.StudentEvaluator.Core.IEvaluation">
+    <Position X="2.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAhAIAAAAAAASACAAAAIAAAAAAAAAAACA=</HashCode>
+      <FileName>IEvaluation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,1 +1,20 @@
+30.7.2013 - First simple solution:
+
+- Vytvoreno nekolik projektu:
+	Core = obsahuje jadro celeho reseni, tridy pro uchovani dat o studentech (Student), jejich hodnoceni (Evaluation)
+	a definice hodnoceni (EvaluationDefinition)
+
+	Domain = obsahuje repozitar, tj. uloziste dat
+
+	TestApplication = jednoducha testovaci aplikace
+
+- Domain obsahuje testovaci repositar bez jakekoliv schopnosti perzistence (jen predem vytvoreny pametovy zaznam)
+- Repozitar je urcen v podstate pouze pro cteni: nelze pridavat nove studenty, nova hodnoceni ani nove definice,
+	nelze odstranovat studenty, hodnoceni ci definice; lze menit atributy studentu, hodnoceni, definice
+- Hodnoceni jsou jednourovnove, tj. neni zde zadna hierarchie, vse je na stejne urovni
+
+- Ukazane principy C#: trida, property, decimal, nullable type, override ToString, foreach, pole
+
+- TODO: nahradit pole .NET 2.0 kolekcemi, pouzit LINQ pro zjednoduseni vypoctu
+
 30.7.2013 - Blank solution

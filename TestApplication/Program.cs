@@ -23,12 +23,11 @@ namespace TestApplication
     /// </remarks>    
     class Program
     {
-
         static void Main(string[] args)
         {
             var repo = new TestRepository();
 
-            Console.WriteLine("Number of students: " + repo.Students.Length);
+            Console.WriteLine("Number of students: " + repo.Students.Count);
             foreach (var st in repo.Students)
             {
                 Console.WriteLine(st.ToString());

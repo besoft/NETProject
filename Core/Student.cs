@@ -45,7 +45,18 @@ namespace Zcu.StudentEvaluator.Core.Data
         public string FullName {
             get
             {
-                return Surname.ToUpper() + " " + FirstName;
+                //TODO: odkomentovat puvodni kod a ukazat moznosti Diggeru
+                //return Surname.ToUpper() + " " + FirstName;
+                if (this.Surname != null)
+                {
+                    return (this.FirstName != null) ? Surname.ToUpper() + " " + FirstName : Surname.ToUpper();
+                }
+                else if (this.FirstName != null)
+                {
+                    return FirstName;
+                }
+                else 
+                    return null;               
             }
         }
 
@@ -56,7 +67,7 @@ namespace Zcu.StudentEvaluator.Core.Data
         /// <value>
         /// The evaluation.
         /// </value>
-        public Evaluation[] Evaluations { get; set; }
+        public List<Evaluation> Evaluations { get; set; }
 
         
         /// <summary>
@@ -70,12 +81,19 @@ namespace Zcu.StudentEvaluator.Core.Data
             get
             {
                 decimal? sum = null;
-                foreach (var item in this.Evaluations)
+                if (this.Evaluations != null)
                 {
-                    if (sum == null)
-                        sum = item.ValidPoints;
-                    else
-                        sum += item.ValidPoints ?? 0;
+                    foreach (var item in this.Evaluations)
+                    {
+                        //TODO: zakomentovat tento test a ukazat moznosti Diggeru
+                        if (item == null)
+                            continue;
+
+                        if (sum == null)
+                            sum = item.ValidPoints;
+                        else
+                            sum += item.ValidPoints ?? 0;
+                    }
                 }
 
                 return sum;
@@ -92,9 +110,16 @@ namespace Zcu.StudentEvaluator.Core.Data
             get
             {
                 var sb = new StringBuilder();
-                foreach (var item in this.Evaluations)
+                if (this.Evaluations != null)
                 {
-                    sb.AppendFormat("{0}, ", item);
+                    foreach (var item in this.Evaluations)
+                    {
+                        //TODO: zakomentovat tento test a ukazat moznosti Diggeru
+                        if (item == null)
+                            continue;
+
+                        sb.AppendFormat("{0}, ", item);
+                    }
                 }
 
                 return sb.ToString();

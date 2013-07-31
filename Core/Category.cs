@@ -41,7 +41,7 @@ namespace Zcu.StudentEvaluator.Core.Data
         /// <value>
         /// The evaluations.
         /// </value>
-        public Evaluation[] Evaluations { get; set; }
+        public List<Evaluation> Evaluations { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

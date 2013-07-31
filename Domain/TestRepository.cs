@@ -16,7 +16,7 @@ namespace Zcu.StudentEvaluator.Domain.Test
 		/// <value>
 		/// The list of students to be contained.
 		/// </value>
-		public Student[] Students { get; private set; }
+		public List<Student> Students { get; private set; }
 
 		/// <summary>
 		/// Gets the list of evaluation categories.
@@ -24,7 +24,7 @@ namespace Zcu.StudentEvaluator.Domain.Test
 		/// <value>
 		/// The list of categories to be contained.
 		/// </value>
-		public Category[] Categories { get; private set; }
+		public List<Category> Categories { get; private set; }
 
 		/// <summary>
 		/// Gets the list of evaluations.
@@ -32,49 +32,46 @@ namespace Zcu.StudentEvaluator.Domain.Test
 		/// <value>
 		/// The list of evaluations to be contained.
 		/// </value>
-		public Evaluation[] Evaluations { get; private set; }        
+		public List<Evaluation> Evaluations { get; private set; }        
 		
 
 		public TestRepository()
 		{
-			const int Ccnt = 4;
-			this.Categories = new Category[Ccnt]{
-				new Category() {Name="Design"},
-				new Category() {Name="Implementation"},
-				new Category() {Name="CodeCulture"},
-				new Category() {Name="Documentation"},
-			};
-
-			const int Scnt = 3;
-			this.Students = new Student[Scnt]{
-				new Student() {PersonalNumber = "A12B0001P", FirstName="Anna", Surname="Aysle", },
-				new Student() {PersonalNumber = "A12B0002P", FirstName="Barbora", Surname="Bílá", },
-				new Student() {PersonalNumber = "A12B0003P", FirstName="Cyril", Surname="Cejn", },
-			};
-
-			for (int i = 0; i < Ccnt; i++)
+			this.Categories = new List<Category>();
+			this.Categories.Add(new Category() { Name = "Design", MinPoints = 2m });
+			this.Categories.Add(new Category() { Name = "Implementation", MinPoints = 5m, MaxPoints=10, });
+			this.Categories.Add(new Category() { Name = "CodeCulture" });
+			this.Categories.Add(new Category() { Name = "Documentation", MaxPoints = 2 });			
+			
+			this.Students = new List<Student>();
+			this.Students.Add(new Student() {PersonalNumber = "A12B0001P", FirstName="Anna", Surname="Aysle", });
+			this.Students.Add(new Student() {PersonalNumber = "A12B0002P", FirstName="Barbora", Surname="Bílá", });
+			this.Students.Add(new Student() {PersonalNumber = "A12B0003P", FirstName="Cyril", Surname="Cejn", });
+			
+			for (int i = 0; i < this.Categories.Count; i++)
 			{
-				this.Categories[i].Evaluations = new Evaluation[Scnt];
+				this.Categories[i].Evaluations = new List<Evaluation>();
 			}
 
-			for (int i = 0; i < Scnt; i++)
+			for (int i = 0; i < this.Students.Count; i++)
 			{
-				this.Students[i].Evaluations = new Evaluation[Ccnt];
+				this.Students[i].Evaluations = new List<Evaluation>();
 			}
 			
-			this.Evaluations = new Evaluation[Ccnt * Scnt];
-			for (int i = 0, idx = 0; i < Scnt; i++)
-			{                
-				for (int j = 0; j < Ccnt; j++, idx++)
+			this.Evaluations = new List<Evaluation>();
+			for (int i = 0, idx = 0; i < this.Students.Count; i++)
+			{
+				for (int j = 0; j < this.Categories.Count; j++, idx++)
 				{
-					this.Evaluations[idx] = new Evaluation()
+					var eval = new Evaluation()
 					{
 						Category = this.Categories[j],
 						Student = this.Students[i],
 					};
 
-					this.Categories[j].Evaluations[i] = this.Evaluations[idx];
-					this.Students[i].Evaluations[j] = this.Evaluations[idx];
+					this.Evaluations.Add(eval);
+					this.Categories[j].Evaluations.Add(eval);
+					this.Students[i].Evaluations.Add(eval);
 				}
 			}
 		}

@@ -1,8 +1,23 @@
+30.7.2013 - Another simple solution:
+
+- Pole nahrazeny .NET 2.0 List<T> kolekci, takze vytvoreni repozitare se zjednodussi, navic je zde moznost pridavat
+	ci odebirat studenty, hodnoceni i definice hodnoceni
+- Pridan unit test projekt pro overeni funkcionality Core
+- Pridano zajisteni integrity dat (na urovni atributu tridy) pro zamezeni padu
+- Referencni integrita neni zajistena, tj. kategorie hodnoceni muze byt odebrana z kolekce kategorii, ale hodnoceni
+	stale zustava, analogicky totez plati pro kolekci studentu 
+
+- Ukazane principy: .NET 2.0 genericke kolekce, unit testy, kontrakty a Microsoft Code Digger (viz
+	http://research.microsoft.com/en-us/projects/codedigger/gettingstarted.aspx)
+
+- TODO: nahradit .NET 2.0 kolekce Observable kolekcemi, pouzit LINQ pro zjednoduseni vypoctu
+
+
 30.7.2013 - First simple solution:
 
 - Vytvoreno nekolik projektu:
 	Core = obsahuje jadro celeho reseni, tridy pro uchovani dat o studentech (Student), jejich hodnoceni (Evaluation)
-	a definice hodnoceni (EvaluationDefinition)
+	a definice hodnoceni (Category)
 
 	Domain = obsahuje repozitar, tj. uloziste dat
 

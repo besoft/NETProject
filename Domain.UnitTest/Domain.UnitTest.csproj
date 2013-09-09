@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EB03542D-E51D-4B60-AE0F-91D4A5BF9997}</ProjectGuid>
+    <ProjectGuid>{553E7225-FC60-4D26-9E71-E56F4057843E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.UnitTest</RootNamespace>
-    <AssemblyName>Core.UnitTest</AssemblyName>
+    <RootNamespace>Domain.UnitTest</RootNamespace>
+    <AssemblyName>Domain.UnitTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,17 +50,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="EvaluationTest.cs" />
+    <Compile Include="RepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentTest.cs" />
-    <Compile Include="CategoryTest.cs" />
-    <Compile Include="RecursionPointTest.cs" />
-    <Compile Include="CollectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{1d343d19-2d7f-4a55-be4b-dce088950c40}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{111887e0-6b55-42f0-8258-9adfcabe0432}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -1,3 +1,15 @@
+31.7.2013 - Reference integrity:
+
+- List<T> kolekce nahrazeny ObservableCollection<T> a v Domain pridan mechanismus pro zajisteni referencni integrity,
+	tj. prideni/odebrani studenta, hodnoceni nebo kategorie se automaticky propaguje.
+	
+- Prislusnym zpusobem upraveny unit testy
+
+- Ukazane principy: observable kolekce, delegati a obsluha, operator ??
+
+- TODO: persistentni repozitar
+
+
 30.7.2013 - Another simple solution:
 
 - Pole nahrazeny .NET 2.0 List<T> kolekci, takze vytvoreni repozitare se zjednodussi, navic je zde moznost pridavat

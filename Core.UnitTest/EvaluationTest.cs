@@ -10,7 +10,7 @@ namespace Zcu.StudentEvaluator.Core.UnitTest
     public class EvaluationTest
     {       
         [TestMethod]
-        public void TestDefaultValues()
+        public void TestEvaluationCtor()
         {
             var eval = new Evaluation();
 
@@ -28,7 +28,7 @@ namespace Zcu.StudentEvaluator.Core.UnitTest
         }
 
         [TestMethod]
-        public void TestCategory()
+        public void TestEvaluationWithCategory()
         {
             var eval = new Evaluation()
             {
@@ -71,7 +71,7 @@ namespace Zcu.StudentEvaluator.Core.UnitTest
         }
         
         [TestMethod]
-        public void TestEvaluationValue()
+        public void TestEvaluationWithCategoryAndValues()
         {
             var eval = CreateNewEvaluation();
 
@@ -105,28 +105,7 @@ namespace Zcu.StudentEvaluator.Core.UnitTest
             Assert.IsTrue(eval.HasResultPassed);
             Assert.IsFalse(eval.HasResultFailed);
             Assert.AreEqual(eval.ValidPoints, eval.MaxPoints);
-        }
-
-        [TestMethod]
-        public void TestCategoryToStringMethod()
-        {
-            //empty
-            var eval = new Category();
-            Assert.AreEqual(eval.ToString(), "<?>");
-            
-            eval.Name = "Category";
-            Assert.AreEqual(eval.ToString(), "Category");
-
-            eval.MinPoints = 2m;
-            Assert.AreEqual(eval.ToString(), "Category [min 2b]");
-
-            eval.MaxPoints = 4m;
-            Assert.AreEqual(eval.ToString(), "Category [2-4b]");
-
-            eval.MinPoints = null;
-            Assert.AreEqual(eval.ToString(), "Category [max 4b]");
-        }
-      
+        }      
 
         [TestMethod]
         public void TestEvaluationToStringMethod()
@@ -146,6 +125,53 @@ namespace Zcu.StudentEvaluator.Core.UnitTest
             
             Assert.AreEqual(eval.ToString(), "Category: 5b");
         }
+
+        [TestMethod]
+        public void TestEvaluationCategorySetter()
+        {
+            var cat = CategoryTest.CreateCategoryTestInstance();
+            var eval = new Evaluation();
+
+            eval.Category = cat;
+            Assert.AreEqual(cat, eval.Category);
+            Assert.AreEqual(1, cat.Evaluations.Count);
+            Assert.AreEqual(eval, cat.Evaluations[0]);
+
+            var cat2 = CategoryTest.CreateCategoryTestInstance();
+            eval.Category = cat2;
+            Assert.AreEqual(cat2, eval.Category);
+            Assert.AreEqual(0, cat.Evaluations.Count);
+            Assert.AreEqual(1, cat2.Evaluations.Count);
+            Assert.AreEqual(eval, cat2.Evaluations[0]);
+
+            eval.Category = null;
+            Assert.AreEqual(null, eval.Category);            
+            Assert.AreEqual(0, cat2.Evaluations.Count);
+        }
+
+        [TestMethod]
+        public void TestEvaluationStudentSetter()
+        {
+            var st = StudentTest.CreateStudentTestInstance();
+            var eval = new Evaluation();
+
+            eval.Student = st;
+            Assert.AreEqual(st, eval.Student);
+            Assert.AreEqual(1, st.Evaluations.Count);
+            Assert.AreEqual(eval, st.Evaluations[0]);
+
+            var st2 = StudentTest.CreateStudentTestInstance();
+            eval.Student = st2;
+            Assert.AreEqual(st2, eval.Student);
+            Assert.AreEqual(0, st.Evaluations.Count);
+            Assert.AreEqual(1, st2.Evaluations.Count);
+            Assert.AreEqual(eval, st2.Evaluations[0]);
+
+            eval.Student = null;
+            Assert.AreEqual(null, eval.Student);
+            Assert.AreEqual(0, st2.Evaluations.Count);
+        }
+
 
         private Evaluation CreateNewEvaluation(decimal? minPoints = null, decimal? maxPoints = null)
         {            

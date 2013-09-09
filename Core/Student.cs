@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zcu.StudentEvaluator.Core.Collection;
 using Zcu.StudentEvaluator.Core.Data;
 
 namespace Zcu.StudentEvaluator.Core.Data
@@ -11,7 +14,7 @@ namespace Zcu.StudentEvaluator.Core.Data
     /// This structure keeps the number of points given and the reason for it.
     /// </summary>
     public class Student
-    {
+    {        
         /// <summary>
         /// Gets or sets the personal number of the student.
         /// </summary>
@@ -61,15 +64,11 @@ namespace Zcu.StudentEvaluator.Core.Data
         }
 
         /// <summary>
-        /// Gets or sets the individual student evaluation.
+        /// Gets the individual student evaluation.
         /// </summary>
-        /// <remarks>This collection is private to each student.</remarks>
-        /// <value>
-        /// The evaluation.
-        /// </value>
-        public List<Evaluation> Evaluations { get; set; }
-
-        
+        /// <remarks>This collection is private to each student.</remarks>        
+        public ObservableCollection<Evaluation> Evaluations { get; private set; }
+       
         /// <summary>
         /// Gets the total points the student obtained.
         /// </summary>
@@ -124,6 +123,44 @@ namespace Zcu.StudentEvaluator.Core.Data
 
                 return sb.ToString();
             }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Student" /> class.
+        /// </summary>
+        public Student()
+        {
+            this.Evaluations = new ObservableCollectionWithParentReference<Evaluation, Student>(this);                   
+        }
+
+       
+        /// <summary>
+        /// Adds the new evaluation for this student.
+        /// </summary>
+        /// <remarks>The evaluation may not be null and must be not assigned to any other student, i.e., evaluation.Student refers either to
+        /// this object or to null; otherwise exception is raised. </remarks>
+        /// <param name="evaluation">The evaluation.</param>
+        public void AddEvaluation(Evaluation evaluation)
+        {
+            Contract.Requires<ArgumentNullException>(evaluation != null);
+            Contract.Requires<ArgumentException>(evaluation.Student == null || evaluation.Student == this,
+                "Cannot add an evaluation assigned already to another student");
+
+            if (!this.Evaluations.Contains(evaluation))
+                this.Evaluations.Add(evaluation);
+        }
+
+        /// <summary>
+        /// Removes the evaluation.
+        /// </summary>
+        /// <param name="evaluation">The evaluation.</param>
+        public void RemoveEvaluation(Evaluation evaluation)
+        {
+            Contract.Requires<ArgumentNullException>(evaluation != null);
+            Contract.Requires<ArgumentException>(evaluation.Student == null || evaluation.Student == this,
+                "Cannot remove an evaluation assigned to another student");
+                
+            this.Evaluations.Remove(evaluation);
         }
 
         /// <summary>

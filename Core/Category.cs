@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Diagnostics.Contracts;
 using System.Text;
-using System.Threading.Tasks;
+using Zcu.StudentEvaluator.Core.Collection;
 
 namespace Zcu.StudentEvaluator.Core.Data
 {
@@ -10,7 +12,7 @@ namespace Zcu.StudentEvaluator.Core.Data
     /// This class contains settings for an evaluation
     /// </summary>
     public class Category
-    {
+    {        
         /// <summary>
         /// Gets or sets the name of the evaluation.
         /// </summary>
@@ -36,12 +38,46 @@ namespace Zcu.StudentEvaluator.Core.Data
         public decimal? MaxPoints { get; set; }
 
         /// <summary>
-        /// Gets or sets the evaluations.
+        /// Gets the collection of evaluations.
+        /// </summary>        
+        public ObservableCollection<Evaluation> Evaluations { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Category" /> class.
         /// </summary>
-        /// <value>
-        /// The evaluations.
-        /// </value>
-        public List<Evaluation> Evaluations { get; set; }
+        public Category()
+        {
+            this.Evaluations = new ObservableCollectionWithParentReference<Evaluation, Category>(this);            
+        }
+
+        /// <summary>
+        /// Adds the new evaluation for this student.
+        /// </summary>
+        /// <remarks>The evaluation may not be null and must be not assigned to any other student, i.e., evaluation.Student refers either to
+        /// this object or to null; otherwise exception is raised. </remarks>
+        /// <param name="evaluation">The evaluation.</param>
+        public void AddEvaluation(Evaluation evaluation)
+        {
+            Contract.Requires<ArgumentNullException>(evaluation != null);
+            Contract.Requires<ArgumentException>(evaluation.Category == null || evaluation.Category == this,
+                "Cannot add an evaluation assigned already to another category");            
+
+            if (!this.Evaluations.Contains(evaluation))
+                this.Evaluations.Add(evaluation);
+        }
+
+        /// <summary>
+        /// Removes the evaluation.
+        /// </summary>
+        /// <param name="evaluation">The evaluation.</param>
+        public void RemoveEvaluation(Evaluation evaluation)
+        {
+            Contract.Requires<ArgumentNullException>(evaluation != null);
+            Contract.Requires<ArgumentException>(evaluation.Category == null || evaluation.Category == this,
+                "Cannot remove an evaluation assigned to another category");
+            
+            this.Evaluations.Remove(evaluation);
+        }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

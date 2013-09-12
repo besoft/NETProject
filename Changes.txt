@@ -1,3 +1,18 @@
+12.9.2013 - Referencni integrita II:
+
+- Referencni integrita je konecne zajistena i pro komplexni situace
+- Pridany nove testy
+- Rozsirena pusobnost kontraktu (bez varovani a navrhu)
+
+- Ukazane principy: kontrakty se specifikuji v zakladnim navrhu metody, oddedene tridy jiz v prepsanych
+metodach kontrakty znova nespecifikuji, rovnou pracuji s temi z predka; ukazan Ensures a Assume
+
+9.9.2013 - Referencni integrita:
+- Predchozi verze fungovala dobre az na pripad, kdy se meni v hodnoceni vlastnosti Student nebo Category, protoze 
+v tomto pripade se nejprve zrusi hodnoceni ze Student.Evaluations resp. Category.Evaluations, coz vede k notifikaci
+zmeny kolekce, ktera je na domene osetrena zrusenim hodnoceni z this.Evaluations, coz zpusobi odregistrovani
+prijimani notifikaci, takze po naslednem prirazeni se domena o nicem nedozvi.
+
 31.7.2013 - Reference integrity:
 
 - List<T> kolekce nahrazeny ObservableCollection<T> a v Domain pridan mechanismus pro zajisteni referencni integrity,

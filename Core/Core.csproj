@@ -74,14 +74,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collection\CategoryObservableCollectionWithContentSync.cs" />
+    <Compile Include="Collection\ObservableCollectionWithParentSync.cs" />
+    <Compile Include="Collection\EvaluationObservableCollectionWithParentCategory.cs" />
+    <Compile Include="Collection\EvaluationObservableCollectionWithParentStudent.cs" />
+    <Compile Include="Collection\EvaluationObservableCollectionWithParentSync.cs" />
+    <Compile Include="Collection\ObservableCollectionWithContentSync.cs" />
     <Compile Include="Collection\ObservableCollectionWithParentReference.cs" />
+    <Compile Include="Collection\StudentObservableCollectionWithContentSync.cs" />
     <Compile Include="Evaluation.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="RecursionPoint.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

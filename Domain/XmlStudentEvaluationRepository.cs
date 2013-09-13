@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics.Contracts;
-using Zcu.StudentEvaluator.Core.Collection;
-using System.Collections.ObjectModel;
-using Zcu.StudentEvaluator.Core.Data;
-using System.Runtime.Serialization;
-using System.Xml;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Xml;
+using Zcu.StudentEvaluator.Core.Data;
 
 namespace Zcu.StudentEvaluator.Domain
 {
@@ -19,7 +14,7 @@ namespace Zcu.StudentEvaluator.Domain
 	public class XmlStudentEvaluationRepository : StudentEvaluationRepository, IPersistantRepository
 	{
 		[DataContract]
-		protected class RepositoryRoot
+		protected class XmlRepositoryRoot
 		{
 			[DataMember]
 			public List<Category> Categories { get; set; }
@@ -71,7 +66,7 @@ namespace Zcu.StudentEvaluator.Domain
 			{
 				using (var reader = XmlDictionaryReader.CreateTextReader(fs, XmlDictionaryReaderQuotas.Max))
 				{					
-					RepositoryRoot root = (RepositoryRoot)serializer.ReadObject(reader);
+					XmlRepositoryRoot root = (XmlRepositoryRoot)serializer.ReadObject(reader);
 
 					this.Categories.Clear();	//empty state = empty repository
 					this.Students.Clear();
@@ -110,7 +105,7 @@ namespace Zcu.StudentEvaluator.Domain
 			{
 				using (var writer = XmlDictionaryWriter.CreateTextWriter(fs, Encoding.UTF8))
 				{
-					var root = new RepositoryRoot()
+					var root = new XmlRepositoryRoot()
 					{
 						Students = this.Students.ToList(),
 						Categories = this.Categories.ToList(),
@@ -132,7 +127,7 @@ namespace Zcu.StudentEvaluator.Domain
 		/// <returns>Serializer for this class</returns>
 		private DataContractSerializer CreateSerializer()
 		{
-			return new DataContractSerializer(typeof(RepositoryRoot), null,
+			return new DataContractSerializer(typeof(XmlRepositoryRoot), null,
 				int.MaxValue /*maxItemsInObjectGraph*/,
 				false /*ignoreExtensionDataObject*/,
 				true /*preserveObjectReferences : this is where the magic happens */,

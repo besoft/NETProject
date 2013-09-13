@@ -1,3 +1,16 @@
+13.9.2013 - Data Persistence (EF):
+
+- Do Domain pridana jednoducha serializace do databaze prostrednictvim Entity Framework. Databaze je pokazdne pri 
+ukladani smazana, veskera data jsou drzena v pameti (v puvodnich kolekcich). Do Category, Evaluation a Student
+musel byt pridan identifikator Id, aby EF dokazal automaticky vytvorit pro to entity.
+- Databaze je na urovni SQL Serveru (do budoucna budeme resit, jak to zmenit, tj. ConnectionString)
+
+- Ukazane principy: Entity Framework (NuGets: pres kontextove menu na projektu zavolat Manage NuGet Packages ... a
+nainstalovat EF 5.x; nezapomenout zkopirovat prislusnou sekci z Domain/App.config do aplikacniho App.config, jinak
+EF selze z duvodu nespecifikovaneho ConnectionString)
+
+TODO: pozmenit design tak, aby implicitne se pocitalo s EF, pak cela soucasna slozitost odpadne
+
 13.9.2013 - Data Persistence (XML):
 
 - Pridana schopnost ukladat / nacitat repository do / z uloziste (XML soubor)

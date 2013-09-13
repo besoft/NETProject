@@ -7,7 +7,7 @@ namespace Zcu.StudentEvaluator.Domain.Test
 	/// <summary>
 	/// This is a test repository with initial data created.
 	/// </summary>		
-	public class TestStudentEvaluationRepository : XmlStudentEvaluationRepository
+	public class TestStudentEvaluationRepository : DbStudentEvaluationRepository
 	{		    		
 		public TestStudentEvaluationRepository()
 		{

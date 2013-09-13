@@ -10,7 +10,9 @@ namespace Zcu.StudentEvaluator.Core.Data
 	/// This structure keeps the number of points given and the reason for it.
 	/// </summary>
 	public class Student
-	{        
+	{
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Gets or sets the personal number of the student.
 		/// </summary>

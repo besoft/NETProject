@@ -7,7 +7,7 @@ namespace Zcu.StudentEvaluator.Domain
 	/// <summary>
 	/// This represents in-memory basic repository of students and their evaluations
 	/// </summary>
-	public abstract class StudentEvaluationRepository : IStudentEvaluationRepository
+	public abstract class StudentEvaluationRepository :  IStudentEvaluationRepository
 	{
 		/// <summary>
 		/// Gets the list of evaluation categories.

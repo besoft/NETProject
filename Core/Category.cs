@@ -10,7 +10,9 @@ namespace Zcu.StudentEvaluator.Core.Data
 	/// This class contains settings for an evaluation
 	/// </summary>
 	public class Category
-	{        
+	{
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Gets or sets the name of the evaluation.
 		/// </summary>

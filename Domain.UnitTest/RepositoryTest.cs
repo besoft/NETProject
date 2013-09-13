@@ -15,7 +15,7 @@ namespace Zcu.StudentEvaluator.Domain.UnitTest
 		[TestMethod]
 		public void TestStudentsManipulation()
 		{
-			var repo = new TestRepository();
+			var repo = new TestStudentEvaluationRepository();
 			//4 categories, 3 students, each student having one evaluation for every category
 			Assert.AreEqual(4, repo.Categories.Count);
 			Assert.AreEqual(3, repo.Students.Count);
@@ -137,7 +137,7 @@ namespace Zcu.StudentEvaluator.Domain.UnitTest
 		[TestMethod]
 		public void TestCategoriesManipulation()
 		{
-			var repo = new TestRepository();
+			var repo = new TestStudentEvaluationRepository();
 			Assert.AreEqual(4, repo.Categories.Count);
 			Assert.AreEqual(3, repo.Students.Count);
 			Assert.AreEqual(12, repo.Evaluations.Count);
@@ -258,7 +258,7 @@ namespace Zcu.StudentEvaluator.Domain.UnitTest
 		[TestMethod]
 		public void TestEvaluationsManipulation()
 		{
-			var repo = new TestRepository();
+			var repo = new TestStudentEvaluationRepository();
 			Assert.AreEqual(4, repo.Categories.Count);
 			Assert.AreEqual(3, repo.Students.Count);
 			Assert.AreEqual(12, repo.Evaluations.Count);
@@ -320,7 +320,7 @@ namespace Zcu.StudentEvaluator.Domain.UnitTest
 		[TestMethod]
 		public void TestComplexChanges()
 		{
-			var repo = new TestRepository();
+			var repo = new TestStudentEvaluationRepository();
 
 			var st = repo.Students[0];
 			st.Evaluations.Clear();
@@ -446,7 +446,7 @@ namespace Zcu.StudentEvaluator.Domain.UnitTest
 		[TestMethod]
 		public void TestComplexChanges2()
 		{
-			var repo = new TestRepository();
+			var repo = new TestStudentEvaluationRepository();
 			Assert.AreEqual(4, repo.Categories.Count);
 			Assert.AreEqual(3, repo.Students.Count);
 			Assert.AreEqual(12, repo.Evaluations.Count);

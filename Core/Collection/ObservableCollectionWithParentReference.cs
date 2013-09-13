@@ -90,7 +90,7 @@ namespace Zcu.StudentEvaluator.Core.Collection
 		protected override void InsertItem(int index, T item)
 		{
 			Contract.Assume(index >= 0);
-			Contract.Assume(index < this.Count);
+			Contract.Assume(index <= this.Count);
 
 			this.CheckReentrancy();             //modifying collection from OnCollectionChange is not allowed 
 			this.CheckArgument(item);           //check validity of the item			

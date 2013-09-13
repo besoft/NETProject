@@ -1,3 +1,9 @@
+13.9.2013 - Data Persistence (XML):
+
+- Pridana schopnost ukladat / nacitat repository do / z uloziste (XML soubor)
+
+- Ukazane principy: rozhrani a kontrakty pro rozhrani, extension class, WCF DataContract, Serializace, Streamy
+
 12.9.2013 - Referencni integrita II:
 
 - Referencni integrita je konecne zajistena i pro komplexni situace

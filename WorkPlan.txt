@@ -1,0 +1,14 @@
+* POCO (Plain Old CLR Object) classes
+* LINQ, Reflection, Streams (Logger)
+* Code-First Entity Framework 5.0
+* Local Database, e.g., SQL Compact
+* MVVM (Model-View-ViewModel) WPF standalone aplikace + Resources and Properties
+* ASP.NET MVC aplikace + Security issues 
+	=> Class Library
+	=> Add Teacher class (for logging), i.e., Student -> Person, Teacher -> Person 
+	(see http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application)
+	=> A new context will be added
+* Concurrency Handling => Parallel Programming
+* WCF (Windows Communication Foundations) Services
+* Windows Store App as a thin client
+* Deployment

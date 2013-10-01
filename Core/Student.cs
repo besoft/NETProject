@@ -11,6 +11,12 @@ namespace Zcu.StudentEvaluator.Core.Data
 	/// </summary>
 	public class Student
 	{
+		/// <summary>
+		/// Gets or sets the unique identifier.
+		/// </summary>
+		/// <value>
+		/// The unique identifier.
+		/// </value>
 		public int Id { get; set; }
 
 		/// <summary>

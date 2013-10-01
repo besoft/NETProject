@@ -15,120 +15,24 @@ using System.Data.Entity;
 namespace Zcu.StudentEvaluator.Domain
 {
 	/// <summary>
-	/// Represents a repository of students and their evaluations that can be stored / load from XML.
+	/// Represents a repository of students and their evaluations stored in the database.
 	/// </summary>
-	public class DbStudentEvaluationRepository : StudentEvaluationRepository, IPersistantRepository
-	{		
-		protected class DbRepositoryRoot : DbContext
-		{
-			public DbRepositoryRoot()
-				//: base("Name=StudentEvaluationDatabase")
-			{
-
-			}
-
-			public DbSet<Category> Categories { get; set; }		
-			public DbSet<Student> Students { get; set; }			
-			public DbSet<Evaluation> Evaluations { get; set; }			
-		}
-
+	public class DbStudentEvaluationRepository : DbContext, IStudentEvaluationRepository
+	{
 		/// <summary>
-		/// Resets the repository to the initial empty state.
+		/// Gets the collection of students.
 		/// </summary>		
-		public void InitNew()
-		{
-			this.Categories.Clear();	//empty state = empty repository
-			this.Students.Clear();
+		public DbSet<Category> Students { get; private set; }
 
-			OnRepositoryInitialized();
-		}
-		
-		
 		/// <summary>
-		/// Loads the previously stored repository state.
+		/// Gets the collection of categories.
 		/// </summary>		
-		public void Load()
-		{
-			using (var ctx = new DbRepositoryRoot())
-			{
-				this.Categories.Clear();	//empty state = empty repository
-				this.Students.Clear();
+		public DbSet<Category> Categories { get; private set; }
 
-				foreach (var item in ctx.Categories)
-				{
-					if (!this.Categories.Contains(item))
-						this.Categories.Add(item);
-				}
-
-				foreach (var item in ctx.Students)
-				{
-					if (!this.Students.Contains(item))
-						this.Students.Add(item);
-				}
-
-				foreach (var item in ctx.Evaluations)
-				{
-					if (!this.Evaluations.Contains(item))
-						this.Evaluations.Add(item);					
-				}
-			}
-			
-
-			OnRepositoryLoaded();
-		}
-
-		
 		/// <summary>
-		/// Saves the current state of the repository.
-		/// </summary>		
-		public void Save()
-		{		
-			using (var ctx = new DbRepositoryRoot())
-			{
-				ctx.Database.Delete();
-				ctx.Database.Initialize(true);	//ensures that database is recreated				
-
-				foreach (var item in this.Categories)
-				{
-					ctx.Categories.Add(item);
-				}
-
-				foreach (var item in this.Students)
-				{
-					ctx.Students.Add(item);
-				}
-
-				foreach (var item in this.Evaluations)
-				{
-					ctx.Evaluations.Add(item);
-				}
-
-				ctx.SaveChanges();
-			}
-
-			OnRepositorySaved();
-		}
-
-		
-		/// <summary>
-		/// Called after the repository has been initialized.
+		/// Gets the collection of evaluations.
 		/// </summary>
-		protected virtual void OnRepositoryInitialized()
-		{
-		}
-
-		/// <summary>
-		/// Called when repository has been loaded.
-		/// </summary>		
-		protected virtual void OnRepositoryLoaded()
-		{
-		}
-
-		/// <summary>
-		/// Called when repository has been successfully saved.
-		/// </summary>		
-		protected virtual void OnRepositorySaved()
-		{
-		}
+		/// <value>		
+		public DbSet<Category> Evaluations { get; private set; }		
 	}
 }

@@ -1,1 +1,75 @@
+2.10.2013 - CRUD business logic
+
+* Added StudentRepository (implements IStudentRepository) with the Create, Read, Update and Delete business logic
+
+	Advantage:	presentation layer does not access data context (StudentEvaluationContext) directly but through 
+				IStudentRepository, which enables changing of the data context (e.g., we may have in-memory only
+				or persistent data contexts and the latter may be via XML serialization, binary file stream,
+				SharePoint, Entity Framework database, ...) without changing the presentation layer.
+
+	Problems:	1) GetStudents method reads all students from the physical data context (e.g., from disk)
+				into memory but its caller typically filters this list using LINQ to get only relevant data.
+				If data context represents a database context and the database is remote, this actually means
+				that lot of data must be transferred via the network just to be then discarded. 
+				
+				This problem may be solved easily by specifying filters as parameters of the method.
+				see http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+
+				2) As StudentEvaluationContext and StudentRepository represents in-memory only data,
+				it provides the caller with the original objects so that any change in the object is
+				immediately seen within the data context and it cannot be undone.
+
+				This problem will be ignored since we are targeting at EF where this is solved automatically.
+				Solving this problem with in-memory only data would require cloning objects and tracking changes,
+				which is too difficult for the purpose of this tutorial.
+
+* Added View and ViewModel to support MVVM software pattern
+
+	Note:		Three software patterns are currently commonly used in practice, each of them aiming at forming
+				various layers in the application with minimal dependency so that the code in any layer can be easily 
+				replaced by another code without the necessity to change the code in other layers.
+				1) Model View Presenter (MVP) = Presenter represent the main core of the application, it knows the
+				model (with its Data Abstract Layer - DAL) and also Views (User UI), formatting the data of the model 
+				for Views to visualize them to the user, whilst accepting the calls from Views triggered by the user
+				action to get the data from the Views and update the Model according to these changes. MVP is
+				suitable form MFC and WinForms applications. For example, each form has public properties to get/set
+				and method ShowDialog (all these coming from some interface) and its implementation of ShowDialog
+				transfers (e.g., via data binding) its public properties to some properties of controls it displays
+				and when the form is closed with OK or Apply, values from controls are transferred to these public
+				properties. Presenter has access to the repository so it can take the model object, transfer its
+				relevant properties to properties of a form (via the interface) and calling "ShowDialog". If the
+				user wants to accept their changes, the model object is modified accordingly and optionally saved
+				immediately into the underlying physical repository.
+				2) Model View Controller (MVC) = Similar to MVP, designed for web applications, controller gets
+				the requests from the user (via web browser) and provides the user with passive views. Actually,
+				the only important difference between MVC and MVP is that the method of the controller exits 
+				before the user interaction with the view takes its place and another method of the controller is
+				called after the user interaction is done. It is IIS (or another web server) that communicates 
+				with the controller.
+				3) Model View ViewModel (MVVM) = Similar to MVP with one major difference as follows. As View in MVP
+				contains some code for transferring the properties to UI controls and back, there is a potential
+				risks of bugs requiring some testing (e.g., when nothing is selected in the list, is the button
+				"Delete" really disabled?). However, these tests cannot be automated. MVVM comes with a special remedy
+				to this problem: MVVM Views are striped of this logic and this is transferred to Presenter that is
+				renamed to ViewModel to reflect new added functionality. This means that ViewModel has to provide
+				means to select the items (that will be in the list) and property to count the number of selected
+				items, which is in MVP pattern handled by controls of View. These properties are mapped to View 
+				controls via binding (provided by Microsoft). As it is, only proper binding must be checked for Views, 
+				and ViewModels may by automatically tested from code. MVVM is designed for WPF.
+
+	Advantage:	StudentView that currently shows the information about students onto the console can be replaced
+				by more sophisticated GUI without any change of business logic, e.g., finding the item to delete,
+				confirmation of the deletion by the user, and the deletion itself is unchanged.
+
+	Problems:	1) Currently the pattern resembles MVP instead of MVVM despite the names. This is only a formalism,
+				however. True MVVM will be there once Console application is replaced by WPF desktop application.
+
+* Category and Evaluation is ignored for now, construction of CRUD objects would be similar.
+	Problems:	1) While Student have unique key (PersonalNumber), and for Category we may consider this to be its Name,
+				for Evaluation nothing like this exists (one may use Student.PersonalNumber + Category.Name but it
+				is a bit awkward). Solution would be to introduce some internal identifier, e.g., int Id and for 
+				consistency the same could be done for Student and Category (working with strings is slower than
+				working with integers).
+
+1.10.2013 - POCO (Plain Old CLR Object) classes for Student, Category and Evaluation
 30.7.2013 - Blank solution

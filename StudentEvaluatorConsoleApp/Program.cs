@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zcu.StudentEvaluator.DAL;
+using Zcu.StudentEvaluator.View.ConsoleApp;
+using Zcu.StudentEvaluator.ViewModel;
 
 namespace Zcu.StudentEvaluator.ConsoleApp
 {
@@ -18,6 +20,9 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 
 			Console.WriteLine("Press ENTER to continue.");
 			Console.ReadLine();
+
+			var mainView = new StudentView(new StudentRepository(context));
+			mainView.ShowDialog();
 		}
 	}
 }

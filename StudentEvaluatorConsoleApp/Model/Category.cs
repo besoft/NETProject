@@ -34,6 +34,14 @@ namespace Zcu.StudentEvaluator.Model
 		/// <summary>
 		/// Gets or sets the collection of evaluations.
 		/// </summary>        
-		public ICollection<Evaluation> Evaluations { get; set; }		
+		public ICollection<Evaluation> Evaluations { get; set; }
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Category"/> class.
+		/// </summary>
+		public Category()
+		{
+			this.Evaluations = new List<Evaluation>();
+		}
 	}
 }

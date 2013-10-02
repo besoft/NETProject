@@ -41,13 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\IStudentRepository.cs" />
     <Compile Include="DAL\StudentEvaluationContext.cs" />
+    <Compile Include="DAL\StudentRepository.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Evaluation.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentEvaluationContextExtensions.cs" />
+    <Compile Include="ViewModel\IStudentViewModel.cs" />
+    <Compile Include="View\IConfirmationView.cs" />
+    <Compile Include="View\INotificationView.cs" />
+    <Compile Include="View\IStudentView.cs" />
+    <Compile Include="View\StudentView.cs" />
+    <Compile Include="ViewModel\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

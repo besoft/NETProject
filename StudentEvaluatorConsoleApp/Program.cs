@@ -17,15 +17,13 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 		{
 			//Pokus();
 
-			var context = new LocalStudentEvaluationContext();
-			context.PopulateWithData();
+			var unitOfWork = new LocalStudentEvaluationUnitOfWork(new XmlStudentEvaluationContext());
+			if (unitOfWork.Categories.Get().FirstOrDefault() == null)
+			{
+				unitOfWork.PopulateWithData();
+			}
 
-			context.DumpData("Initial Repository");
-
-			Console.WriteLine("Press ENTER to continue.");
-			Console.ReadLine();
-
-			var mainView = new StudentView(new LocalStudentEvaluationUnitOfWork(context));
+			var mainView = new StudentView(unitOfWork);
 			mainView.ShowDialog();
 		}
 

@@ -93,7 +93,7 @@ namespace Zcu.StudentEvaluator.DAL
 		/// </remarks>
 		public void Save()
 		{
-			//nothing to do
+			this._context.SaveChanges();
 		}
 	}
 }

@@ -118,10 +118,17 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		public void Exit()
 		{
-			if (this._confirmView.ConfirmAction(ConfirmationOptions.YesNo, "Application is to be closed",
-					"Do you really want to close the application? All changes will be saved automatically.") == ConfirmationResult.Yes)
+			var result = this._confirmView.ConfirmAction(
+				ConfirmationOptions.YesNoCancel, "Application is to be closed", 
+				"Do you want to save all changes?");
+
+			if (result == ConfirmationResult.Yes)
 			{
 				this._unitOfWork.Save();
+			}
+
+			if (result != ConfirmationResult.Cancel)
+			{
 				this._mainView.Close();	
 			}			
 		}

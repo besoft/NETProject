@@ -1,3 +1,13 @@
+3.10.2013 - Xml Persistent Data Context
+
+* Added XmlStudentEvaluationContext concrete class of data context that supports serialization of repositories
+ to external Xml file (stored on a local disk).
+
+	Note:		This demonstrates how easily you can change something without necessity to modify many classes.
+				XmlSerializer and also App.config configurations are also demonstrated.
+
+* Fixed problem with Id not automatically assigned
+
 3.10.2013 - UnitOfWork pattern
 
 * Added generic IRepository and IUnitOfWork with the default in-memory only implementation
@@ -16,8 +26,6 @@
 				caller to fill POCO classes correctly.
 
 * Problems 2 and 4 from CRUD business logic has been fixed.
-
-
 
 
 2.10.2013 - CRUD business logic

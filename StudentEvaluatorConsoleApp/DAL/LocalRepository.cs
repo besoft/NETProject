@@ -25,6 +25,14 @@ namespace Zcu.StudentEvaluator.DAL
 		protected ICollection<TEntity> Items {get; private set; }
 
 		/// <summary>
+		/// Gets or sets the next unique identifier.
+		/// </summary>
+		/// <value>
+		/// The next unique identifier.
+		/// </value>
+		protected int NextId { get; set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="StudentRepository"/> class.
 		/// </summary>
 		/// <param name="context">The context of this repository.</param>
@@ -34,6 +42,11 @@ namespace Zcu.StudentEvaluator.DAL
 			
 			//discover Items in the context
 			this.Items = DiscoverCollection(context);
+
+			if (this.Items.Count != 0)
+			{
+				this.NextId = this.Items.Max(x => x.Id);
+			}
 		}
 
 		/// <summary>
@@ -95,6 +108,11 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="item">The item to be inserted.</param>
 		public void Insert(TEntity item)
 		{
+			if (item.Id == 0)
+				item.Id = ++this.NextId;
+			else
+				this.NextId = Math.Max(this.NextId, item.Id);
+
 			this.Items.Add(item);
 		}
 

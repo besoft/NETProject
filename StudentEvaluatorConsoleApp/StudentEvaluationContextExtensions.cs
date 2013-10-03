@@ -12,7 +12,7 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 	/// <remarks>Alternative solution would be Partial Class</remarks>
 	public static class StudentEvaluationContextExtensions
 	{
-		public static void PopulateWithData(this LocalStudentEvaluationContext context)
+		public static void PopulateWithData(this IStudentEvaluationUnitOfWork workOfUnit)
 		{
 			var categories = new List<Category>
 			{
@@ -55,21 +55,10 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 
 				x.Student.Evaluations.Add(x);
 			});
-
-			if (context.Students == null)
-				context.Students = students;
-			else
-				students.ForEach(x => context.Students.Add(x));
-
-			if (context.Categories == null)
-				context.Categories = categories;
-			else
-				categories.ForEach(x => context.Categories.Add(x));
-
-			if (context.Evaluations == null)
-				context.Evaluations = evals;
-			else
-				evals.ForEach(x => context.Evaluations.Add(x));
+			
+			students.ForEach(x => workOfUnit.Students.Insert(x));
+			categories.ForEach(x => workOfUnit.Categories.Insert(x));
+			evals.ForEach(x => workOfUnit.Evaluations.Insert(x));
 		}
 
 		/// <summary>

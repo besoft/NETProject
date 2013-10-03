@@ -31,5 +31,14 @@ namespace Zcu.StudentEvaluator.DAL
 			this.Evaluations = new HashSet<Evaluation>();
 			this.Categories = new HashSet<Category>();
 		}
+
+		/// <summary>
+		/// Saves all changes made in this context to the underlying physical stuff. 
+		/// </summary>
+		/// <returns>The number of objects written to the underlying physical stuff.</returns>
+		public virtual int SaveChanges()
+		{
+			return 0;
+		}
 	}
 }

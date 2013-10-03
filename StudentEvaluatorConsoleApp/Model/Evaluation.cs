@@ -3,8 +3,16 @@
 	/// <summary>
 	/// Evaluation object describes one particular evaluation in one evaluation parent (Category) for one student (Student)
 	/// </summary>
-	public class Evaluation
+	public class Evaluation : IEntity
 	{
+		/// <summary>
+		/// Gets or sets the unique identifier.
+		/// </summary>
+		/// <value>
+		/// The unique identifier.
+		/// </value>
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Gets the number of points.
 		/// </summary>

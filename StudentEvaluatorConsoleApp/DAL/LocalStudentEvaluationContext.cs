@@ -16,17 +16,20 @@ namespace Zcu.StudentEvaluator.DAL
 	/// <remarks>
 	/// This is the main class that coordinates functionality for a given data model. Later we will update it to EF database context.
 	/// </remarks>
-	public class StudentEvaluationContext
+	public class LocalStudentEvaluationContext
 	{
 		public ICollection<Student> Students { get; set; }
 		public ICollection<Evaluation> Evaluations { get; set; }
 		public ICollection<Category> Categories { get; set; }
 
-		public StudentEvaluationContext()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LocalStudentEvaluationContext"/> class.
+		/// </summary>
+		public LocalStudentEvaluationContext()
 		{
-			this.Students = new List<Student>();
-			this.Evaluations = new List<Evaluation>();
-			this.Categories = new List<Category>();
+			this.Students = new HashSet<Student>();
+			this.Evaluations = new HashSet<Evaluation>();
+			this.Categories = new HashSet<Category>();
 		}
 	}
 }

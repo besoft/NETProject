@@ -12,7 +12,7 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 	/// <remarks>Alternative solution would be Partial Class</remarks>
 	public static class StudentEvaluationContextExtensions
 	{
-		public static void PopulateWithData(this StudentEvaluationContext context)
+		public static void PopulateWithData(this LocalStudentEvaluationContext context)
 		{
 			var categories = new List<Category>
 			{
@@ -77,7 +77,7 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 		/// </summary>
 		/// <param name="context">The database context.</param>
 		/// <param name="output">The output, e.g.., Console.Out.</param>
-		public static void DumpData(this StudentEvaluationContext context, string userMessage = null, TextWriter output = null)
+		public static void DumpData(this LocalStudentEvaluationContext context, string userMessage = null, TextWriter output = null)
 		{			
 			if (output == null)
 				output = Console.Out;

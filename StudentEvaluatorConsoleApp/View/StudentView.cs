@@ -18,9 +18,9 @@ namespace Zcu.StudentEvaluator.View.ConsoleApp
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StudentView"/> class.
 		/// </summary>		
-		public StudentView(IStudentRepository repo)
+		public StudentView(IStudentEvaluationUnitOfWork unitOfWork)
 		{
-			this._viewModel = new StudentViewModel(this, this, this, repo);
+			this._viewModel = new StudentViewModel(this, this, this, unitOfWork);
 		}
 
 		#region INotificationView		

@@ -5,8 +5,16 @@ namespace Zcu.StudentEvaluator.Model
 	/// <summary>
 	/// This class contains settings for an evaluation
 	/// </summary>
-	public class Category
+	public class Category : IEntity
 	{
+		/// <summary>
+		/// Gets or sets the unique identifier.
+		/// </summary>
+		/// <value>
+		/// The unique identifier.
+		/// </value>
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Gets or sets the name of the evaluation.
 		/// </summary>

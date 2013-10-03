@@ -1,3 +1,25 @@
+3.10.2013 - UnitOfWork pattern
+
+* Added generic IRepository and IUnitOfWork with the default in-memory only implementation
+			
+	Note:		see Repository_pattern_diagram.png; Id has been added into every POCO class
+	Advantage:	presentation layer does not access data context directly but through multiple repositories
+				of the same interface that are grouped into a unit of work that is responsible for 
+				construction of these repositories above the same underlying data context. As a result, 
+				switching from a database data context to in-memory only data context requires only
+				a change of one line where the object of concrete unit of work is constructed. The rest
+				is automatic thanks to interfaces used.
+
+	Problems:	5) Adding Evaluation should automatically add the reference to collections of referenced
+				Category and Student. This problem is not simple to solve [lot of code] and as EF data context
+				takes automatically care of this, we are not going to solve this problem and leaving it for
+				caller to fill POCO classes correctly.
+
+* Problems 2 and 4 from CRUD business logic has been fixed.
+
+
+
+
 2.10.2013 - CRUD business logic
 
 * Added StudentRepository (implements IStudentRepository) with the Create, Read, Update and Delete business logic
@@ -61,11 +83,11 @@
 				by more sophisticated GUI without any change of business logic, e.g., finding the item to delete,
 				confirmation of the deletion by the user, and the deletion itself is unchanged.
 
-	Problems:	1) Currently the pattern resembles MVP instead of MVVM despite the names. This is only a formalism,
+	Problems:	3) Currently the pattern resembles MVP instead of MVVM despite the names. This is only a formalism,
 				however. True MVVM will be there once Console application is replaced by WPF desktop application.
 
 * Category and Evaluation is ignored for now, construction of CRUD objects would be similar.
-	Problems:	1) While Student have unique key (PersonalNumber), and for Category we may consider this to be its Name,
+	Problems:	4) While Student have unique key (PersonalNumber), and for Category we may consider this to be its Name,
 				for Evaluation nothing like this exists (one may use Student.PersonalNumber + Category.Name but it
 				is a bit awkward). Solution would be to introduce some internal identifier, e.g., int Id and for 
 				consistency the same could be done for Student and Category (working with strings is slower than

@@ -41,11 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\IStudentRepository.cs" />
-    <Compile Include="DAL\StudentEvaluationContext.cs" />
-    <Compile Include="DAL\StudentRepository.cs" />
+    <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\IStudentEvaluationUnitOfWork.cs" />
+    <Compile Include="DAL\LocalStudentEvaluationContext.cs" />
+    <Compile Include="DAL\LocalRepository.cs" />
+    <Compile Include="DAL\LocalStudentEvaluationUnitOfWork.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Evaluation.cs" />
+    <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

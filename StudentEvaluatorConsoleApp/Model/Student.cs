@@ -9,8 +9,16 @@ namespace Zcu.StudentEvaluator.Model
 	/// <summary>
 	/// This structure keeps the number of points given and the reason for it.
 	/// </summary>
-	public class Student
+	public class Student : IEntity
 	{
+		/// <summary>
+		/// Gets or sets the unique identifier.
+		/// </summary>
+		/// <value>
+		/// The unique identifier.
+		/// </value>
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Gets or sets the personal number of the student.
 		/// </summary>

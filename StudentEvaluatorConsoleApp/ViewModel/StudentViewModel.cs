@@ -14,7 +14,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		protected IConfirmationView _confirmView;
 		protected INotificationView _notifyView;
 
-		protected IStudentRepository _repository;
+		protected IStudentEvaluationUnitOfWork _unitOfWork;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StudentViewModel" /> class.
@@ -26,12 +26,12 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <remarks>Typical concrete implementations of IStudentView implements also both IConfirmationView and INotificationView</remarks>
 		public StudentViewModel(IStudentView mainView, 
 			IConfirmationView confirmView, INotificationView notifyView,
-			IStudentRepository repository)
+			IStudentEvaluationUnitOfWork unitOfWork)
 		{
 			this._mainView = mainView;
 			this._confirmView = confirmView;
 			this._notifyView = notifyView;
-			this._repository = repository;
+			this._unitOfWork = unitOfWork;
 		}
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		public void DisplayList()
 		{
-			this._mainView.Display(this._repository.GetStudents());
+			this._mainView.Display(this._unitOfWork.Students.Get());
 		}
 
 		private Random _rndPersonalNumber = new Random(Environment.TickCount);
@@ -56,7 +56,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 				Surname = "Enter surname",
 			};
 
-			this._repository.InsertStudent(st);
+			this._unitOfWork.Students.Insert(st);
 			this._notifyView.DisplayNotification(NotificationType.Message,
 				"Student created",
 				"A new student with random personal number '" + st.PersonalNumber + "' has been added into the repository.");
@@ -68,7 +68,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <param name="personalNumber">The personal number of student.</param>
 		public void DisplayDetail(string personalNumber)
 		{
-			var st = this._repository.GetStudentByPersonalNumber(personalNumber);
+			var st = this._unitOfWork.Students.Get(x => x.PersonalNumber == personalNumber).SingleOrDefault(); 
 			if (st == null)
 				this._notifyView.DisplayNotification(NotificationType.Error, "Student not found",
 					"Student with personal number '" + personalNumber + "' could not be found in the repository.");
@@ -82,7 +82,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <param name="personalNumber">The personal number.</param>
 		public void EditDetail(string personalNumber)
 		{
-			var st = this._repository.GetStudentByPersonalNumber(personalNumber);
+			var st = this._unitOfWork.Students.Get(x => x.PersonalNumber == personalNumber).SingleOrDefault(); 
 			if (st == null)
 				this._notifyView.DisplayNotification(NotificationType.Error, "Student not found",
 					"Student with personal number '" + personalNumber + "' could not be found in the repository.");
@@ -96,7 +96,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <param name="personalNumber">The personal number.</param>
 		public void Delete(string personalNumber)
 		{
-			var st = this._repository.GetStudentByPersonalNumber(personalNumber);
+			var st = this._unitOfWork.Students.Get(x => x.PersonalNumber == personalNumber).SingleOrDefault();
 			if (st == null)
 				this._notifyView.DisplayNotification(NotificationType.Error, "Student not found",
 					"Student with personal number '" + personalNumber + "' could not be found in the repository.");
@@ -106,7 +106,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 					"Do you really want to remove the student with personal number '"
 					+ st.PersonalNumber + "' from the repository?") == ConfirmationResult.Yes)
 				{
-					this._repository.DeleteStudent(st);
+					this._unitOfWork.Students.Delete(st);
 					this._notifyView.DisplayNotification(NotificationType.Message, "Student deleted",
 						"Student with personal number '" + personalNumber + "' has been removed from the repository.");
 				}
@@ -121,7 +121,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 			if (this._confirmView.ConfirmAction(ConfirmationOptions.YesNo, "Application is to be closed",
 					"Do you really want to close the application? All changes will be saved automatically.") == ConfirmationResult.Yes)
 			{
-				this._repository.Save();
+				this._unitOfWork.Save();
 				this._mainView.Close();	
 			}			
 		}

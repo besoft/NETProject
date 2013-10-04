@@ -231,21 +231,23 @@ namespace Zcu.StudentEvaluator.View.ConsoleApp
 				}
 				else
 				{
-					switch (GetNextCommand("Edit (P)(F)(S), or (B)ack"))
+					switch (GetNextCommand("Edit (P)(F)(S), (O)K, or (C)ancel"))
 					{
 						case 'P':
-							this._currentStudent.PersonalNumber = GetPersonalNumber();
-							this._viewModel.EditDetail(this._currentStudent.PersonalNumber);
+							this._currentStudent.PersonalNumber = GetPersonalNumber();							
 							break;
 						case 'F':
-							this._currentStudent.FirstName = GetFirstName();
-							this._viewModel.EditDetail(this._currentStudent.PersonalNumber);
+							this._currentStudent.FirstName = GetFirstName();							
 							break;
 						case 'S':
-							this._currentStudent.Surname = GetSurname();
-							this._viewModel.EditDetail(this._currentStudent.PersonalNumber);
+							this._currentStudent.Surname = GetSurname();							
 							break;
-						case 'B':
+						case 'O':
+							this._viewModel.AcceptChanges();
+							_stateInSummary = true;
+							break;
+						case 'C':
+							this._viewModel.CancelChanges();
 							_stateInSummary = true;
 							break;						
 					}					

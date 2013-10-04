@@ -140,7 +140,16 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="item">The new item data.</param>
 		public void Update(TEntity item)
 		{
-			//nothing to do
+			//nothing to do since everything is done immediately
+		}
+
+		/// <summary>
+		/// Called to reset the changes to its original state.
+		/// </summary>
+		/// <param name="item">The item whose changes are to discard.</param>
+		public void Reset(TEntity item)
+		{
+			throw new InvalidOperationException();	//no undo is possible
 		}
 	}	
 }

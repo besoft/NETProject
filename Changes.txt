@@ -1,3 +1,25 @@
+4.10.2013 - Code-First Simple but Working Entity Framework
+
+* ViewModel modified to a better design: Create and Edit no longer does the changes into the repository but only
+  marks the object as Added or Modified and until AcceptChanges or CancelChanges is called changes are purely local.
+
+	Advantage:	this corresponds better to how the user interacts with the application: the user clicks on button
+				"Add" and gets some GUI where they fill the appropriate data and after that they click either OK
+				to confirm their edits or Cancel to abort the changes.
+	Note:		This solves the problem 8.
+	Problem:	9) Cancel has no effect for local (in-memory) objects, i.e., it fails to do anything for repositories
+
+* AcceptChanges calls Save to transfer the entity data into the database
+	Note:		This is solution (b) to the problem 6
+	Problem:	10) For Xml repository, this solution actually means that after a single change, the whole repository
+				is serialized into a Xml file, which harms the performance as this is required to be done only once.
+				As Xml repository is supposed to be used for "Test" purposes only, this problem is not to be saved!
+	
+* Lazy loading enabled for Evaluations + StudentViewModel.DisplayList updated to adopt eager loading.
+	Note:		This solves the problem 7
+
+
+
 4.10.2013 - Code-First Simple Entity Framework
 
 * Added Entity Framework and classes DbRepository, DbStudentEvaluationContext and DbStudentEvaluationUnitOfWork

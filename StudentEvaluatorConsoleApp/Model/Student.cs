@@ -59,7 +59,7 @@ namespace Zcu.StudentEvaluator.Model
 		/// <summary>
 		/// Gets or sets the individual student evaluation.
 		/// </summary>		
-		public ICollection<Evaluation> Evaluations { get; set; }
+		public virtual ICollection<Evaluation> Evaluations { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Student"/> class.

@@ -124,5 +124,17 @@ namespace Zcu.StudentEvaluator.DAL
 
 			this.Context.Entry(item).State = EntityState.Modified;	//mark item to be modified
 		}
+
+		/// <summary>
+		/// Called to reset the changes to its original state.
+		/// </summary>
+		/// <param name="item">The item whose changes are to discard.</param>
+		public void Reset(TEntity item)
+		{
+			if (this.Context.Entry(item).State != EntityState.Detached)
+			{
+				this.Context.Entry(item).State = EntityState.Unchanged;	//mark item to be modified	
+			}			
+		}
 	}	
 }

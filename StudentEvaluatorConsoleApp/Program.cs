@@ -17,7 +17,9 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 		{
 			//Pokus();
 
-			var unitOfWork = new DbStudentEvaluationUnitOfWork();
+			var unitOfWork = 
+				//new LocalStudentEvaluationUnitOfWork();
+				new DbStudentEvaluationUnitOfWork();
 			if (unitOfWork.Categories.Get().FirstOrDefault() == null)
 			{
 				unitOfWork.PopulateWithData();

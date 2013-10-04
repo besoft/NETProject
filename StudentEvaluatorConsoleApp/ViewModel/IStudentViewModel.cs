@@ -35,6 +35,16 @@ namespace Zcu.StudentEvaluator.ViewModel
 		void EditDetail(string personalNumber);
 
 		/// <summary>
+		/// Accepts the changes done to the currently edited student (must be called after Create or EditDetail).
+		/// </summary>
+		void AcceptChanges();
+
+		/// <summary>
+		/// Cancel the changes done to the currently edited student (must be called after Create or EditDetail).
+		/// </summary>
+		void CancelChanges();
+
+		/// <summary>
 		/// Deletes the specified personal number.
 		/// </summary>
 		/// <param name="personalNumber">The personal number.</param>

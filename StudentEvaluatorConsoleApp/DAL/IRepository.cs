@@ -76,5 +76,11 @@ namespace Zcu.StudentEvaluator.DAL
 		/// </summary>
 		/// <param name="item">The new item data.</param>
 		void Update(TEntity item);
+
+		/// <summary>
+		/// Called to reset the changes to its original state.
+		/// </summary>
+		/// <param name="item">The item whose changes are to discard.</param>
+		void Reset(TEntity item);
 	}
 }

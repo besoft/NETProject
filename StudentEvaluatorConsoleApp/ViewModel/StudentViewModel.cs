@@ -16,6 +16,18 @@ namespace Zcu.StudentEvaluator.ViewModel
 
 		protected IStudentEvaluationUnitOfWork _unitOfWork;
 
+
+		/// <summary>
+		/// The student that is currently being edited.
+		/// </summary>
+		protected Student _currentStudent;
+
+		/// <summary>
+		/// true, if the student that is currently being edited is completely new student.
+		/// </summary>
+		protected bool _currentStudentIsNew;
+
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StudentViewModel" /> class.
 		/// </summary>
@@ -39,7 +51,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		public void DisplayList()
 		{
-			this._mainView.Display(this._unitOfWork.Students.Get());
+			this._mainView.Display(this._unitOfWork.Students.Get(includeProperties: new string[]{"Evaluations"}));
 		}
 
 		private Random _rndPersonalNumber = new Random(Environment.TickCount);
@@ -49,17 +61,19 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		public void Create()
 		{
-			Student st = new Student
+			if (this._currentStudent != null)
+				AcceptChanges();	//automatically accept changes of the current student
+			
+			this._currentStudent = new Student
 			{
 				PersonalNumber = "#rnd_" + _rndPersonalNumber.Next().ToString(),
 				FirstName = "Enter first name",
 				Surname = "Enter surname",
 			};
 
-			this._unitOfWork.Students.Insert(st);
-			this._notifyView.DisplayNotification(NotificationType.Message,
-				"Student created",
-				"A new student with random personal number '" + st.PersonalNumber + "' has been added into the repository.");
+			this._currentStudentIsNew = true;
+
+			this._mainView.Display(this._currentStudent, true);
 		}
 
 		/// <summary>
@@ -68,6 +82,9 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <param name="personalNumber">The personal number of student.</param>
 		public void DisplayDetail(string personalNumber)
 		{
+			if (this._currentStudent != null)
+				AcceptChanges();	//automatically accept changes of the current student
+
 			var st = this._unitOfWork.Students.Get(x => x.PersonalNumber == personalNumber).SingleOrDefault(); 
 			if (st == null)
 				this._notifyView.DisplayNotification(NotificationType.Error, "Student not found",
@@ -82,12 +99,15 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <param name="personalNumber">The personal number.</param>
 		public void EditDetail(string personalNumber)
 		{
-			var st = this._unitOfWork.Students.Get(x => x.PersonalNumber == personalNumber).SingleOrDefault(); 
-			if (st == null)
+			if (this._currentStudent != null)
+				AcceptChanges();	//automatically accept changes of the current student
+
+			this._currentStudent = this._unitOfWork.Students.Get(x => x.PersonalNumber == personalNumber).SingleOrDefault();
+			if (this._currentStudent == null)
 				this._notifyView.DisplayNotification(NotificationType.Error, "Student not found",
 					"Student with personal number '" + personalNumber + "' could not be found in the repository.");
 			else
-				this._mainView.Display(st, true);
+				this._mainView.Display(this._currentStudent, true);
 		}
 
 		/// <summary>
@@ -114,23 +134,63 @@ namespace Zcu.StudentEvaluator.ViewModel
 		}
 
 		/// <summary>
+		/// Accepts the changes done to the currently edited student (must be called after Create or EditDetail).
+		/// </summary>
+		public void AcceptChanges()
+		{
+			//TODO: handle exceptions and concurrency problems
+
+			if (this._currentStudentIsNew)
+				this._unitOfWork.Students.Insert(this._currentStudent);
+			else
+				this._unitOfWork.Students.Update(this._currentStudent);
+
+			if (this._currentStudentIsNew)
+				this._notifyView.DisplayNotification(NotificationType.Message,
+					"Student created", "A new student with personal number '" + this._currentStudent.PersonalNumber + "' has been added into the repository.");
+			else
+				this._notifyView.DisplayNotification(NotificationType.Message,
+					"Student updated", "Student with personal number '" + this._currentStudent.PersonalNumber + "' has been updated.");
+
+			this._unitOfWork.Save();	//save all data
+
+			this._currentStudent = null;
+			this._currentStudentIsNew = false;
+		}
+
+		/// <summary>
+		/// Cancel the changes done to the currently edited student (must be called after Create or EditDetail).
+		/// </summary>
+		public void CancelChanges()
+		{			
+			if (!this._currentStudentIsNew)
+			{
+				try
+				{
+					//we must reset the state
+					this._unitOfWork.Students.Reset(this._currentStudent);
+					this._unitOfWork.Save();
+				}
+				catch (Exception e)
+				{
+					this._notifyView.DisplayNotification(NotificationType.Warning, "CancelChanges failed.",
+						"Resetting the current student into the original state finished with an exception", e);
+				}
+			}
+
+			this._currentStudent = null;
+			this._currentStudentIsNew = false;
+		}
+
+		/// <summary>
 		/// Exit the application.
 		/// </summary>		
 		public void Exit()
 		{
-			var result = this._confirmView.ConfirmAction(
-				ConfirmationOptions.YesNoCancel, "Application is to be closed", 
-				"Do you want to save all changes?");
+			if (this._currentStudent != null)
+				AcceptChanges();	//automatically accept changes
 
-			if (result == ConfirmationResult.Yes)
-			{
-				this._unitOfWork.Save();
-			}
-
-			if (result != ConfirmationResult.Cancel)
-			{
-				this._mainView.Close();	
-			}			
-		}
+			this._mainView.Close();			
+		}		
 	}
 }

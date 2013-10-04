@@ -59,6 +59,8 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 			students.ForEach(x => workOfUnit.Students.Insert(x));
 			categories.ForEach(x => workOfUnit.Categories.Insert(x));
 			evals.ForEach(x => workOfUnit.Evaluations.Insert(x));
+
+			workOfUnit.Save();
 		}
 
 		/// <summary>

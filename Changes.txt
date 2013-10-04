@@ -1,3 +1,45 @@
+4.10.2013 - Code-First Simple Entity Framework
+
+* Added Entity Framework and classes DbRepository, DbStudentEvaluationContext and DbStudentEvaluationUnitOfWork
+	
+	Note:		Compare DbStudentEvaluationUnitOfWork and LocalStudentEvaluationUnitOfWork
+				Compare DbStudentEvaluationContext and LocalStudentEvaluationContext
+				Compare DbRepository and LocalRepository
+
+	Problems:	6) Changes are not visible until Save. The reason is that DbRepository.Get retrieves data from
+				database but not from memory, so it cannot retrieve unsaved changes. Possible solutions are:
+				
+				a) Load all data from the database into memory and modify DbRepository.Get to work with .Local
+				datasets (contains loaded and newly added objects). 
+
+				Advantage: everything is local, i.e., it would work fine
+
+				Disadvantage: loading everything into memory is both time and memory consuming + changes done
+				by other users are not reflected until the application is reloaded. Risk of problems.
+
+				b) ViewModel should call Save after a change is complete
+
+				Advantages: Lower risk of concurrency problems, suitable for MVC where objects are detached
+				Disadvantage: Any change is stored immediately - ?can this be altered by using transactions?
+
+				7) When retrieved from database Evaluations in students and categories are empty and similarly
+				Student and Category in evaluations are null (unless Students and Categories are loaded first).
+				The reason for this behaviour is that currently POCO classes and repositories are configured
+				to use Explicit loading model, i.e., you need to call Load to get related objects into the memory.
+				To make it work, however, would also need to add Foreign Keys CustomerId and StudentId into Evaluation 
+				class. There are two other loading models: 
+				a) Eager loading - it is necessary to specify what should be retrieved automatically from DB in
+				includeProperties array of method Get. It is not recommended mode if you retrieve lot of stuff but 
+				not using it (large and complex single query).
+				b) Lazy loading - used by default if "virtual" is added to Evaluations collections definition in
+				Student and Category (EF replace List<> by its own implementation). Not recommended, if you need
+				really all related data (multiple queries instead only one).
+
+				8) Current View and ViewModel does not contain "ApplyChanges" after "EditDetail" was called,
+				so it makes the update operation not working at all.
+
+*  Problems 2 and 5 solved automatically by switching to EF
+
 3.10.2013 - Xml Persistent Data Context
 
 * Added XmlStudentEvaluationContext concrete class of data context that supports serialization of repositories
@@ -25,7 +67,7 @@
 				takes automatically care of this, we are not going to solve this problem and leaving it for
 				caller to fill POCO classes correctly.
 
-* Problems 2 and 4 from CRUD business logic has been fixed.
+* Problems 1 and 4 from CRUD business logic has been fixed.
 
 
 2.10.2013 - CRUD business logic

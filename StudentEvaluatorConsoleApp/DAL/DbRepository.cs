@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Zcu.StudentEvaluator.Model;
 
 namespace Zcu.StudentEvaluator.DAL
@@ -11,63 +11,31 @@ namespace Zcu.StudentEvaluator.DAL
 	/// <summary>
 	/// Generic repository of entities
 	/// </summary>
-	public class LocalRepository<TEntity> : IRepository<TEntity>
+	public class DbRepository<TEntity> : IRepository<TEntity>
 		where TEntity: class, IEntity, new()
 	{		
 		/// <summary>
 		/// The data context to be worked with
 		/// </summary>
-		protected LocalStudentEvaluationContext Context { get; private set; }
+		protected DbStudentEvaluationContext Context { get; private set; }
 
 		/// <summary>
 		/// The collection containing the data for TEntity
 		/// </summary>
-		protected ICollection<TEntity> Items {get; private set; }
-
+		protected DbSet<TEntity> Items {get; private set; }
+		
 		/// <summary>
-		/// Gets or sets the next unique identifier.
-		/// </summary>
-		/// <value>
-		/// The next unique identifier.
-		/// </value>
-		protected int NextId { get; set; }
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="StudentRepository"/> class.
+		/// Initializes a new instance of the <see cref="DbRepository"/> class.
 		/// </summary>
 		/// <param name="context">The context of this repository.</param>
-		public LocalRepository(LocalStudentEvaluationContext context)
+		public DbRepository(DbStudentEvaluationContext context)
 		{
 			this.Context = context;
 			
 			//discover Items in the context
-			this.Items = DiscoverCollection(context);
-
-			if (this.Items.Count != 0)
-			{
-				this.NextId = this.Items.Max(x => x.Id);
-			}
+			this.Items = this.Context.Set<TEntity>();
 		}
-
-		/// <summary>
-		/// Discovers the collection.
-		/// </summary>
-		/// <param name="context">The context.</param>
-		/// <returns>Instance of the collection of TEntity existing in the given context</returns>		
-		private ICollection<TEntity> DiscoverCollection(LocalStudentEvaluationContext context)
-		{
-			//Reflection :-)
-			var getter = (from x in context.GetType().GetProperties()
-							 where x.PropertyType.IsGenericType &&
-								   x.PropertyType.GenericTypeArguments.Contains(typeof(TEntity))
-							 select x.GetMethod).SingleOrDefault();
-
-			if (getter == null)
-				throw new ArgumentException("Public property returning a collection implementing ICollection<" +
-					typeof(TEntity).Name + "> could not been found in " + context.GetType().Name + "class.", "context");
-			
-			return (ICollection<TEntity>)getter.Invoke(context, null);
-		}
+		
 
 		/// <summary>
 		/// Gets the collection of all items.
@@ -86,8 +54,17 @@ namespace Zcu.StudentEvaluator.DAL
 			IQueryable<TEntity> query = this.Items.AsQueryable();
 			if (filter != null)
 			{
-				query = query.Where(filter);
+				query = query.Where(filter);			
 			}
+
+			if (includeProperties != null)
+			{
+				foreach (var inc in includeProperties)
+				{
+					query = query.Include(inc);
+				}
+			}
+
 
 			return orderBy == null ? query : orderBy(query);
 		}
@@ -99,7 +76,7 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <returns>Item with the Id</returns>
 		public TEntity Get(int Id)
 		{
-			return this.Items.Where(x => x.Id == Id).Single();
+			return this.Items.Find(Id);
 		}
 
 		/// <summary>
@@ -107,12 +84,7 @@ namespace Zcu.StudentEvaluator.DAL
 		/// </summary>
 		/// <param name="item">The item to be inserted.</param>
 		public void Insert(TEntity item)
-		{
-			if (item.Id == 0)
-				item.Id = ++this.NextId;
-			else
-				this.NextId = Math.Max(this.NextId, item.Id);
-
+		{			
 			this.Items.Add(item);
 		}
 
@@ -122,7 +94,7 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="Id">The unique identifier of the item.</param>
 		public void Delete(int Id)
 		{
-			this.Items.Remove(this.Items.Where(x => x.Id == Id).Single());
+			Delete(new TEntity() { Id = Id});	//This is faster than getting the data from Db just to remove it		
 		}
 
 		/// <summary>
@@ -131,7 +103,12 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="item">The item to be deleted.</param>
 		public void Delete(TEntity item)
 		{
-			this.Items.Remove(item);
+			if (this.Context.Entry(item).State == EntityState.Detached)
+			{
+				this.Items.Attach(item);
+			}
+
+			this.Context.Entry(item).State = EntityState.Deleted;	//mark item to be deleted
 		}
 
 		/// <summary>
@@ -140,7 +117,12 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="item">The new item data.</param>
 		public void Update(TEntity item)
 		{
-			//nothing to do
+			if (this.Context.Entry(item).State == EntityState.Detached)
+			{
+				this.Items.Attach(item);
+			}
+
+			this.Context.Entry(item).State = EntityState.Modified;	//mark item to be modified
 		}
 	}	
 }

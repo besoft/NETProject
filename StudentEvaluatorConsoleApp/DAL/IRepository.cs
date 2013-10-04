@@ -15,7 +15,7 @@ namespace Zcu.StudentEvaluator.DAL
 	/// <summary>
 	/// Generic repository
 	/// </summary>
-	public interface IRepository<TEntity> where TEntity : IEntity
+	public interface IRepository<TEntity> where TEntity : class, IEntity, new()
 	{
 		/// <summary>
 		/// Gets the collection of all items.

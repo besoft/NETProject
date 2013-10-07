@@ -56,8 +56,22 @@
     <Compile Include="DAL\LocalStudentEvaluationContext.cs" />
     <Compile Include="DAL\LocalRepository.cs" />
     <Compile Include="DAL\LocalStudentEvaluationUnitOfWork.cs" />
+    <Compile Include="Migrations\201310070645097_InitialCreate.cs" />
+    <Compile Include="Migrations\201310070645097_InitialCreate.Designer.cs">
+      <DependentUpon>201310070645097_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310070652287_CategoryNameIsUnique.cs" />
+    <Compile Include="Migrations\201310070652287_CategoryNameIsUnique.Designer.cs">
+      <DependentUpon>201310070652287_CategoryNameIsUnique.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310070731399_EvaluationInitialConstraints.cs" />
+    <Compile Include="Migrations\201310070731399_EvaluationInitialConstraints.Designer.cs">
+      <DependentUpon>201310070731399_EvaluationInitialConstraints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Evaluation.cs" />
+    <Compile Include="Model\CustomValidator.cs" />
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Program.cs" />
@@ -74,6 +88,17 @@
     <None Include="App.config" />
     <None Include="Model\ClassDiagram.cd" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201310070645097_InitialCreate.resx">
+      <DependentUpon>201310070645097_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310070652287_CategoryNameIsUnique.resx">
+      <DependentUpon>201310070652287_CategoryNameIsUnique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310070731399_EvaluationInitialConstraints.resx">
+      <DependentUpon>201310070731399_EvaluationInitialConstraints.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

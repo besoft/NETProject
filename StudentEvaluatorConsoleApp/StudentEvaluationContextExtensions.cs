@@ -44,6 +44,9 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 				}
 			}
 
+			evals[0].Points = 5m;
+			evals[1].Points = 9m;
+
 			evals.ForEach(x =>
 			{
 				if (x.Category.Evaluations == null)

@@ -243,8 +243,8 @@ namespace Zcu.StudentEvaluator.View.ConsoleApp
 							this._currentStudent.Surname = GetSurname();							
 							break;
 						case 'O':
-							this._viewModel.AcceptChanges();
-							_stateInSummary = true;
+							if (this._viewModel.AcceptChanges())
+								_stateInSummary = true;
 							break;
 						case 'C':
 							this._viewModel.CancelChanges();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Text;
 
@@ -17,6 +18,7 @@ namespace Zcu.StudentEvaluator.Model
 		/// <value>
 		/// The unique identifier.
 		/// </value>
+		[Key]
 		public int Id { get; set; }
 
 		/// <summary>
@@ -24,8 +26,11 @@ namespace Zcu.StudentEvaluator.Model
 		/// </summary>
 		/// <value>
 		/// The personal number, e.g. A12B0012P.
-		/// </value>
-		public string PersonalNumber { get; set; }
+		/// </value>		
+		[Required]
+		[MaxLength(10)]
+		[RegularExpression(@"[A-Z]\d{2}[BN]\d+[PK]")]		
+		public string PersonalNumber { get; set; }		///NOTE: Entity Framework does not support [Unique] attribute => this must be done in migrations
 
 		/// <summary>
 		/// Gets or sets the first name.
@@ -33,6 +38,8 @@ namespace Zcu.StudentEvaluator.Model
 		/// <value>
 		/// The first name, e.g., "Josef".
 		/// </value>
+		[Required]
+		[MaxLength(25)]
 		public string FirstName { get; set; }
 
 		/// <summary>
@@ -41,6 +48,8 @@ namespace Zcu.StudentEvaluator.Model
 		/// <value>
 		/// The surname, e.g., "Kohout".
 		/// </value>
+		[Required]
+		[MaxLength(25)]
 		public string Surname { get; set; }
 
 		/// <summary>

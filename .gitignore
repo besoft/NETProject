@@ -156,6 +156,8 @@ UpgradeLog*.htm
 # SQL Server files
 App_Data/*.mdf
 App_Data/*.ldf
+*.mdf
+*.ldf
 
 
 # =========================
@@ -178,4 +180,3 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
-

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Zcu.StudentEvaluator.DAL;
-using Zcu.StudentEvaluator.Model;
 using Zcu.StudentEvaluator.View.ConsoleApp;
-using Zcu.StudentEvaluator.ViewModel;
 
 namespace Zcu.StudentEvaluator.ConsoleApp
 {
@@ -15,14 +10,27 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 	{
 		static void Main(string[] args)
 		{
-			//Pokus();
-
+			//Pokus();			
 			var unitOfWork = 
 				//new LocalStudentEvaluationUnitOfWork();
 				new DbStudentEvaluationUnitOfWork();
 			if (unitOfWork.Categories.Get().FirstOrDefault() == null)
 			{
-				unitOfWork.PopulateWithData();
+				try
+				{
+					unitOfWork.PopulateWithData();
+				}
+				catch (DbEntityValidationException excValidation)
+				{
+					foreach (var item in excValidation.EntityValidationErrors)
+					{
+						Console.WriteLine("Validation of '{0}' failed with these errors:", item.Entry.Entity.GetType().Name);
+						foreach (var err in item.ValidationErrors)
+						{
+							Console.WriteLine("For '{0}' : {1}", err.PropertyName, err.ErrorMessage);
+						}
+					}
+				}
 			}
 
 			var mainView = new StudentView(unitOfWork);

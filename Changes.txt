@@ -1,3 +1,19 @@
+7.10.2013 - Local Database
+* Added migrations (Tools/Library Package Manager/Package Manager Console: enable-migrations) + enabled automatic updates
+	Advantage:	When the application is run it should update automatically the database to the latest version
+				(see http://msdn.microsoft.com/en-us/data/jj591621). Problem is that AutoMigrations seems not
+				working correctly in many cases yielding various errors such as "Data loss".
+
+* Specified the Connection string to local database (see App.config)
+	Advantage:	we control which database should be used and where it should be located.
+
+* POCO classes updated so that their members are annotated by Data attributes
+	
+	Advantage:	this allows an easy specification of various constraints (e.g., Personal number may not be null).
+
+* Added custom validation such as "Personal number" must be unique and the number of points cannot exceed the maximum.
+				
+
 4.10.2013 - Code-First Simple but Working Entity Framework
 
 * ViewModel modified to a better design: Create and Edit no longer does the changes into the repository but only

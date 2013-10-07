@@ -37,7 +37,8 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <summary>
 		/// Accepts the changes done to the currently edited student (must be called after Create or EditDetail).
 		/// </summary>
-		void AcceptChanges();
+		/// <returns>true, if the changes has been accepted, false otherwise.</returns>
+		bool AcceptChanges();
 
 		/// <summary>
 		/// Cancel the changes done to the currently edited student (must be called after Create or EditDetail).

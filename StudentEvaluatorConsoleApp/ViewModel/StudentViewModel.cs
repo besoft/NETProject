@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using Zcu.StudentEvaluator.DAL;
@@ -54,8 +56,6 @@ namespace Zcu.StudentEvaluator.ViewModel
 			this._mainView.Display(this._unitOfWork.Students.Get(includeProperties: new string[]{"Evaluations"}));
 		}
 
-		private Random _rndPersonalNumber = new Random(Environment.TickCount);
-
 		/// <summary>
 		/// Create a new student.
 		/// </summary>		
@@ -64,13 +64,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 			if (this._currentStudent != null)
 				AcceptChanges();	//automatically accept changes of the current student
 			
-			this._currentStudent = new Student
-			{
-				PersonalNumber = "#rnd_" + _rndPersonalNumber.Next().ToString(),
-				FirstName = "Enter first name",
-				Surname = "Enter surname",
-			};
-
+			this._currentStudent = new Student();
 			this._currentStudentIsNew = true;
 
 			this._mainView.Display(this._currentStudent, true);
@@ -136,26 +130,63 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// <summary>
 		/// Accepts the changes done to the currently edited student (must be called after Create or EditDetail).
 		/// </summary>
-		public void AcceptChanges()
+		/// <returns>
+		/// true, if the changes has been accepted, false otherwise.
+		/// </returns>
+		public bool AcceptChanges()
 		{
-			//TODO: handle exceptions and concurrency problems
+			//TODO: handle concurrency problems
+			try
+			{
+				if (this._currentStudentIsNew)
+					this._unitOfWork.Students.Insert(this._currentStudent);
+				else
+					this._unitOfWork.Students.Update(this._currentStudent);
 
-			if (this._currentStudentIsNew)
-				this._unitOfWork.Students.Insert(this._currentStudent);
-			else
-				this._unitOfWork.Students.Update(this._currentStudent);
+				this._unitOfWork.Save();	//save all data
+			}
+			catch (DbEntityValidationException e)
+			{
+				var sb = new StringBuilder(((this._currentStudentIsNew) ? "Adding a new" : "Updating") +
+						"student with personal number '" + this._currentStudent.PersonalNumber + 
+						"' has failed because it could not be validated:");
+				sb.AppendLine();
 
+				foreach (var entry in e.EntityValidationErrors)
+				{
+					foreach (var it in entry.ValidationErrors)
+					{
+						sb.AppendFormat("{0}.{1} = {2}: {3}\n",
+							entry.Entry.Entity.GetType().Name,
+							it.PropertyName, 
+							entry.Entry.CurrentValues[it.PropertyName],
+							it.ErrorMessage
+							);
+					}
+				}
+
+				this._notifyView.DisplayNotification(NotificationType.Error, "Data error",	sb.ToString(), e);
+				return false;
+			}
+			catch (DataException e)
+			{
+				this._notifyView.DisplayNotification(NotificationType.Error, "Data error", 
+					((this._currentStudentIsNew)	? "Adding a new" : "Updating") +
+					"student with personal number '" + this._currentStudent.PersonalNumber + "' has failed.", e);
+
+				return false;
+			}
+			
 			if (this._currentStudentIsNew)
 				this._notifyView.DisplayNotification(NotificationType.Message,
 					"Student created", "A new student with personal number '" + this._currentStudent.PersonalNumber + "' has been added into the repository.");
 			else
 				this._notifyView.DisplayNotification(NotificationType.Message,
-					"Student updated", "Student with personal number '" + this._currentStudent.PersonalNumber + "' has been updated.");
-
-			this._unitOfWork.Save();	//save all data
+					"Student updated", "Student with personal number '" + this._currentStudent.PersonalNumber + "' has been updated.");			
 
 			this._currentStudent = null;
 			this._currentStudentIsNew = false;
+			return true;
 		}
 
 		/// <summary>
@@ -174,7 +205,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 				catch (Exception e)
 				{
 					this._notifyView.DisplayNotification(NotificationType.Warning, "CancelChanges failed.",
-						"Resetting the current student into the original state finished with an exception", e);
+						"Resetting the current student into the original state finished with an exception: ", e);
 				}
 			}
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zcu.StudentEvaluator.Migrations;
 using Zcu.StudentEvaluator.Model;
 
 namespace Zcu.StudentEvaluator.DAL
@@ -22,6 +24,9 @@ namespace Zcu.StudentEvaluator.DAL
 		/// </summary>
 		public DbStudentEvaluationUnitOfWork()
 		{
+			//Update automatically the database to the latest version
+			Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbStudentEvaluationContext, Configuration>());
+
 			this._context = new DbStudentEvaluationContext();
 		}
 
@@ -92,7 +97,7 @@ namespace Zcu.StudentEvaluator.DAL
 		/// Saves all changes into persistent stream.
 		/// </remarks>
 		public void Save()
-		{
+		{			
 			this._context.SaveChanges();
 		}
 	}

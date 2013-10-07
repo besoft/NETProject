@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Zcu.StudentEvaluator.Model
 {
@@ -13,6 +14,7 @@ namespace Zcu.StudentEvaluator.Model
 		/// <value>
 		/// The unique identifier.
 		/// </value>
+		[Key]
 		public int Id { get; set; }
 
 		/// <summary>
@@ -21,6 +23,8 @@ namespace Zcu.StudentEvaluator.Model
 		/// <value>
 		/// The name of the evaluation, e.g. "Comments in code".
 		/// </value>
+		[Required]
+		[MaxLength(50)]		
 		public string Name { get; set; }
 
 		/// <summary>
@@ -37,6 +41,7 @@ namespace Zcu.StudentEvaluator.Model
 		/// <value>
 		/// The maximal number of points that counts
 		/// </value>
+		[CustomValidation(typeof(CustomValidator), "ValidateCategoryMaxPoints")]
 		public decimal? MaxPoints { get; set; }
 
 		/// <summary>

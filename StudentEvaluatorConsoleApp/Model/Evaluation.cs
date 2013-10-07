@@ -1,4 +1,6 @@
-﻿namespace Zcu.StudentEvaluator.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Zcu.StudentEvaluator.Model
 {
 	/// <summary>
 	/// Evaluation object describes one particular evaluation in one evaluation parent (Category) for one student (Student)
@@ -11,6 +13,7 @@
 		/// <value>
 		/// The unique identifier.
 		/// </value>
+		[Key]
 		public int Id { get; set; }
 
 		/// <summary>
@@ -18,7 +21,8 @@
 		/// </summary>
 		/// <value>
 		/// The number of points.
-		/// </value>
+		/// </value>		
+		[CustomValidation(typeof(CustomValidator), "ValidateEvaluationPoints")]
 		public decimal? Points { get; set; }
 
 		/// <summary>
@@ -35,6 +39,7 @@
 		/// <value>
 		/// The definition.
 		/// </value>
+		[Required]
 		public Category Category {get; set; }
 		
 		/// <summary>
@@ -43,6 +48,7 @@
 		/// <value>
 		/// The student.
 		/// </value>
+		[Required]
 		public Student Student {get; set; }			
 	}
 }

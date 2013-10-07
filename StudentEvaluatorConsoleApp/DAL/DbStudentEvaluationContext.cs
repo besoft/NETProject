@@ -26,6 +26,13 @@ namespace Zcu.StudentEvaluator.DAL
 	{
 		public DbSet<Student> Students { get; set; }
 		public DbSet<Evaluation> Evaluations { get; set; }
-		public DbSet<Category> Categories { get; set; }				
+		public DbSet<Category> Categories { get; set; }
+
+		//protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		//{
+		//	base.OnModelCreating(modelBuilder);
+
+		//	modelBuilder.Entity<Student>().Property(p => p.PersonalNumber).HasMaxLength(20);
+		//}
 	}
 }

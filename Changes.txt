@@ -1,3 +1,147 @@
+25.11.2013 - MVVM Pattern Improvements
+* MVVM Notes:
+	When it comes to MVVM pattern, one of the first problematic issues is how to display model dialogs to the user 
+	while executing code in the view-model. Popping up a dialog, such as a MessageBox or a ChildWindow, from 
+	the view-model is an anti-pattern that violates the separation of concerns that exists between the view 
+	and the view-model. Currently, several approaches can be adopted, each of them having its pros and cons:
+
+	1) Violate MVVM concept and call the method to show dialog directly from ViewModel code (or from View).
+	One of the main benefits of MVVM is better application maintainability. If you separate concerns of presentation 
+	(the view) from business logic (the view-model) and data (the model), making a change in one area is less likely 
+	to impact other areas.  Another benefit is testability.  It is notoriously difficult to test the user interface 
+	by simulating things like button clicks and mouse overs.  Encapsulating functionality into a view-model means 
+	that you can test it independently of the view, which is just another consumer of the view-model.  If you were
+	to display a dialog from the view-model in order to get input from the user, it would be impossible to run 
+	a unit test against the view-model because there’s no way for a unit test to respond to the dialog.  In addition, 
+	MVVM promotes better workflow between designers and developers.  Designers can wire up actions to elements 
+	straight from the XAML.  Some code-behind may still be necessary, but it should be restricted to view-related 
+	activities, such as starting and stopping animations or communicating with the user via messages or dialogs.
+	THIS IS NOT THE WAY WE WILL USE.
+
+	2) DialogService - (e.g., see http://www.codeproject.com/Articles/36745/Showing-Dialogs-When-Using-the-MVVM-Pattern)
+	ViewModel has reference to an interface (or base class) that defines methods for showing modal dialogs.
+	This option was used so far in this project (via interfaces INotificationView and IConfirmationView).
+	Adding other more general dialogs would need adding another interface and things are getting difficult
+	(http://blog.roboblob.com/2010/01/19/modal-dialogs-with-mvvm-and-silverlight-4/).
+	Disadvantages are that this approach is too tightly coupled. The view-model needs to hold onto a reference to 
+	the object implementing the interface, and classes must implement all members of the interface even the ones 
+	they may not care about. So far we had only one view, so our view implemented easily both interfaces but
+	imagine having several views. What a redundancy it would be to implement DialogService interfaces in every
+	view. One could move the implementation into a specialized class (e.g., DialogService) completely separated
+	from views or to develop abstract base class for views.
+	THIS IS THE CURRENT WAY.
+
+	3) Another approach is to use a message bus to handle all communication between view and view-model.  
+	(see e.g., http://www.codeproject.com/Articles/35277/MVVM-Mediator-Pattern)
+	This is, however, too loosely couples and it is difficult to understand to code for newcomers. It is the
+	way adopted by Qt library.  Generally speaking, this sort of mediation is effective at allowing tests and 
+	promoting some degree of flexibility, but you still have the same dependency in concept, and then you have 
+	the mediator code to maintain and manage. Testing such a mediator is difficult :-)
+	THIS IS THE WAY WE WILL PREFER NOT TO USE.
+	
+	4) An event-based communication model - Events have finer granularity than interfaces because subscribers can 
+	pick and choose which events to subscribe to, and the publisher is relieved from the burden of maintaining direct 
+	references to subscribers.  In addition, the view-model is not aware that it’s displaying a dialog.
+	Using events also alleviates the need for an intermediary such as a message bus.  Because the view already 
+	has a reference to a view-model, it can easily subscribe to events and specify a callback method.  In the 
+	callback the view can show information to the user and get a response in any way it wants. 
+	THIS IS THE WAY WE MAY USE IN THE FUTURE.
+
+* Design notes:
+	1) All the functionality of the application is to be split into several Workspaces (also elsewhere known as
+	Layouts - see, e.g., Prims: http://msdn.microsoft.com/en-us/library/ff921098(v=pandp.20).aspx):
+		a) MainWorkspace - is composed of two Views (and associated ViewModels):
+		a.1) StudentsFilterView - allows specification of user defined filters and sort criteria
+		a.2) StudentsListView - displays a given list of students and for them some summary (number of students selected, ...)
+								+ allows commands such as AddNewStudent (with the option to add empty evaluations
+								based on the category structure), ...
+		b) StudentWorkspace - is also composed of two Views (and associated ViewModels):
+		b.1) StudentDetailsView - allows modification of the personal data stored for the given student
+		b.2) StudentEvaluationView - allows modification of evaluations for every category (+ allows commands such as 
+			AddNewCategory, with the option to add automatically new evaluations for every student), presented as 
+			a tree of categories with editable items
+		c) EvaluationWorkspace - is also composed of two Views (and associated ViewModels):
+		c.1) CategoryFilterView - allows selection of categories whose evaluations are to be edited
+		c.2) EvaluationListView - grid view allowing editing evaluations for every student (from the given list)
+		d) CategoryWorkspace - is composed of a single View (and associated ViewModels):
+		d.1) CategoryDetailsView - allows modification of the category data stored for the given category
+	2) ViewModels implements INotifyPropertyChanged to notify observer of any change of their properties,
+	no matter if it is a property related to the representation / manipulation with the data (such as IsSelected),
+	or the model property (e.g., FirstName) and business logic. Whenever it makes sense, we will have a ViewModel
+	for a single item and then for collections, e.g.,  we will have StudentsListViewModel as well as 
+	StudentsListItemViewModel (and these ViewModels will be mapped to Views via bindings).
+
+* Created several interfaces to support rich variety of ViewModels, e.g., ViewModels encapsulating both read-only 
+	simple models (IViewModel<T>), editable models (IEditableViewModel), models that may be selected and focused
+	(ISelectableViewModel), ViewModels encapsulating lists of items (IListViewModel) that may be selected and focused
+	(ISelectableListViewModel), and created implementation of three key ViewModels: StudentViewModel (see b.1),
+	StudentListItemViewModel (an item in the list) and StudentListViewModel (list of StudentListItemViewModel
+	for StudentsListView - see a.2)
+
+	Advantage:		Separation of ViewModel implementation from Views, which allows using one View with different ViewModels
+	Disadvantage:	ViewModel is becoming quite complex
+	Discussion:		Reusing one View for different unrelated ViewModels is rare, and if it happens one may easily
+					use Refactor to extract Interface from existing ViewModel class to support it, so such extensive using of 
+					interfaces is good only for tutorial purpose. Furthermore, with DataBinding (as in WPF, WinForms, ...)
+					Views can process different ViewModels even if they do not share some common interface but all that have in common
+					is "object". It is therefore, useful to reduce the complexity by removing interfaces.
+
+* Commands provided by a ViewModel for execution (such as DeleteStudent, CreateNewStudent, ...) are now 
+	accessible via standard ICommand interface (using own implementation in RelayCommand)
+
+	Advantages:		ICommand supports also CanExecute, so Views can now display commands options accordingly.
+					Furthermore, instances of ICommand can be directly data bound to WPF controls (e.g., Buttons). 
+					Associating ICommand with controls of WinForms can be done easily via lambda expressions, e.g.,
+					button.Click += (sender, e) => viewModel.Command.Execute(e). 
+
+* When the data in a ViewModel changes, ViewModel no longer actively calls some View routine (via interface)
+	to change its representation (e.g., disable a button, refresh a list, ...) but notifies about the change
+	its listeners via standard INotifyPropertyChanged interface and it is up to listeners (e.g., a View) to
+	handle the change of the state.
+
+	Advantages:		one ViewModel can be presented by multiple unrelated Views since ViewModels now may have none 
+					or only a limited (via some basic interface, e.g., IWindowView) knowledge about their Views.
+					INotifyPropertyChanged can be data bound in WPF directly to controls without a necessity to
+					write any code.
+	Disadvantages:	performance is reduced in the following scenario: ViewModel contains properties A, B such
+					that B depends on A, View displays both properties. When property A changes, the View
+					is notified about it, and updates its presentation of A, which may require running complex layout 
+					algorithm, but as A influences B, the View is then notified about the change of B, which
+					require running the same layout algorithm once again. 
+										
+* Implementation of INotificationView and IConfirmationView for console was moved into concrete classes (NotificationView
+	and ConfirmationView) and these classes are accessed (via interfaces) from ViewModelBase.
+
+* DialogService was implemented to support separation of Views and ViewModels. Application uses DialogService singleton
+	to register a common View interface (currently IWindowView, INotificationView and IConfirmationView) implemented by 
+	some concrete View in such a manner that the concrete implementation is identified by the interface it implements
+	and by a unique identifier. When ViewModel needs to access directly View (e.g., to show dialog, ...), it asks
+	DialogService to provide it with reference to the View specifying the interface to retrieve and the id. DialogService
+	creates the instance of the View (unless it is already instanced singleton) and returns it (cast to the common
+	View interface) to ViewModel.
+
+	Advantages:		separation of Views and ViewModels; a ViewModel can be constructed without a necessity to pass 
+					it a reference to its View (which could be difficult to maintain).
+
+* Designed IWindowView interface containing the fundamental properties and routines for Views (of Window style):
+	object DataContext - reference to ViewModel instance that is being represented by the View,
+	methods Show, Close - Show non-modal window / close it
+	DialogResult and ShowDIalog - Show modal window and provides the result (true = OK, false = Cancel, null = Error)
+
+	Note:	IWindowView interface is designed to be compatible with WPF Window class, i.e., WPF based Views just
+			need to specify that they implement IWindowView but the implementation is done by Microsoft in their
+			base class (Window)
+
+* Added an automatic validation of ViewModels based on annotation attributes of wrapped Model. Validation support
+	implements IDataErrorInfo interface, which is standard very old interface designed for this purpose.
+	
+	Advantage:	 IDataErrorInfo is exploited in WPF automatically to validate values in controls.
+
+* Problems and TODO:	
+	Subdivide the project into two or three projects: Core (everything without View implementation) and
+	ConsoleApp (View implementation)
+
+
 7.10.2013 - Local Database
 * Added migrations (Tools/Library Package Manager/Package Manager Console: enable-migrations) + enabled automatic updates
 	Advantage:	When the application is run it should update automatically the database to the latest version
@@ -166,6 +310,17 @@
 				items, which is in MVP pattern handled by controls of View. These properties are mapped to View 
 				controls via binding (provided by Microsoft). As it is, only proper binding must be checked for Views, 
 				and ViewModels may by automatically tested from code. MVVM is designed for WPF.
+
+				IMPORTANT: There is no strict rule how to write MVVM (MVC, MVP) applications and as a result you may
+				find many different ways how MVVM was applied. Some developers prefer to have a simple solution and, 
+				therefore, their Model (entity) class will contain also custom logic, notification support, etc.,
+				whilst the other will create another class (on ViewModel level) for this purpose and let the Model 
+				class to be truly a POCO class. Similarly one would create a ViewModel class that would contain all 
+				the logic whilst the other would split it into several classes and have a specialized ViewModel even
+				for the item in a list to be displayed. Furthermore, as large solutions often target at multiple
+				platforms, e.g., desktop app and internet app, there is no universal pattern for them and, therefore,
+				trying to reuse as much code as possible, these application often have classes that are not placed
+				in any category.
 
 	Advantage:	StudentView that currently shows the information about students onto the console can be replaced
 				by more sophisticated GUI without any change of business logic, e.g., finding the item to delete,

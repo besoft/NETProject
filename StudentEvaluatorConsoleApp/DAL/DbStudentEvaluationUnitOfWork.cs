@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using Zcu.StudentEvaluator.Migrations;
 using Zcu.StudentEvaluator.Model;
 
@@ -91,7 +86,7 @@ namespace Zcu.StudentEvaluator.DAL
 		}
 
 		/// <summary>
-		/// Saves all changes done in repositories.
+		/// Saves all changes done in unitOfWork.
 		/// </summary>		
 		/// <remarks>
 		/// Saves all changes into persistent stream.

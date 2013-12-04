@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Zcu.StudentEvaluator.View.ConfirmationView" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ConfirmationView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.View.NotificationView" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>View\NotificationView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.View.StudentListView">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAQAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>View\StudentListView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.View.StudentView">
+    <Position X="8.75" Y="2.5" Width="1.75" />
+    <InheritanceLine Type="Zcu.StudentEvaluator.View.WindowView" FixedToPoint="true">
+      <Path>
+        <Point X="8" Y="3.25" />
+        <Point X="8.75" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAgAAAAAAAQAAAAAAIAAARAAAAAAAAAA=</HashCode>
+      <FileName>View\StudentView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zcu.StudentEvaluator.View.WindowView">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>kAAAAAAAICQIAgAAAAAAAAEAAAAEAAAAQAAAAACACAA=</HashCode>
+      <FileName>View\WindowView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Zcu.StudentEvaluator.View.IConfirmationView">
+    <Position X="2.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IConfirmationView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Zcu.StudentEvaluator.View.INotificationView">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>View\INotificationView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Zcu.StudentEvaluator.View.IWindowView">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAAAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>View\IWindowView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Zcu.StudentEvaluator.View.ConfirmationOptions" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAEAAAAAAAAAAAAAAAAgASAABAgACAAA=</HashCode>
+      <FileName>View\IConfirmationView.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Zcu.StudentEvaluator.View.ConfirmationResult" Collapsed="true">
+    <Position X="2.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgSAAQACDAAAAAAAAAACAAQAAAAAABAAAAAAA=</HashCode>
+      <FileName>View\IConfirmationView.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Zcu.StudentEvaluator.View.NotificationType" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>View\INotificationView.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

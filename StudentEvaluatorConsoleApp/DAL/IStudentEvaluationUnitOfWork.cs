@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zcu.StudentEvaluator.Model;
+﻿using Zcu.StudentEvaluator.Model;
 
 namespace Zcu.StudentEvaluator.DAL
 {
 	/// <summary>
-	/// Represents UnitOfWork, i.e., atomic part through which the rest of application access the model data.
+	/// Represents ModelRepository, i.e., atomic part through which the rest of application access the model data.
 	/// </summary>
 	public interface IStudentEvaluationUnitOfWork
 	{
@@ -37,7 +32,7 @@ namespace Zcu.StudentEvaluator.DAL
 		IRepository<Evaluation> Evaluations { get; }
 		
 		/// <summary>
-		/// Saves all changes done in repositories.
+		/// Saves all changes done in unitOfWork.
 		/// </summary>
 		/// <remarks>
 		/// Saves all changes into persistent stream.

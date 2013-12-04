@@ -1,8 +1,9 @@
 ﻿namespace Zcu.StudentEvaluator.View
-{
+{	
 	[System.Flags]
 	public enum ConfirmationResult
-	{		
+	{	
+		Ask = 0,		//Unknown - must ask user differently (error)
 		OK = 1,			//The dialog box return value is OK (usually sent from a button labeled OK). 
 		Cancel = 2,		//The dialog box return value is Cancel (usually sent from a button labeled Cancel). 
 		Abort = 4,		//The dialog box return value is Abort (usually sent from a button labeled Abort). 
@@ -10,6 +11,8 @@
 		Ignore = 16,	//The dialog box return value is Ignore (usually sent from a button labeled Ignore). 
 		Yes = 32,		//The dialog box return value is Yes (usually sent from a button labeled Yes). 
 		No = 64,		//The dialog box return value is No (usually sent from a button labeled No). 
+		YesToAll = 128,
+		NoToAll = 256,
 	}
 
 	public enum ConfirmationOptions
@@ -21,7 +24,9 @@
 		YesNoCancel = ConfirmationResult.Yes | ConfirmationResult.No | ConfirmationResult.Cancel,		
 				//The message box contains Yes, No, and Cancel buttons. 
 		YesNo = ConfirmationResult.Yes | ConfirmationResult.No,				//The message box contains Yes and No buttons. 
-		RetryCancel = ConfirmationResult.Retry | ConfirmationResult.Cancel	//The message box contains Retry and Cancel buttons.
+		RetryCancel = ConfirmationResult.Retry | ConfirmationResult.Cancel,	//The message box contains Retry and Cancel buttons.
+		YesYesoAllNoTNoToAll = YesNo | ConfirmationResult.YesToAll | ConfirmationResult.NoToAll,
+		YesYesoAllNoTNoToAllCancel = YesNoCancel | ConfirmationResult.YesToAll | ConfirmationResult.NoToAll,
 	}	
 
 	/// <summary>

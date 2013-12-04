@@ -89,8 +89,8 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 			output.WriteLine("---------------------------------");
 			foreach (var st in context.Students)
 			{
-				output.WriteLine("{0}, {1} - evaluations: {2}",
-					st.FullName, st.PersonalNumber, st.Evaluations.Count);
+				output.WriteLine("{0} {1}, {2} - evaluations: {3}",
+					st.Surname, st.FirstName, st.PersonalNumber, st.Evaluations.Count);
 			}
 
 			output.WriteLine("=================================");

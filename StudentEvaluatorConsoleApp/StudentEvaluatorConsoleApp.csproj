@@ -56,6 +56,7 @@
     <Compile Include="DAL\LocalStudentEvaluationContext.cs" />
     <Compile Include="DAL\LocalRepository.cs" />
     <Compile Include="DAL\LocalStudentEvaluationUnitOfWork.cs" />
+    <Compile Include="DialogService\IDialogService.cs" />
     <Compile Include="Migrations\201310070645097_InitialCreate.cs" />
     <Compile Include="Migrations\201310070645097_InitialCreate.Designer.cs">
       <DependentUpon>201310070645097_InitialCreate.cs</DependentUpon>
@@ -77,17 +78,40 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentEvaluationContextExtensions.cs" />
-    <Compile Include="ViewModel\IStudentViewModel.cs" />
+    <Compile Include="ViewModel\IListViewModel.cs" />
+    <Compile Include="ViewModel\ISelectableListViewModel.cs" />
+    <Compile Include="ViewModel\IViewModelBase.cs" />
+    <Compile Include="ViewModel\StudentsListWorkspace\IStudentListItemViewModel.cs" />
+    <Compile Include="ViewModel\ViewModel.cs" />
+    <Compile Include="ViewModel\IViewModel.cs" />
+    <Compile Include="ViewModel\IEditableViewModel.cs" />
+    <Compile Include="ViewModel\ISelectableViewModel.cs" />
+    <Compile Include="ViewModel\StudentDetailWorkspace\IStudentViewModel.cs" />
+    <Compile Include="ViewModel\StudentsListWorkspace\IStudentListViewModel.cs" />
+    <Compile Include="ViewModel\PartialClasses\RelayCommandInternal.cs" />
+    <Compile Include="ViewModel\StudentDetailWorkspace\StudentViewModel.cs" />
+    <Compile Include="ViewModel\StudentsListWorkspace\StudentListViewModel.cs" />
+    <Compile Include="ViewModel\StudentsListWorkspace\EvaluationViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\StudentsListWorkspace\StudentListItemViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="DialogService\DialogService.cs" />
+    <Compile Include="View\ConfirmationView.cs" />
+    <Compile Include="View\NotificationView.cs" />
+    <Compile Include="View\StudentView.cs" />
     <Compile Include="View\IConfirmationView.cs" />
     <Compile Include="View\INotificationView.cs" />
-    <Compile Include="View\IStudentView.cs" />
-    <Compile Include="View\StudentView.cs" />
-    <Compile Include="ViewModel\StudentViewModel.cs" />
+    <Compile Include="View\IWindowView.cs" />
+    <Compile Include="View\StudentListView.cs" />
+    <Compile Include="View\WindowView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ViewModel\ClassDiagram_Classes.cd" />
+    <None Include="ViewModel\ClassDiagram_Interfaces.cd" />
     <None Include="Model\ClassDiagram.cd" />
     <None Include="packages.config" />
+    <None Include="View\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201310070645097_InitialCreate.resx">
@@ -100,6 +124,7 @@
       <DependentUpon>201310070731399_EvaluationInitialConstraints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
 using System.Xml;
-using Zcu.StudentEvaluator.Model;
 using System.Xml.Serialization;
+using Zcu.StudentEvaluator.Model;
 
 /// <summary>
 /// Data Abstract Layer
@@ -62,7 +61,7 @@ namespace Zcu.StudentEvaluator.DAL
 		}
 
 		/// <summary>
-		/// Loads the data from the underlying Xml file into the local in-memory repositories.
+		/// Loads the data from the underlying Xml file into the local in-memory unitOfWork.
 		/// </summary>
 		protected virtual void Load()
 		{

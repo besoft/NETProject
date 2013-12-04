@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Zcu.StudentEvaluator.Model;
 
 namespace Zcu.StudentEvaluator.DAL
@@ -140,16 +138,20 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="item">The new item data.</param>
 		public void Update(TEntity item)
 		{
-			//nothing to do since everything is done immediately
+			if (!this.Items.Contains(item))
+			{
+				//replace existing data with the new one
+				Delete(item.Id);
+				this.Items.Add(item);	
+			}
 		}
 
 		/// <summary>
-		/// Called to reset the changes to its original state.
-		/// </summary>
-		/// <param name="item">The item whose changes are to discard.</param>
-		public void Reset(TEntity item)
+		/// Commits the changes that have been done to this repository since the last call of this method.
+		/// </summary>	
+		public void Save()
 		{
-			throw new InvalidOperationException();	//no undo is possible
+			this.Context.SaveChanges();
 		}
 	}	
 }

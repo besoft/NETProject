@@ -78,9 +78,12 @@ namespace Zcu.StudentEvaluator.DAL
 		void Update(TEntity item);
 
 		/// <summary>
-		/// Called to reset the changes to its original state.
-		/// </summary>
-		/// <param name="item">The item whose changes are to discard.</param>
-		void Reset(TEntity item);
+		/// Commits the changes that have been done to this repository since the last call of this method.
+		/// </summary>		
+		/// <remarks>Implementations typically stores the local changes (in-memory) into a persistent stream, e.g., file or database,
+		/// which may throw different exceptions regarding the concrete implementation. 
+		/// For example, Entity Framework may throw DbEntityValidationException (if the model is not valid) or
+		///DbUpdateConcurrencyException (two users has changed the same item). </remarks>
+		void Save();
 	}
 }

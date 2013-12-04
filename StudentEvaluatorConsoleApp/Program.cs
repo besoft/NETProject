@@ -2,14 +2,29 @@
 using System.Data.Entity.Validation;
 using System.Linq;
 using Zcu.StudentEvaluator.DAL;
-using Zcu.StudentEvaluator.View.ConsoleApp;
+using Zcu.StudentEvaluator.View;
+using Zcu.StudentEvaluator.ViewModel;
 
 namespace Zcu.StudentEvaluator.ConsoleApp
 {
+	public class BootStraper
+	{
+		public static void InitializeIOC()
+		{
+			DialogService.DialogService.Default.Register<INotificationView, NotificationView>(DialogService.DialogConstants.NotificationView);
+			DialogService.DialogService.Default.Register<IConfirmationView, ConfirmationView>(DialogService.DialogConstants.ConfirmationView);
+			DialogService.DialogService.Default.Register<IWindowView, StudentView>(DialogService.DialogConstants.EditStudentView);
+			
+			DialogService.DialogService.Default.Register<IWindowView, StudentListView>();	//main View
+		}
+	}
+
 	class Program
 	{
 		static void Main(string[] args)
 		{
+			BootStraper.InitializeIOC();
+
 			//Pokus();			
 			var unitOfWork = 
 				//new LocalStudentEvaluationUnitOfWork();
@@ -33,7 +48,11 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 				}
 			}
 
-			var mainView = new StudentView(unitOfWork);
+			var mainViewModel = new StudentListViewModel(unitOfWork);
+
+			var mainView = new StudentListView();
+			mainView.DataContext = mainViewModel;
+
 			mainView.ShowDialog();
 		}
 

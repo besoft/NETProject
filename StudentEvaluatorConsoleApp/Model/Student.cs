@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Contracts;
-using System.Text;
 
 namespace Zcu.StudentEvaluator.Model
 {
@@ -50,20 +46,7 @@ namespace Zcu.StudentEvaluator.Model
 		/// </value>
 		[Required]
 		[MaxLength(25)]
-		public string Surname { get; set; }
-
-		/// <summary>
-		/// Gets the full name of the student.
-		/// </summary>
-		/// <value>
-		/// The full name.
-		/// </value>
-		public string FullName {
-			get
-			{				
-				return Surname.ToUpper() + " " + FirstName;				
-			}
-		}
+		public string Surname { get; set; }		
 
 		/// <summary>
 		/// Gets or sets the individual student evaluation.

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5F535E59-C1A7-4766-86F1-BFBF71CB1B37}</ProjectGuid>
+    <ProjectGuid>{A8D6EB45-A7FD-4977-80F0-11F5E5C1B0AF}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StudentEvaluatorConsoleApp</RootNamespace>
@@ -32,14 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,84 +50,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\DbStudentEvaluationUnitOfWork.cs" />
-    <Compile Include="DAL\DbStudentEvaluationContext.cs" />
-    <Compile Include="DAL\DbRepository.cs" />
-    <Compile Include="DAL\XmlStudentEvaluationContext.cs" />
-    <Compile Include="DAL\IRepository.cs" />
-    <Compile Include="DAL\IStudentEvaluationUnitOfWork.cs" />
-    <Compile Include="DAL\LocalStudentEvaluationContext.cs" />
-    <Compile Include="DAL\LocalRepository.cs" />
-    <Compile Include="DAL\LocalStudentEvaluationUnitOfWork.cs" />
-    <Compile Include="DialogService\IDialogService.cs" />
-    <Compile Include="Migrations\201310070645097_InitialCreate.cs" />
-    <Compile Include="Migrations\201310070645097_InitialCreate.Designer.cs">
-      <DependentUpon>201310070645097_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201310070652287_CategoryNameIsUnique.cs" />
-    <Compile Include="Migrations\201310070652287_CategoryNameIsUnique.Designer.cs">
-      <DependentUpon>201310070652287_CategoryNameIsUnique.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201310070731399_EvaluationInitialConstraints.cs" />
-    <Compile Include="Migrations\201310070731399_EvaluationInitialConstraints.Designer.cs">
-      <DependentUpon>201310070731399_EvaluationInitialConstraints.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Category.cs" />
-    <Compile Include="Model\Evaluation.cs" />
-    <Compile Include="Model\CustomValidator.cs" />
-    <Compile Include="Model\IEntity.cs" />
-    <Compile Include="Model\Student.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentEvaluationContextExtensions.cs" />
-    <Compile Include="ViewModel\IListViewModel.cs" />
-    <Compile Include="ViewModel\ISelectableListViewModel.cs" />
-    <Compile Include="ViewModel\IViewModelBase.cs" />
-    <Compile Include="ViewModel\StudentsListWorkspace\IStudentListItemViewModel.cs" />
-    <Compile Include="ViewModel\ViewModel.cs" />
-    <Compile Include="ViewModel\IViewModel.cs" />
-    <Compile Include="ViewModel\IEditableViewModel.cs" />
-    <Compile Include="ViewModel\ISelectableViewModel.cs" />
-    <Compile Include="ViewModel\StudentDetailWorkspace\IStudentViewModel.cs" />
-    <Compile Include="ViewModel\StudentsListWorkspace\IStudentListViewModel.cs" />
-    <Compile Include="ViewModel\PartialClasses\RelayCommandInternal.cs" />
-    <Compile Include="ViewModel\StudentDetailWorkspace\StudentViewModel.cs" />
-    <Compile Include="ViewModel\StudentsListWorkspace\StudentListViewModel.cs" />
-    <Compile Include="ViewModel\StudentsListWorkspace\EvaluationViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
-    <Compile Include="ViewModel\StudentsListWorkspace\StudentListItemViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="DialogService\DialogService.cs" />
     <Compile Include="View\ConfirmationView.cs" />
     <Compile Include="View\NotificationView.cs" />
-    <Compile Include="View\StudentView.cs" />
-    <Compile Include="View\IConfirmationView.cs" />
-    <Compile Include="View\INotificationView.cs" />
-    <Compile Include="View\IWindowView.cs" />
     <Compile Include="View\StudentListView.cs" />
+    <Compile Include="View\StudentView.cs" />
     <Compile Include="View\WindowView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="ViewModel\ClassDiagram_Classes.cd" />
-    <None Include="ViewModel\ClassDiagram_Interfaces.cd" />
-    <None Include="Model\ClassDiagram.cd" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="View\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201310070645097_InitialCreate.resx">
-      <DependentUpon>201310070645097_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201310070652287_CategoryNameIsUnique.resx">
-      <DependentUpon>201310070652287_CategoryNameIsUnique.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201310070731399_EvaluationInitialConstraints.resx">
-      <DependentUpon>201310070731399_EvaluationInitialConstraints.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\StudentEvaluatorCore\StudentEvaluatorCore.csproj">
+      <Project>{5f535e59-c1a7-4766-86f1-bfbf71cb1b37}</Project>
+      <Name>StudentEvaluatorCore</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

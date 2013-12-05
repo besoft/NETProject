@@ -289,9 +289,6 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		virtual protected void CreateNewStudent()
 		{
-			if (!CanCreateNewStudent())
-				return;
-
 			var window = DialogService.DialogService.Default.Get<IWindowView>(DialogService.DialogConstants.EditStudentView);
 			if (window == null)
 			{
@@ -322,9 +319,6 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		virtual protected void EditFocusedStudent()
 		{
-			if (!CanEditFocusedStudent())
-				return;
-
 			var window = DialogService.DialogService.Default.Get<IWindowView>(DialogService.DialogConstants.EditStudentView);
 			if (window == null)
 			{
@@ -347,10 +341,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		///Delete the currently selected students
 		/// </summary>		
 		virtual protected void DeleteSelectedStudents()
-		{
-			if (!CanDeleteSelectedStudents())
-				return;
-
+		{			
 			ConfirmationResult confResult = ConfirmationResult.Ask;
 
 			var listToDelete = this.SelectedItems.ToList();

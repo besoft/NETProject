@@ -1,3 +1,7 @@
+5.12.2013 - Unit tests
+* Added an unit test for StudentViewModel (with 100% code coverage)
+* Fixed several bugs (and unwanted code) discovered by the testing
+
 5.12.2013 - Class Library
 * General classes moved into a class library (StudentEvaluatorCore) being referenced in the Console Application
 * Migration from EF 5.0 to 6.0 (enforced by the fact that EF 5.0 no longer available for the class library to use)

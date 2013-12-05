@@ -92,7 +92,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 			this.ModelState = this._originalModelState = modelState;
 			this.ModelRepository = modelRepository;
 
-			this.IsReadOnly = !modelState.HasFlag(ModelStates.Added);	//default is View Only
+			this.IsReadOnly = modelState.HasFlag(ModelStates.Deleted) || modelState == ModelStates.Unchanged;	//default is View Only
 		}
 		#endregion // Constructor
 

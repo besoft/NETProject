@@ -330,9 +330,6 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		virtual protected void EditStudent()
 		{
-			if (!CanEditStudent())
-				return;
-
 			this.IsReadOnly = false;
 		}
 
@@ -340,10 +337,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// Deletes the student.
 		/// </summary>		
 		virtual protected void DeleteStudent()
-		{
-			if (!CanDeleteStudent())
-				return;
-
+		{			
 			var personalNumber = this.PersonalNumber ?? "<null>";
 
 			if (DeleteModel(confQuestion:
@@ -360,21 +354,16 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// Saves the changes.
 		/// </summary>		
 		virtual protected void SaveChanges()
-		{
-			if (!this.CanSaveChanges())
-				return;
-
+		{		
 			bool isNew = this.IsModelNew;
 			if (SaveModelChanges())
 			{
-				var personalNumber = this.PersonalNumber ?? "<null>";
-
 				if (isNew)
 					DisplayNotification(NotificationType.Message,
-						"Student created", "A new student with personal number '" + personalNumber + "' has been added into the repository.");
+						"Student created", "A new student with personal number '" + this.PersonalNumber + "' has been added into the repository.");
 				else
 					DisplayNotification(NotificationType.Message,
-						"Student updated", "Student with personal number '" + personalNumber + "' has been updated.");
+						"Student updated", "Student with personal number '" + this.PersonalNumber + "' has been updated.");
 
 				this.IsReadOnly = true;
 			}
@@ -385,11 +374,8 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>
 		virtual protected void CancelChanges()
 		{
-			if (CanCancelChanges())
-			{
-				if (CancelModelChanges())
-					this.IsReadOnly = true;
-			}
+			if (CancelModelChanges())
+				this.IsReadOnly = true;			
 		}
 
 		

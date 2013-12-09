@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Text;
 using System.Text.RegularExpressions;
 using Zcu.StudentEvaluator.DAL;
@@ -17,8 +18,10 @@ namespace Zcu.StudentEvaluator.View
 		/// <param name="student">The student whose details are to be displayed.</param>
 		/// <param name="displayForEdit">if set to <c>false</c> the student data is displayed for read-only.</param>
 		protected void Display(IStudentViewModel student, bool displayForEdit = true)
-		{						
-			Console.WriteLine("---------------------------------");
+		{
+            Contract.Requires(student != null);
+
+            Console.WriteLine("---------------------------------");
 			Console.WriteLine("{1}ersonalNumber:\t{0}", student.PersonalNumber, displayForEdit ? "(P)" : "P");
 			if (displayForEdit) DisplayValidationError("PersonalNumber");
 

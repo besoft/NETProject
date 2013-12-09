@@ -1,7 +1,10 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Input;
 using Zcu.StudentEvaluator.DAL;
 using Zcu.StudentEvaluator.Model;
 using Zcu.StudentEvaluator.View;
+using System.Linq;
 
 namespace Zcu.StudentEvaluator.ViewModel
 {
@@ -21,7 +24,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		private ICommand _deleteCommand;	//definition of the command to delete the student (from model)		
 		#endregion
 
-		#region Constructor
+		#region Constructor     
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StudentViewModel" /> class with a new model.
 		/// </summary>
@@ -136,8 +139,6 @@ namespace Zcu.StudentEvaluator.ViewModel
 		{
 			get
 			{
-				//TODO: odkomentovat puvodni kod a ukazat moznosti Diggeru
-				//return Surname.ToUpper() + " " + FirstName;
 				if (this.Surname != null)
 				{
 					return (this.FirstName != null) ? Surname.ToUpper() + " " + FirstName : Surname.ToUpper();
@@ -149,7 +150,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 				else
 					return null;
 			}
-		}
+		}        
 		#endregion
 
 		#region Presentation Properties

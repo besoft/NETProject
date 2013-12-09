@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 using Zcu.StudentEvaluator.Model;
@@ -36,6 +37,8 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="context">The context of this repository.</param>
 		public LocalRepository(LocalStudentEvaluationContext context)
 		{
+            Contract.Requires(context != null);
+
 			this.Context = context;
 			
 			//discover Items in the context
@@ -54,6 +57,8 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <returns>Instance of the collection of TEntity existing in the given context</returns>		
 		private ICollection<TEntity> DiscoverCollection(LocalStudentEvaluationContext context)
 		{
+            Contract.Requires(context != null);
+
 			//Reflection :-)
 			var getter = (from x in context.GetType().GetProperties()
 							 where x.PropertyType.IsGenericType &&

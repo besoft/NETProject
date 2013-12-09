@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Validation;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using Zcu.StudentEvaluator.DAL;
 using Zcu.StudentEvaluator.View;
@@ -22,8 +23,12 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 	class Program
 	{
 		static void Main(string[] args)
-		{
+		{            
 			BootStraper.InitializeIOC();
+
+            //var confirm = DialogService.DialogService.Default.Get<IConfirmationView>();
+            //confirm.ConfirmAction(ConfirmationOptions.OK, null, "Loading ... ");            
+
 
 			//Pokus();			
 			var unitOfWork = 

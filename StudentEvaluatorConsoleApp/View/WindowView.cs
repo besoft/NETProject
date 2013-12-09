@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -111,6 +112,8 @@ namespace Zcu.StudentEvaluator.View
 		/// <returns>Capitalized letter of the command, e.g., 'X'</returns>
 		protected char GetNextCommand(string menuCommandString)
 		{
+            Contract.Requires(menuCommandString != null);
+
 			//parse menuCommandString
 			Regex rex = new Regex(@"\((.)\)");
 			var matches = rex.Matches(menuCommandString);

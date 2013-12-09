@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using Zcu.StudentEvaluator.DAL;
 using Zcu.StudentEvaluator.Model;
@@ -72,7 +73,9 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 		/// <param name="context">The database context.</param>
 		/// <param name="output">The output, e.g.., Console.Out.</param>
 		public static void DumpData(this LocalStudentEvaluationContext context, string userMessage = null, TextWriter output = null)
-		{			
+		{
+            Contract.Requires(context != null);
+
 			if (output == null)
 				output = Console.Out;
 

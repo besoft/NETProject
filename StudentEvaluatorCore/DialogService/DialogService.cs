@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Zcu.StudentEvaluator.DialogService
@@ -54,7 +56,7 @@ namespace Zcu.StudentEvaluator.DialogService
 		/// e.g., MainView, usually specified as a lambda expression: () => new MainView(param1, param2)</param>
 		/// <param name="viewId">The requested view unique identifier.</param>
 		/// <remarks>If an interface is implemented by one concrete class only, viewId can be ignored, otherwise it is important.</remarks>
-		/// <returns>The assigned view unique identifier (that may be passed to Get method)</returns>
+		/// <returns>The assigned view unique identifier (that may be passed to Get method)</returns>        
 		public DialogConstants Register<TviewInterface>(Func<TviewInterface> instanceCreator, DialogConstants viewId = DialogConstants.AutoResolve) where TviewInterface : class
 		{
 			var type = typeof(TviewInterface);
@@ -63,6 +65,7 @@ namespace Zcu.StudentEvaluator.DialogService
 			if (!_registry.TryGetValue(type, out list))
 				_registry.Add(type, list = new List<RegistryEntryBase>());
 
+            Contract.Assume(list != null);
 			if (viewId != DialogConstants.AutoResolve)
 			{
 				if (list.Find(x => x.viewId == viewId) != null)
@@ -70,7 +73,9 @@ namespace Zcu.StudentEvaluator.DialogService
 			}
 			else
 			{
-				//automatically assign a new Constant
+				//automatically assign a new Constant                
+                Contract.Assume(Contract.ForAll<RegistryEntryBase>(list, x => x != null));
+
 				int maxId = Math.Max(Enum.GetValues(typeof(DialogConstants)).Cast<int>().Max(), list.Max(x => (int)x.viewId));
 				viewId = (DialogConstants)(maxId + 1);
 			}

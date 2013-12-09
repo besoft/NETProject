@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Zcu.StudentEvaluator.DAL;
 using Zcu.StudentEvaluator.Model;
 using Zcu.StudentEvaluator.ViewModel;
+using System.Diagnostics.Contracts;
 
 namespace Zcu.StudentEvaluator.View
 {
@@ -17,6 +18,8 @@ namespace Zcu.StudentEvaluator.View
 		/// <param name="students">The list of students.</param>
 		public void Display(IEnumerable<IStudentListItemViewModel> students)
 		{
+            Contract.Requires(students != null);
+
 			Console.WriteLine("---------------------------------");
 			foreach (var st in students)
 			{

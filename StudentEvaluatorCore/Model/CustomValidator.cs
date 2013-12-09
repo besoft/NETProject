@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Zcu.StudentEvaluator.Model
@@ -17,6 +18,8 @@ namespace Zcu.StudentEvaluator.Model
 		/// <returns>true, if the value of "Points" of the give evaluation is valid; otherwise false and error message is returned in validationResult</returns>
 		public static ValidationResult ValidateEvaluationPoints(decimal? points, ValidationContext validationContext)
 		{
+            Contract.Requires(validationContext != null);
+
 			Evaluation evaluation = validationContext.ObjectInstance as Evaluation;
 
 			if (evaluation.Category.MaxPoints != null && points != null &&
@@ -38,7 +41,9 @@ namespace Zcu.StudentEvaluator.Model
 		/// <param name="validationResult">The validation result.</param>
 		/// <returns>true, if the value of "MaxPoints" of the given category is valid; otherwise false and error message is returned in validationResult</returns>
 		public static ValidationResult ValidateCategoryMaxPoints(decimal? maxPoints, ValidationContext validationContext)
-		{			
+		{
+            Contract.Requires(validationContext != null);
+		
 			if (maxPoints != null)
 			{
 				Category category = validationContext.ObjectInstance as Category;

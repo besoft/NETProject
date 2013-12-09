@@ -1,3 +1,35 @@
+5.12.2013 - Contracts and Microsoft Code Digger 
+* Experiments with Microsoft Code Digger to show other possibilities to Debug the code
+	see http://research.microsoft.com/en-us/projects/codedigger/gettingstarted.aspx
+
+	IMPORTANT STEPS TO REPRODUCE:
+		- Install Code Digger and modify its settings (Tools/Pex) to be able to process also other than Portable 
+		  classes Assemblies only, and also enable Diagnosis (which will create reports of processing)
+		- Go to StudentEvaluationContextExtensions.cs into DumpData method and launch from the context menu
+		  "Generate Input/Output Table". It should give you some results.
+		- Unfortunately, Code Digger targets methods only, i.e., it cannot be run on Properties
+		- What is a more serious problem is that it fails to produce anything when the method
+		  is a member of class that requires some interface to be passed into its constructor
+		  because the underlying Pex machine does not know how to create the instance (this 
+		  can be found in the report file as "Pex needs help to find types") and currently,
+		  there is no way to help Pex :-) Code Digger is Pre-Release technology.
+		  Useful in some context (e.g., for automatic generation of UnitTests) but still		
+
+* Added Code Contracts
+	IMPORTANT STEPS TO REPRODUCE:
+		- Install Code Contracts Tools since Code Contracts support in .NET is just an interface with
+		  concrete implementation missing => this should add new tab into Properties of the project
+		- http://research.microsoft.com/en-us/projects/contracts/userdoc.pdf
+		- Enable "Static Contract Checking" (in the Properties)
+		- Check "Fail build on warning"
+		- Goto DialogService.cs in Register<TviewInterface> and uncomment Assumes
+		- Build the solution (and wait until CodeContracts finish - it may take minutes)		
+		- Uncomment confirm.ConfirmAction in Main to see what happens (+ see contract class for IConfirmView)
+		- Choose one of three modes (see section 5.1 in userdoc)
+		- Add contracts that satisfies your needs
+		
+		
+
 5.12.2013 - Unit tests
 * Added an unit test for StudentViewModel (with 100% code coverage)
 * Fixed several bugs (and unwanted code) discovered by the testing
@@ -192,6 +224,10 @@
 
 * Added Entity Framework and classes DbRepository, DbStudentEvaluationContext and DbStudentEvaluationUnitOfWork
 	
+	IMPORTANT STEPS TO REPRODUCE: Entity Framework is no longer a corporal part of .NET but rather a package being
+				developed as standalone => (from the context project or solution menu launch "Manage NuGet Packages ..."
+				and install EntityFramework, which will create/modify app.config and packages.config)
+
 	Note:		Compare DbStudentEvaluationUnitOfWork and LocalStudentEvaluationUnitOfWork
 				Compare DbStudentEvaluationContext and LocalStudentEvaluationContext
 				Compare DbRepository and LocalRepository

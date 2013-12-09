@@ -1,4 +1,5 @@
-﻿namespace Zcu.StudentEvaluator.View
+﻿using System.Diagnostics.Contracts;
+namespace Zcu.StudentEvaluator.View
 {	
 	[System.Flags]
 	public enum ConfirmationResult
@@ -32,7 +33,8 @@
 	/// <summary>
 	/// This represents dialog with the user to confirm some action, e.g., closing the document without saving.
 	/// </summary>
-	public interface IConfirmationView
+	[ContractClass(typeof(ContractClassForIConfirmationView))]
+    public interface IConfirmationView
 	{
 		/// <summary>
 		/// Confirms the action to be done.
@@ -43,4 +45,17 @@
 		/// <returns>User decision.</returns>
 		ConfirmationResult ConfirmAction(ConfirmationOptions options, string caption, string message);
 	}
+
+    [ContractClassFor(typeof(IConfirmationView))]
+    abstract class ContractClassForIConfirmationView : IConfirmationView
+    {
+        public ConfirmationResult ConfirmAction(ConfirmationOptions options, string caption, string message)
+        {
+            Contract.Requires(caption != null);
+            Contract.Requires(message != null);
+
+            throw new System.NotImplementedException();
+        }
+    }
+
 }

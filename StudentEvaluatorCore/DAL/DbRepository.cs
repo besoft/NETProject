@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 using Zcu.StudentEvaluator.Model;
@@ -30,6 +31,8 @@ namespace Zcu.StudentEvaluator.DAL
 		/// <param name="context">The context of this repository.</param>
 		public DbRepository(DbStudentEvaluationContext context)
 		{
+            Contract.Requires(context != null);
+
 			this.Context = context;
 			
 			//discover Items in the context

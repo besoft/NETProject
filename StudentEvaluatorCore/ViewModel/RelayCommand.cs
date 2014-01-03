@@ -67,7 +67,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		[DebuggerStepThrough]
 		public bool CanExecute(object parameter)
 		{
-			return _canExecute == null ? true : _canExecute((T)parameter);
+			return _canExecute == null ? true : _canExecute(parameter != null ? (T)parameter : default(T));
 		}
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		public void Execute(object parameter)
 		{
 			if (CanExecute(parameter))
-				_execute((T)parameter);
+                _execute(parameter != null ? (T)parameter : default(T));
 		}
 	}
 }

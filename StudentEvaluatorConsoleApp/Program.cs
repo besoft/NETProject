@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity.Validation;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using Zcu.StudentEvaluator.DAL;
 using Zcu.StudentEvaluator.View;
 using Zcu.StudentEvaluator.ViewModel;
@@ -23,7 +25,10 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 	class Program
 	{
 		static void Main(string[] args)
-		{            
+		{
+           // Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs-CZ");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+         
 			BootStraper.InitializeIOC();
 
             //var confirm = DialogService.DialogService.Default.Get<IConfirmationView>();

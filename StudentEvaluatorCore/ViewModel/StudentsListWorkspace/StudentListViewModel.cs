@@ -348,7 +348,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 			foreach (var item in listToDelete)
 			{
 				if (!item.DeleteModel(ConfirmationOptions.YesYesoAllNoTNoToAll, 
-					"Do you want to permanently delete '" +	item.DisplayName + "'?", 
+                    String.Format(Resources.Strings.DeleteSelectedStudents_Confirmation, item.DisplayName), 
 					ref confResult) || confResult == ConfirmationResult.NoToAll
 					)
 				break;	//fatal error or terminated

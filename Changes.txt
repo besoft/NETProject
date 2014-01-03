@@ -1,3 +1,10 @@
+3.1.2013 - Resources introduced
+ * Added a new folder Resources into StudentEvaluatorCore and two Resource files, one for neutral language, one for Czech
+	with one string to be displayed in StudentListViewModel.DeleteSelectedStudents
+
+	NOTE: for editing multiple languages simultaneously, VS editor does not do great job.
+	Use http://www.zeta-resource-editor.com/index.html for better editing.
+
 2.1.2013 - Fixed a couple of bugs in RelayCommand		
 
 5.12.2013 - Contracts and Microsoft Code Digger 

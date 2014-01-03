@@ -1,3 +1,5 @@
+2.1.2013 - Fixed a couple of bugs in RelayCommand		
+
 5.12.2013 - Contracts and Microsoft Code Digger 
 * Experiments with Microsoft Code Digger to show other possibilities to Debug the code
 	see http://research.microsoft.com/en-us/projects/codedigger/gettingstarted.aspx

@@ -127,7 +127,6 @@
     <Compile Include="ViewModel\ISelectableViewModel.cs" />
     <Compile Include="ViewModel\StudentDetailWorkspace\IStudentViewModel.cs" />
     <Compile Include="ViewModel\StudentsListWorkspace\IStudentListViewModel.cs" />
-    <Compile Include="ViewModel\PartialClasses\RelayCommandInternal.cs" />
     <Compile Include="ViewModel\StudentDetailWorkspace\StudentViewModel.cs" />
     <Compile Include="ViewModel\StudentsListWorkspace\StudentListViewModel.cs" />
     <Compile Include="ViewModel\StudentsListWorkspace\EvaluationViewModel.cs" />
@@ -156,7 +155,9 @@
       <DependentUpon>201310070731399_EvaluationInitialConstraints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\PartialClasses\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

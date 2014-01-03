@@ -4,6 +4,37 @@ using System.Windows.Input;
 
 namespace Zcu.StudentEvaluator.ViewModel
 {
+    /// <summary>
+    /// Represents a simple tool to override the body of RelayCommand.CanExecuteChanged event 
+    /// and related RaiseCanExecuteChanged method from applications
+    /// </summary>
+    public static class RelayCommandInjector
+    {
+        /// <summary>
+        /// Gets or sets the delegate to an action to be executed from CanExecuteChanged.Add routine.
+        /// </summary>
+        /// <value>
+        /// The action that is to be called have one parameter which is the delegate passed in: CanExecuteChanged += delegate.
+        /// </value>
+        public static Action<Delegate> CanExecuteChangedAddAction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the delegate to an action to be executed from CanExecuteChanged.Remove routine.
+        /// </summary>
+        /// <value>
+        /// The action that is to be called have one parameter which is the delegate passed in: CanExecuteChanged -= delegate.
+        /// </value>
+        public static Action<Delegate> CanExecuteChangedRemoveAction { get; set; }
+
+        /// <summary>
+        /// Gets or sets the action to be called from RaiseCanExecuteChangedAction.
+        /// </summary>
+        /// <value>
+        /// The action has one parameter which will be the reference to the caller.
+        /// </value>
+        public static Action<ICommand> RaiseCanExecuteChangedAction { get; set; }
+    }
+
 	internal class RelayCommand : RelayCommand<object>
 	{
 		/// <summary>
@@ -27,7 +58,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		}
 	}
 
-	internal partial class RelayCommand<T> : ICommand
+	internal class RelayCommand<T> : ICommand
 	{
 		#region Fields
 		readonly Action<T> _execute;
@@ -79,5 +110,60 @@ namespace Zcu.StudentEvaluator.ViewModel
 			if (CanExecute(parameter))
                 _execute(parameter != null ? (T)parameter : default(T));
 		}
+
+                
+        /// <summary>
+        /// Internal CanExecuteChanged back-end.
+        /// </summary>
+        /// <remarks>
+        /// When an event has add and remove accessors specified, it cannot be raised directly (compiler error).
+        /// For the details, see http://csharpindepth.com/Articles/Chapter2/Events.aspx.
+        /// This internal event therefore is here to hack it.
+        /// </remarks>
+        private event EventHandler _CanExecuteChanged;
+
+        /// <summary>
+        /// Occurs when changes occur that affect whether the command should execute.
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                lock (this)
+                {                    
+                    if (RelayCommandInjector.CanExecuteChangedAddAction != null)                    
+                        RelayCommandInjector.CanExecuteChangedAddAction(value);
+                    else
+                        this._CanExecuteChanged += value;   //this is the default implementation
+                }
+            }
+            remove
+            {
+                lock (this)
+                {                    
+                    if (RelayCommandInjector.CanExecuteChangedRemoveAction != null)
+                        RelayCommandInjector.CanExecuteChangedRemoveAction(value);                    
+                    else
+                        this._CanExecuteChanged -= value;   //this is the default implementation
+                }
+            }
+        }
+
+        /// <summary>
+        /// Raises the <see cref="CanExecuteChanged" /> event.
+        /// </summary>		
+        public void RaiseCanExecuteChanged()
+        {
+            if (RelayCommandInjector.RaiseCanExecuteChangedAction != null)
+                RelayCommandInjector.RaiseCanExecuteChangedAction(this);
+            else
+            {
+                //default implementation
+                if (this._CanExecuteChanged != null)
+                {
+                    this._CanExecuteChanged(this, EventArgs.Empty);
+                }
+            }
+        }
 	}
 }

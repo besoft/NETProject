@@ -87,6 +87,11 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\ColorSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>ColorSettings.settings</DependentUpon>
+    </Compile>
     <Compile Include="StudentEvaluationContextExtensions.cs" />
     <Compile Include="View\ConfirmationView.cs" />
     <Compile Include="View\NotificationView.cs" />
@@ -97,6 +102,11 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\ColorSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>ColorSettings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Zcu.StudentEvaluator.Properties</CustomToolNamespace>
     </None>
     <None Include="packages.config" />
     <None Include="View\ClassDiagram.cd" />

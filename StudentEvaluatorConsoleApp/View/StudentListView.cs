@@ -27,7 +27,7 @@ namespace Zcu.StudentEvaluator.View
 				var oldFgColor = Console.ForegroundColor;
 
 				if (st.IsSelected)
-					Console.BackgroundColor = ConsoleColor.DarkBlue;
+					Console.BackgroundColor = Properties.ColorSettings.Default.SelectionColor;
 
 				if (st.IsFocused)
 					Console.ForegroundColor = ConsoleColor.White;

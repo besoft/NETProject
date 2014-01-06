@@ -1,9 +1,18 @@
-3.1.2013 - Resources introduced
- * Added a new folder Resources into StudentEvaluatorCore and two Resource files, one for neutral language, one for Czech
+3.1.2013 - Resources and Settings introduced
+ * Added a new folder Resources into StudentEvaluatorCore and two Resource files (Add New item - Resource File), one for neutral language, one for Czech
 	with one string to be displayed in StudentListViewModel.DeleteSelectedStudents
 
 	NOTE: for editing multiple languages simultaneously, VS editor does not do great job.
 	Use http://www.zeta-resource-editor.com/index.html for better editing.
+
+ * Added a Settings File into StudentEvaluatorConsoleApp and moved into its Properties (with Custom Tool Namespace set to Zcu.StudentEvaluator.Properties)
+
+	NOTE: Settings allow configuring virtually anything from .config file with two scopes available. Application = any change that might have been done during the runtime
+	is not stored into .config file, when .Save method is called; User = any change can be stored but it is stored into user.config file automatically created for each
+	user running the application (e.g., "C:\Users\Josef\Local Settings\Data aplikací\Zcu\StudentEvaluatorConsoleAp_Url_th4hld2fq4lpjwp3o0jjr5m4n0lkjx2e\1.0.0.0\")
+	because App.config is considered to contain the defaults. 
+
+	NOTE2: The easiest way to create Settings is to Go to tab "Settings" in the project Properties.
 
 2.1.2013 - Fixed a couple of bugs in RelayCommand		
 

@@ -18,11 +18,11 @@ namespace Zcu.StudentEvaluator.View
 			switch (type)
 			{
 				case NotificationType.Message:
-					Console.ForegroundColor = ConsoleColor.DarkGreen; break;
+					Console.ForegroundColor = Properties.ColorSettings.Default.MessageColor; break;
 				case NotificationType.Warning:
-					Console.ForegroundColor = ConsoleColor.DarkYellow; break;
+					Console.ForegroundColor = Properties.ColorSettings.Default.WarningColor; break;
 				default:
-					Console.ForegroundColor = ConsoleColor.Red; break;
+					Console.ForegroundColor = Properties.ColorSettings.Default.ErrorColor; break;
 			}
 
 			Console.WriteLine("{0} : {1}\n\n{2}", type.ToString().ToUpper(), caption, message);

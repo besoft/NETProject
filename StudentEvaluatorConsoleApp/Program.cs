@@ -64,7 +64,16 @@ namespace Zcu.StudentEvaluator.ConsoleApp
 			mainView.DataContext = mainViewModel;
 
 			mainView.ShowDialog();
+
+            //This is the directory into which the user configuration will be saved
+            Console.WriteLine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+            //Console.WriteLine(Application.LocalUserAppDataPath);
+
+            Properties.ColorSettings.Default.SelectionColor = ConsoleColor.DarkCyan;
+            Properties.ColorSettings.Default.Save();
 		}
+
+
 
 		/*
 		private static void Pokus()

@@ -92,7 +92,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>ColorSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="StudentEvaluationContextExtensions.cs" />
     <Compile Include="View\ConfirmationView.cs" />
     <Compile Include="View\NotificationView.cs" />
     <Compile Include="View\StudentListView.cs" />

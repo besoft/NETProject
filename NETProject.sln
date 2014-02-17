@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEvaluatorCoreUnitTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEvaluatorWPFApp", "StudentEvaluatorWPFApp\StudentEvaluatorWPFApp.csproj", "{1EA3CEFB-0CE3-4E04-A0E5-FB2A38BA4F54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEvaluatorCoreDesignData", "StudentEvaluatorCoreDesignData\StudentEvaluatorCoreDesignData.csproj", "{8B39D65F-4373-45CF-B8E4-990FEE3BAC4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1EA3CEFB-0CE3-4E04-A0E5-FB2A38BA4F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EA3CEFB-0CE3-4E04-A0E5-FB2A38BA4F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EA3CEFB-0CE3-4E04-A0E5-FB2A38BA4F54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B39D65F-4373-45CF-B8E4-990FEE3BAC4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B39D65F-4373-45CF-B8E4-990FEE3BAC4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B39D65F-4373-45CF-B8E4-990FEE3BAC4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B39D65F-4373-45CF-B8E4-990FEE3BAC4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

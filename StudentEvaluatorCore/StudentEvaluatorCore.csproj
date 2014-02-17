@@ -88,6 +88,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\StudentEvaluationContextExtensions.cs" />
     <Compile Include="Resources\Strings.cs-CZ.Designer.cs">
       <DependentUpon>Strings.cs-CZ.resx</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -34,7 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -54,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Design\DesignData.cs" />
     <Compile Include="Properties\ColorSettings.Designer.cs">
       <DependentUpon>ColorSettings.settings</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -64,6 +73,9 @@
     </Compile>
     <Compile Include="View\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentListView.xaml.cs">
+      <DependentUpon>StudentListView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +98,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\StudentListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -105,6 +121,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\ColorSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>ColorSettings.Designer.cs</LastGenOutput>
@@ -120,6 +137,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\StudentEvaluatorCoreDesignData\StudentEvaluatorCoreDesignData.csproj">
+      <Project>{8b39d65f-4373-45cf-b8e4-990fee3bac4f}</Project>
+      <Name>StudentEvaluatorCoreDesignData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StudentEvaluatorCore\StudentEvaluatorCore.csproj">
       <Project>{5f535e59-c1a7-4766-86f1-bfbf71cb1b37}</Project>
       <Name>StudentEvaluatorCore</Name>

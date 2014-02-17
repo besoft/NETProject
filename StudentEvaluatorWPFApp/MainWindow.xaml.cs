@@ -25,22 +25,14 @@ namespace Zcu.StudentEvaluator.DesktopApp
         {
             InitializeComponent();
             InitializeIOC();
-
-            //try it
-            var ntf = DialogService.DialogService.Default.Get<INotificationView>();
-            ntf.DisplayNotification(NotificationType.Error, null, "Testovaci zprava", new InvalidOperationException());
         }
-
+        
         /// <summary>
         /// Initializes the Interface / Window.
         /// </summary>        
         private void InitializeIOC()
         {
-            DialogService.DialogService.Default.RegisterSingleton<INotificationView, NotificationView>(this.NtfView, DialogService.DialogConstants.NotificationView);
-            DialogService.DialogService.Default.Register<IConfirmationView, ConfirmationView>(DialogService.DialogConstants.ConfirmationView);
-            //DialogService.DialogService.Default.Register<IWindowView, StudentView>(DialogService.DialogConstants.EditStudentView);
-
-            //DialogService.DialogService.Default.Register<IWindowView, StudentListView>();	//main View
-        }
+            DialogService.DialogService.Default.RegisterSingleton<INotificationView, NotificationView>(this.NtfView, DialogService.DialogConstants.NotificationView);  
+        } 
     }
 }

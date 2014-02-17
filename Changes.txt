@@ -1,3 +1,6 @@
+17.2.2014 - WPF Desktop Core
+* Implemented ConfirmationView and NotificationView
+
 3.1.2013 - Resources and Settings introduced
  * Added a new folder Resources into StudentEvaluatorCore and two Resource files (Add New item - Resource File), one for neutral language, one for Czech
 	with one string to be displayed in StudentListViewModel.DeleteSelectedStudents

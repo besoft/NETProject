@@ -11,4 +11,5 @@
 * Concurrency Handling => Parallel Programming
 * WCF (Windows Communication Foundations) Services
 * Windows Store App as a thin client
+	(see http://msdn.microsoft.com/en-us/library/windows/apps/hh986968.aspx)
 * Deployment

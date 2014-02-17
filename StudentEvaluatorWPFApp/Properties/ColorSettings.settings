@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Zcu.StudentEvaluator.Properties" GeneratedClassName="ColorSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MessageColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF006400</Value>
+    </Setting>
+    <Setting Name="SelectionColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF4682B4</Value>
+    </Setting>
+    <Setting Name="WarningColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFFA500</Value>
+    </Setting>
+    <Setting Name="ErrorColor" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFF0000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

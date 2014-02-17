@@ -1,0 +1,25 @@
+﻿<Window x:Class="Zcu.StudentEvaluator.View.ConfirmationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ConfirmationView" Width="450" SizeToContent="Height" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="MessageCtrl" TextWrapping="Wrap" Text="TextBlock" Margin="10"/>
+        <StackPanel HorizontalAlignment="Right" Margin="10" Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal">
+            <Button x:Name="AbortBttn" Content="_Abort" Margin="5,0" Width="75" Click="AbortBttn_Click"/>
+            <Button x:Name="RetryBttn" Content="_Retry" Margin="5,0" Width="75" Click="RetryBttn_Click"/>
+            <Button x:Name="IgnoreBttn" Content="_Ignore" Margin="5,0" Width="75" Click="IgnoreBttn_Click"/>
+            <Button x:Name="OKBttn" Content="_OK" Margin="5,0" Width="75" Click="OKBttn_Click"/>
+            <Button x:Name="YesBttn" Content="_Yes" Margin="5,0" Width="75" Click="YesBttn_Click"/>
+            <Button x:Name="YesToAllBttn" Content="YesTo_All" Margin="5,0" Width="75" Click="YesToAllBttn_Click"/>
+            <Button x:Name="NoBttn" Content="_No" Margin="5,0" Width="75" Click="NoBttn_Click"/>
+            <Button x:Name="NoToAllBttn" Content="No_ToAll" Margin="5,0" Width="75" Click="NoToAllBttn_Click"/>
+            <Button x:Name="CancelBttn" IsCancel="True" Content="_Cancel" Margin="5,0" Width="75" Click="CancelBttn_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

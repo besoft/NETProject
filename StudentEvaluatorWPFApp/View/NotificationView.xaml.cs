@@ -131,6 +131,7 @@ namespace Zcu.StudentEvaluator.View
                 this.Text = message + "\nException:" + exc.ToString();
 
             this.Visibility = System.Windows.Visibility.Visible;
+            this.Expander.IsExpanded = true;
 
             if (this.DisplayTimeOut > 0)
             {
@@ -143,7 +144,8 @@ namespace Zcu.StudentEvaluator.View
                             if (Environment.TickCount > _timerHideTime)
                             {
                                 _timer.Stop();
-                                this.Visibility = System.Windows.Visibility.Collapsed;
+                                //this.Visibility = System.Windows.Visibility.Collapsed;
+                                this.Expander.IsExpanded = false;
                             }
                         };
                     

@@ -1,3 +1,10 @@
+18.2.2014 - WPF StudentListView
+* Added StudentListView with multiple selection option
+* Fixed a couple of problems: a) IsFocused is not given by WPF automatically, so ViewModel had to be updated in such a manner that focused item is the last selected, 
+and b) Entity Framework has problems during saving changes when the entity marked to be deleted has children retrieved from the database and cached but not marked 
+to be deleted (though database is set to CASCADE DELETE, so it could actually solve this problem automatically) => one need to call Remove method instead of
+setting State to Deleted since Remove sets State of all items to Deleted.
+
 17.2.2014 - WPF Desktop Core
 * Implemented ConfirmationView and NotificationView
 

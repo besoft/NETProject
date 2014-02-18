@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <view:NotificationView x:Name="NtfView" Grid.Row="0"/>
+        <view:NotificationView x:Name="NtfView" Grid.Row="0" Visibility="Collapsed"/>
         <view:StudentListView x:Name="StdListView" Grid.Row="1"/>
     </Grid>
 </Window>

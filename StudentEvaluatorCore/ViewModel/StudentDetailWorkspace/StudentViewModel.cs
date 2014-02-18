@@ -169,7 +169,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		}
 
 		/// <summary>
-		/// Gets/sets whether this customer is selected in the UI.
+		/// Gets/sets whether this student is selected in the UI.
 		/// </summary>
 		public bool IsSelected
 		{
@@ -185,7 +185,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		}
 
 		/// <summary>
-		/// Gets/sets whether this customer is focused in the UI.
+		/// Gets/sets whether this student is focused in the UI.
 		/// </summary>
 		public bool IsFocused
 		{

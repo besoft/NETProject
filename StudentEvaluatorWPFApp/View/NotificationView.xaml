@@ -16,12 +16,14 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="5,5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Title, ElementName=userControl}" Grid.Row="0" FontWeight="Bold"/>
-        <TextBlock Text="{Binding Text, ElementName=userControl}" Grid.Row="1"/>        
-    </Grid>
+    <Expander x:Name="Expander" Margin="5,5" Header="Info" HorizontalAlignment="Stretch" VerticalAlignment="Top" IsExpanded="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Title, ElementName=userControl}" Grid.Row="0" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Text, ElementName=userControl}" Grid.Row="1"/>    
+        </Grid>
+    </Expander>    
 </UserControl>

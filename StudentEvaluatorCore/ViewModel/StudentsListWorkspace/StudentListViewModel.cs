@@ -67,12 +67,14 @@ namespace Zcu.StudentEvaluator.ViewModel
 					}
 				}
 
-				NotifyPropertyChanged();				
-				NotifyPropertyChanged(() => FocusedItem);
-				NotifyPropertyChanged(() => SelectedItems);
+				NotifyPropertyChanged();
 
+                RemoveModelDerivedPropertyCacheEntry(() => FocusedItem);
+                RemoveModelDerivedPropertyCacheEntry(() => SelectedItems);
+
+                RemoveModelDerivedPropertyCacheEntry(() => HasPassedStudentsCount);
+                
 				NotifyPropertyChanged(() => AllStudentsCount);
-				NotifyPropertyChanged(() => HasPassedStudentsCount);
 			}
 		}
 		#endregion
@@ -356,8 +358,8 @@ namespace Zcu.StudentEvaluator.ViewModel
 				if (item.IsModelDeleted)	//if the item has been successfully deleted, remove it from the list
 					this.Items.Remove(item);
 			}			
-
-			//list is automatically refreshed
+			
+            //list is automatically refreshed
 		}
 
 		#endregion
@@ -414,11 +416,12 @@ namespace Zcu.StudentEvaluator.ViewModel
 					custVM.PropertyChanged -= this.Items_PropertyChanged;
 			}
 
-			NotifyPropertyChanged(() => FocusedItem);
-			NotifyPropertyChanged(() => SelectedItems);
+            NotifyPropertyChanged(() => AllStudentsCount);
 
-			NotifyPropertyChanged(() => AllStudentsCount);
-			NotifyPropertyChanged(() => HasPassedStudentsCount);
+			RemoveModelDerivedPropertyCacheEntry(() => FocusedItem);
+            RemoveModelDerivedPropertyCacheEntry(() => SelectedItems);
+
+            RemoveModelDerivedPropertyCacheEntry(() => HasPassedStudentsCount);
 			
 		}
 
@@ -437,22 +440,33 @@ namespace Zcu.StudentEvaluator.ViewModel
 
 			// When ValidPoints has changed, we need to invalidate TotalPoints
 			// so that it will be queried again for a new value.			
-			if (e.PropertyName == GetPropertyName(() => it.IsSelected))
-				this.RemoveModelDerivedPropertyCacheEntry(() => this.SelectedItems);
-			else if (e.PropertyName == GetPropertyName(() => it.IsFocused))
-			{
-				if (this.FocusedItem != null)
-					this.FocusedItem.IsFocused = false;	//only one item can have focus
+            if (e.PropertyName == GetPropertyName(() => it.IsSelected))
+            {
+                this.RemoveModelDerivedPropertyCacheEntry(() => this.SelectedItems);
 
-				this.RemoveModelDerivedPropertyCacheEntry(() => this.FocusedItem);
-			}
-			else if (e.PropertyName == GetPropertyName(() => it.HasPassed))
-				this.RemoveModelDerivedPropertyCacheEntry(() => this.HasPassedStudentsCount);
-			else if (e.PropertyName == GetPropertyName(() => it.IsModelDeleted))
-			{
-				if (it.IsModelDeleted)
-					this.Items.Remove(it);	//remove the item from the list
-			}
+                if (it.IsSelected && !it.IsFocused)
+                {
+                    //the item is newly selected but it has not been focused (yet)
+                    if (this.FocusedItem != null)
+                        this.FocusedItem.IsFocused = false;	//only one item can have focus
+
+                    it.IsFocused = true;    //set the focus onto the item
+                }
+            }
+            else if (e.PropertyName == GetPropertyName(() => it.IsFocused))
+            {
+                if (it.IsFocused && it != this.FocusedItem && this.FocusedItem != null)
+                    this.FocusedItem.IsFocused = false;	//only one item can have focus
+
+                this.RemoveModelDerivedPropertyCacheEntry(() => this.FocusedItem);
+            }
+            else if (e.PropertyName == GetPropertyName(() => it.HasPassed))
+                this.RemoveModelDerivedPropertyCacheEntry(() => this.HasPassedStudentsCount);
+            else if (e.PropertyName == GetPropertyName(() => it.IsModelDeleted))
+            {
+                if (it.IsModelDeleted)
+                    this.Items.Remove(it);	//remove the item from the list
+            }
 		}
 		#endregion				
 	}	

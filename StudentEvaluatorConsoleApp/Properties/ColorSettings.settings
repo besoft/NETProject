@@ -12,7 +12,7 @@
       <Value Profile="(Default)">DarkYellow</Value>
     </Setting>
     <Setting Name="ErrorColor" Type="System.ConsoleColor" Scope="User">
-      <Value Profile="(Default)">Black</Value>
+      <Value Profile="(Default)">Red</Value>
     </Setting>
   </Settings>
 </SettingsFile>

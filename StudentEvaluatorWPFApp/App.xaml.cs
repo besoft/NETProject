@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Zcu.StudentEvaluator.DAL;
 using Zcu.StudentEvaluator.View;
 using Zcu.StudentEvaluator.ViewModel;
@@ -29,6 +30,23 @@ namespace Zcu.StudentEvaluator.DesktopApp
         {
             // Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs-CZ");
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+
+            //RelayCommand Injector
+            RelayCommandInjector.CanExecuteChangedAddAction = new Action<Delegate>((value) => 
+            {
+                CommandManager.RequerySuggested += (System.EventHandler)value;
+            });
+
+            RelayCommandInjector.CanExecuteChangedRemoveAction = new Action<Delegate>((value) =>
+            {
+                CommandManager.RequerySuggested -= (System.EventHandler)value;
+            });
+
+            RelayCommandInjector.RaiseCanExecuteChangedAction = new Action<ICommand>((value) =>
+            {
+                CommandManager.InvalidateRequerySuggested();
+            });
+
 
             //Register Views
             DialogService.DialogService.Default.Register<IConfirmationView, ConfirmationView>(DialogService.DialogConstants.ConfirmationView);
@@ -73,7 +91,7 @@ namespace Zcu.StudentEvaluator.DesktopApp
         /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
         protected override void OnActivated(EventArgs e)
         {
-            if (this.MainWindow != null)
+            if (this.MainWindow != null && this.MainWindow.DataContext == null)
             {
                 this.MainWindow.DataContext = new StudentListViewModel(this._unitOfWork);
             }

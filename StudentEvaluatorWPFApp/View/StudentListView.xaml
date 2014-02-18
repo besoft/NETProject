@@ -4,18 +4,59 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vmd="clr-namespace:Zcu.StudentEvaluator.DesignData;assembly=StudentEvaluatorCoreDesignData"
+             xmlns:view="clr-namespace:Zcu.StudentEvaluator.View"
+             xmlns:settings="clr-namespace:Zcu.StudentEvaluator.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="640">
     <UserControl.Resources>
         <vmd:DesignDataContext x:Key="DesignDataContext"/>
+        <settings:ColorSettings x:Key="ColorSettings"/>
     </UserControl.Resources>
     <Grid 
         d:DataContext="{Binding Students, Mode=OneWay, Source={StaticResource DesignDataContext}}"
         >
         <Grid.RowDefinitions>
-            <RowDefinition Height="179*"/>
-            <RowDefinition Height="121*"/>
-        </Grid.RowDefinitions>
-        <ListBox Margin="10" ItemsSource="{Binding Items}" DisplayMemberPath="Surname" SelectedValuePath="Id"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>        
+        <ListBox Margin="10" ItemsSource="{Binding Items}" HorizontalContentAlignment="Stretch"
+                 SelectionMode="Extended"
+                 VirtualizingStackPanel.IsVirtualizing="False" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 >
+            <!-- 
+                VirtualizingStackPanel.IsVirtualizing="False" ensures that 
+                IsSelected and IsEnabled are binded always even if the items are outside to current view range
+                Otherwise, more than one item of the associated ViewModel may have IsSelected property!!!
+            
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled" ensures that long texts 
+                displayed in BuildingItem are Wrapped and the item is rendered to the width of the listbox
+                rather than displaying it unwrapped with horizontal scrolling.
+            -->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1,1,1,2" BorderBrush="Black" Padding="3" >
+                        <view:StudentListViewItem/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>                
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsFocused}" Value="True" >
+                            <Setter Property="FontWeight" Value="Bold" />                                                
+                        </DataTrigger>
+                    </Style.Triggers>                
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="_Create" Width="75" Margin="5,0" Command="{Binding CreateCommand, Mode=OneWay}"/>
+            <Button Content="_Edit" Width="75" Margin="5,0" Command="{Binding EditCommand, Mode=OneWay}"/>
+            <Button Content="_Delete" Width="75" Margin="5,0" Command="{Binding DeleteCommand, Mode=OneWay}"/>
+            <Button Content="_Refresh" Width="75" Margin="5,0" Command="{Binding RefreshListCommand, Mode=OneWay}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

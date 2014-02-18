@@ -110,8 +110,9 @@ namespace Zcu.StudentEvaluator.DAL
 			{
 				this.Items.Attach(item);
 			}
-
-			this.Context.Entry(item).State = EntityState.Deleted;	//mark item to be deleted
+            
+			//this.Context.Entry(item).State = EntityState.Deleted;	//mark item to be deleted
+            this.Items.Remove(item);    //THIS supports CASCADE deleting, the previous line will not work despite the fact that DB has "ON CASCADE DELETE"
 		}
 
 		/// <summary>
@@ -125,7 +126,7 @@ namespace Zcu.StudentEvaluator.DAL
 				this.Items.Attach(item);
 			}
 
-			this.Context.Entry(item).State = EntityState.Modified;	//mark item to be modified
+			this.Context.Entry(item).State = EntityState.Modified;	//mark item to be modified            
 		}
 
 		/// <summary>

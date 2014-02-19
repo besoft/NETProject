@@ -26,7 +26,7 @@ namespace Zcu.StudentEvaluator.Model
 		[Required]
 		[MaxLength(10)]
 		[RegularExpression(@"[A-Z]\d{2}[BN]\d+[PK]")]		
-		public string PersonalNumber { get; set; }		///NOTE: Entity Framework does not support [Unique] attribute => this must be done in migrations
+		public string PersonalNumber { get; set; }		//NOTE: Entity Framework does not support [Unique] attribute => this must be done in migrations
 
 		/// <summary>
 		/// Gets or sets the first name.

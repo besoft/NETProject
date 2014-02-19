@@ -1,8 +1,21 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Zcu.StudentEvaluator.ViewModel
 {
+    /// <summary>
+    /// This namespace contains classes/interfaces implementing ViewModels.
+    /// </summary>       
+    /// <remarks>A ViewModel represents the logic related to its underlying Model (data) 
+    /// as well as the logic related to the visual presentation of the data to the user (via Views).    
+    /// </remarks>
+    [CompilerGenerated]
+    internal class NamespaceDoc
+    {
+        //Trick to document a namespace
+    }
+
 	/// <summary>
 	/// Represents a very simple generic ViewModel
 	/// </summary>

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using Zcu.StudentEvaluator.Model;
 
-/**
+/*
  * Lecture Notes: vysvetlit rozdil mezi 
  * 1) Func<Student, bool> filter, Func<IEnumerable<Student>, IOrderedEnumerable<Student>> orderBy
  * 2) Expression<Func<Student, bool>> filter, Func<IQueryable<Student>, IOrderedQueryable<Student>> orderBy
@@ -12,6 +13,17 @@ using Zcu.StudentEvaluator.Model;
 
 namespace Zcu.StudentEvaluator.DAL
 {
+    /// <summary>
+    /// This namespace contains classes and interfaces of Data Abstract Layer such as local (in-memory only),
+    /// or database repositories of the model classes.
+    /// </summary>       
+    [CompilerGenerated]
+    internal class NamespaceDoc
+    {
+        //Trick to document a namespace
+    }
+
+
 	/// <summary>
 	/// Generic repository
 	/// </summary>

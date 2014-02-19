@@ -126,12 +126,13 @@ namespace Zcu.StudentEvaluator.ViewModel
 			}
 		}
 
-		/// <summary>
-		/// Clears the entry in the model derived properties cache for the given property.
-		/// </summary>				
-		/// <param name="propertyNameSelector">The selector of the property. It is assumed that this selector is lambda expression 
-		/// such as: "() => PropertyName".</param>
-		/// <remarks>Raises change notification for every cached value.</remarks>
+        /// <summary>
+        /// Clears the entry in the model derived properties cache for the given property.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <remarks>
+        /// Raises change notification for every cached value.
+        /// </remarks>
 		protected void RemoveModelDerivedPropertyCacheEntry(string propertyName)
 		{
 			//make sure that listener that have the cached values are notified so that they may get fresh (new) values if necessary
@@ -275,23 +276,29 @@ namespace Zcu.StudentEvaluator.ViewModel
 			}
 		}
 
-		/// <summary>
-		/// Raises this object's PropertyChanged event.
-		/// </summary>
-		/// <param name="propertyName">The property that has a new value.</param>
-		///<remarks>This version has similar behaviour as [CallerMemberName] with the only reason that
-		///the caller is not the property itself but some other method. This method is then called using lambda expression 
-		///as '() => Property'</remarks>
+        /// <summary>
+        /// Raises this object's PropertyChanged event.
+        /// </summary>
+        /// <typeparam name="T">Data type of the property that has changed</typeparam>
+        /// <param name="propertyNameSelector">The selector of property name.</param>
+        /// <remarks>
+        /// This version has similar behaviour as [CallerMemberName] with the only reason that
+        /// the caller is not the property itself but some other method. This method is then called using lambda expression
+        /// as '() =&gt; Property'
+        /// </remarks>
 		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> propertyNameSelector)
 		{			
 			NotifyPropertyChanged(GetPropertyName(propertyNameSelector));		
 		}
 
-		/// <summary>
-		/// Gets the name of the property passed as a lambda expression.
-		/// </summary>		
-		/// <param name="propertyNameSelector">The property name selector.</param>
-		/// <returns>The name of the property or null, if propertyNameSelector does not selects a property</returns>		
+        /// <summary>
+        /// Gets the name of the property passed as a lambda expression.
+        /// </summary>
+        /// <typeparam name="T">Data type of the property that has changed</typeparam>
+        /// <param name="propertyNameSelector">The property name selector.</param>
+        /// <returns>
+        /// The name of the property or null, if propertyNameSelector does not selects a property
+        /// </returns>
 		protected string GetPropertyName<T>(Expression<Func<T>> propertyNameSelector)
 		{	
 			if (propertyNameSelector == null)

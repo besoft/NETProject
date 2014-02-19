@@ -14,6 +14,10 @@ namespace Zcu.StudentEvaluator.DAL
 	/// <remarks>Alternative solution would be Partial Class</remarks>
 	public static class StudentEvaluationContextExtensions
 	{
+        /// <summary>
+        /// Populates the given work of unit with test data.
+        /// </summary>
+        /// <param name="workOfUnit">The work of unit.</param>
 		public static void PopulateWithData(this IStudentEvaluationUnitOfWork workOfUnit)
 		{
 			var categories = new List<Category>
@@ -68,11 +72,12 @@ namespace Zcu.StudentEvaluator.DAL
 			workOfUnit.Save();
 		}
 
-		/// <summary>
-		/// Dumps the data in the repository using the specified output.
-		/// </summary>
-		/// <param name="context">The database context.</param>
-		/// <param name="output">The output, e.g.., Console.Out.</param>
+        /// <summary>
+        /// Dumps the data in the repository using the specified output.
+        /// </summary>
+        /// <param name="context">The database context.</param>
+        /// <param name="userMessage">The user message.</param>
+        /// <param name="output">The output, e.g.., Console.Out.</param>
         public static void DumpData(this IStudentEvaluationUnitOfWork context, string userMessage = null, TextWriter output = null)
 		{
             Contract.Requires(context != null);

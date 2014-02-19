@@ -45,7 +45,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 	{
 		#region Constructor
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ViewModelBase{T}" /> class with a new model.
+		/// Initializes a new instance of the <see cref="ViewModel{T}" /> class with a new model.
 		/// </summary>
 		/// <param name="modelRepository">The model repository.</param>		
 		public ViewModel(IRepository<M> modelRepository = null)
@@ -58,7 +58,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ViewModelBase{T}"/> class.
+		/// Initializes a new instance of the <see cref="ViewModel{T}"/> class.
 		/// </summary>
 		/// <param name="model">The model to be wrapped.</param>
 		/// <param name="modelRepository">The model repository.</param>
@@ -77,7 +77,7 @@ namespace Zcu.StudentEvaluator.ViewModel
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ViewModelBase{T}"/> class.
+		/// Initializes a new instance of the <see cref="ViewModel{T}"/> class.
 		/// </summary>
 		/// <param name="model">The model to be wrapped.</param>
 		/// <param name="modelRepository">The model repository.</param>
@@ -97,14 +97,31 @@ namespace Zcu.StudentEvaluator.ViewModel
 		#endregion // Constructor
 
 		#region Model Base
+        /// <summary>
+        /// This flags define states in which the underlying model might reside.
+        /// </summary>
 		[System.Flags]
 		public enum ModelStates
 		{
-			Unchanged = 0,		//there has been no change, so far, i.e., buttons such as "Save" may be disabled
+            /// <summary>
+            /// There has been no change in the model, so far, i.e., buttons such as "Save" may be disabled
+            /// </summary>
+			Unchanged = 0,
 
-			Added	= 1,		//a completely new model that must be either saved or discarded => "Save" button should be enabled
-			Updated = 2,		//some property of the model has been changed => "Save" button should be enabled
-			Deleted = 4,		//the object has been deleted and, therefore, any other operation with this object is ignored			
+            /// <summary>
+            /// The model has been added and, therefore, it must be either saved or discarded => "Save" button should be enabled
+            /// </summary>
+			Added	= 1,
+
+            /// <summary>
+            /// Some property of the model has been changed => "Save" button should be enabled
+            /// </summary>
+			Updated = 2,
+
+            /// <summary>
+            /// The model object has been deleted and, therefore, any other operation with this object is ignored			
+            /// </summary>
+            Deleted = 4,
 		}
 
 		private ModelStates _originalModelState;			//original model state

@@ -90,14 +90,19 @@ namespace Zcu.StudentEvaluator.DialogService
 			return viewId;
 		}
 
-		/// <summary>
-		/// Registers the view.
-		/// </summary>
-		/// <typeparam name="TviewInterface">The type of the view interface, e.g., IMainView.</typeparam>		
-		/// <param name="viewId">The requested view unique identifier.</param>
-		/// <remarks>When the instance is required, non-parametric constructor is used.
-		/// If an interface is implemented by one concrete class only, viewId can be ignored, otherwise it is important.</remarks>
-		/// <returns>The assigned view unique identifier (that may be passed to Get method)</returns>
+        /// <summary>
+        /// Registers the view.
+        /// </summary>
+        /// <typeparam name="TviewInterface">The type of the view interface, e.g., IMainView.</typeparam>
+        /// <typeparam name="TviewImplementation">The type of the view implementation, e.g., MainView (implements IMainView).</typeparam>
+        /// <param name="viewId">The requested view unique identifier.</param>
+        /// <returns>
+        /// The assigned view unique identifier (that may be passed to Get method)
+        /// </returns>
+        /// <remarks>
+        /// When the instance is required, non-parametric constructor is used.
+        /// If an interface is implemented by one concrete class only, viewId can be ignored, otherwise it is important.
+        /// </remarks>
 		public DialogConstants Register<TviewInterface, TviewImplementation>(DialogConstants viewId = DialogConstants.AutoResolve)
 			where TviewInterface : class
 			where TviewImplementation : TviewInterface, new()
@@ -105,14 +110,20 @@ namespace Zcu.StudentEvaluator.DialogService
 			return Register<TviewInterface>(() => new TviewImplementation(), viewId);
 		}
 
-		/// <summary>
-		/// Registers the view.
-		/// </summary>
-		/// <typeparam name="TviewInterface">The type of the view interface, e.g., IMainView.</typeparam>		
-		/// <param name="viewId">The requested view unique identifier.</param>
-		/// <remarks>When the instance is required, the same instance (instance) is always returned, i.e., this method register
-		/// singleton view (has shared instance). If an interface is implemented by one concrete class only, viewId can be ignored, otherwise it is important.</remarks>
-		/// <returns>The assigned view unique identifier (that may be passed to Get method)</returns>
+        /// <summary>
+        /// Registers the view.
+        /// </summary>
+        /// <typeparam name="TviewInterface">The type of the view interface, e.g., IMainView.</typeparam>
+        /// <typeparam name="TviewImplementation">The type of the view implementation, e.g., MainView (implements IMainView).</typeparam>
+        /// <param name="instance">The existing instance to the sigleton.</param>
+        /// <param name="viewId">The requested view unique identifier.</param>
+        /// <returns>
+        /// The assigned view unique identifier (that may be passed to Get method)
+        /// </returns>
+        /// <remarks>
+        /// When the instance is required, the same instance (instance) is always returned, i.e., this method register
+        /// singleton view (has shared instance). If an interface is implemented by one concrete class only, viewId can be ignored, otherwise it is important.
+        /// </remarks>
 		public DialogConstants RegisterSingleton<TviewInterface, TviewImplementation>(TviewImplementation instance, DialogConstants viewId = DialogConstants.AutoResolve)
 			where TviewInterface : class
 			where TviewImplementation : TviewInterface

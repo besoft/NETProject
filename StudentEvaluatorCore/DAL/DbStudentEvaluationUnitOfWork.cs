@@ -9,9 +9,24 @@ namespace Zcu.StudentEvaluator.DAL
 	/// </summary>
 	public class DbStudentEvaluationUnitOfWork : IStudentEvaluationUnitOfWork
 	{
+        /// <summary>
+        /// The database context
+        /// </summary>
 		protected DbStudentEvaluationContext _context;
+        
+        /// <summary>
+        /// The repository of students in the context
+        /// </summary>
 		protected DbRepository<Student> _students;
+
+        /// <summary>
+        /// The repository of categories in the context
+        /// </summary>
 		protected DbRepository<Category> _categories;
+
+        /// <summary>
+        /// The repository of evaluations in the context
+        /// </summary>
 		protected DbRepository<Evaluation> _evaluations;
 
 		/// <summary>

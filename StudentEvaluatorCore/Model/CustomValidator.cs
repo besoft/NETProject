@@ -9,13 +9,14 @@ namespace Zcu.StudentEvaluator.Model
 	/// </summary>
 	public class CustomValidator
 	{
-		/// <summary>
-		/// Validates the evaluation points.
-		/// </summary>
-		/// <param name="evaluation">The evaluation.</param>
-		/// <param name="validationContext">The validation context.</param>
-		/// <param name="validationResult">The validation result.</param>
-		/// <returns>true, if the value of "Points" of the give evaluation is valid; otherwise false and error message is returned in validationResult</returns>
+        /// <summary>
+        /// Validates the evaluation points.
+        /// </summary>
+        /// <param name="points">The points.</param>
+        /// <param name="validationContext">The validation context.</param>
+        /// <returns>
+        /// true, if the value of "Points" of the give evaluation is valid; otherwise false and error message is returned in validationResult
+        /// </returns>
 		public static ValidationResult ValidateEvaluationPoints(decimal? points, ValidationContext validationContext)
 		{
             Contract.Requires(validationContext != null);
@@ -33,13 +34,14 @@ namespace Zcu.StudentEvaluator.Model
 			return ValidationResult.Success;
 		}
 
-		/// <summary>
-		/// Validates the maximal number of points.
-		/// </summary>
-		/// <param name="evaluation">The evaluation.</param>
-		/// <param name="validationContext">The validation context.</param>
-		/// <param name="validationResult">The validation result.</param>
-		/// <returns>true, if the value of "MaxPoints" of the given category is valid; otherwise false and error message is returned in validationResult</returns>
+        /// <summary>
+        /// Validates the maximal number of points.
+        /// </summary>
+        /// <param name="maxPoints">The maximum points.</param>
+        /// <param name="validationContext">The validation context.</param>
+        /// <returns>
+        /// true, if the value of "MaxPoints" of the given category is valid; otherwise false and error message is returned in validationResult
+        /// </returns>
 		public static ValidationResult ValidateCategoryMaxPoints(decimal? maxPoints, ValidationContext validationContext)
 		{
             Contract.Requires(validationContext != null);

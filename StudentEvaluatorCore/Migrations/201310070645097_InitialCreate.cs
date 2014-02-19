@@ -1,9 +1,15 @@
 namespace StudentEvaluatorConsoleApp.Migrations
 {
 	using System.Data.Entity.Migrations;
-	
+
+    /// <summary>
+    /// Creates the version 1.0 of the database
+    /// </summary>
 	public partial class InitialCreate : DbMigration
 	{
+        /// <summary>
+        /// Operations to be performed during the upgrade process.
+        /// </summary>
 		public override void Up()
 		{
 			CreateTable(
@@ -46,7 +52,10 @@ namespace StudentEvaluatorConsoleApp.Migrations
 				.PrimaryKey(t => t.Id);
 			
 		}
-		
+
+        /// <summary>
+        /// Operations to be performed during the downgrade process.
+        /// </summary>
 		public override void Down()
 		{
 			DropIndex("dbo.Evaluations", new[] { "Student_Id" });

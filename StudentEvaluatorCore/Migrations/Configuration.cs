@@ -1,8 +1,18 @@
 using System.Data.Entity.Migrations;
+using System.Runtime.CompilerServices;
 using Zcu.StudentEvaluator.DAL;
 
 namespace Zcu.StudentEvaluator.Migrations
-{    
+{
+    /// <summary>
+    /// This namespace contains classes for upgrading/downgrading Entity Framework database.
+    /// </summary>       
+    [CompilerGenerated]
+    internal class NamespaceDoc
+    {
+        //Trick to document a namespace
+    }
+
 	internal sealed class Configuration : DbMigrationsConfiguration<DbStudentEvaluationContext>
 	{
 		public Configuration()

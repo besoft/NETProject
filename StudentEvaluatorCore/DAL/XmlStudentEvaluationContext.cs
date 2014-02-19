@@ -7,9 +7,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using Zcu.StudentEvaluator.Model;
 
-/// <summary>
-/// Data Abstract Layer
-/// </summary>
 namespace Zcu.StudentEvaluator.DAL
 {
 	/// <summary>
@@ -20,6 +17,12 @@ namespace Zcu.StudentEvaluator.DAL
 	/// </remarks>
 	public class XmlStudentEvaluationContext : LocalStudentEvaluationContext
 	{
+        /// <summary>
+        /// Gets the filename of Xml file used to store the data.
+        /// </summary>
+        /// <value>
+        /// The XML connection filename.
+        /// </value>
 		protected string XmlConnectionFilename { get; private set; }
 
 		/// <summary>
@@ -48,11 +51,11 @@ namespace Zcu.StudentEvaluator.DAL
 
 			Load();
 		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="XmlLocalStudentEvaluationContext"/> class.
-		/// </summary>
-		/// <param name="xmlConnectionFilename">PathName to XML containing the data.</param>
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XmlStudentEvaluationContext"/> class.
+        /// </summary>
+        /// <param name="xmlConnectionFilename">PathName to XML containing the data.</param>
 		public XmlStudentEvaluationContext(string xmlConnectionFilename) : base()
 		{
 			this.XmlConnectionFilename = xmlConnectionFilename;

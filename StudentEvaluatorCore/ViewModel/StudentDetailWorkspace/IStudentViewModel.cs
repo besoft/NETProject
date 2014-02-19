@@ -1,6 +1,9 @@
 ﻿using System;
 namespace Zcu.StudentEvaluator.ViewModel
 {
+    /// <summary>
+    /// This interface represent a student viewModel
+    /// </summary>
 	public interface IStudentViewModel : IViewModel
 	{						
 		/// <summary>

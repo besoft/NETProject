@@ -31,10 +31,10 @@ namespace Zcu.StudentEvaluator.DAL
 		/// </value>
 		protected int NextId { get; set; }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="StudentRepository"/> class.
-		/// </summary>
-		/// <param name="context">The context of this repository.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalRepository{TEntity}"/> class.
+        /// </summary>
+        /// <param name="context">The context of this repository.</param>
 		public LocalRepository(LocalStudentEvaluationContext context)
 		{
             Contract.Requires(context != null);

@@ -7,10 +7,25 @@ namespace Zcu.StudentEvaluator.DAL
 	/// </summary>
 	public class LocalStudentEvaluationUnitOfWork : IStudentEvaluationUnitOfWork
 	{
+        /// <summary>
+        /// The database context
+        /// </summary>
 		protected LocalStudentEvaluationContext _context;
+
+        /// <summary>
+        /// The repository of students in the context
+        /// </summary>
 		protected LocalRepository<Student> _students;
+
+        /// <summary>
+        /// The repository of categories in the context
+        /// </summary>
 		protected LocalRepository<Category> _categories;
-		protected LocalRepository<Evaluation> _evaluations;
+
+        /// <summary>
+        /// The repository of evaluations in the context
+        /// </summary>
+        protected LocalRepository<Evaluation> _evaluations;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LocalStudentEvaluationUnitOfWork"/> class with the default context.

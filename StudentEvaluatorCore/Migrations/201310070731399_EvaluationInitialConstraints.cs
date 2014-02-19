@@ -1,9 +1,15 @@
 namespace StudentEvaluatorConsoleApp.Migrations
 {
 	using System.Data.Entity.Migrations;
-    
+
+    /// <summary>
+    /// Database upgrade to add CASCADE DELETE
+    /// </summary>
     public partial class EvaluationInitialConstraints : DbMigration
     {
+        /// <summary>
+        /// Operations to be performed during the upgrade process.
+        /// </summary>
         public override void Up()
         {
             DropForeignKey("dbo.Evaluations", "Category_Id", "dbo.Categories");
@@ -17,7 +23,10 @@ namespace StudentEvaluatorConsoleApp.Migrations
             CreateIndex("dbo.Evaluations", "Category_Id");
             CreateIndex("dbo.Evaluations", "Student_Id");
         }
-        
+
+        /// <summary>
+        /// Operations to be performed during the downgrade process.
+        /// </summary>
         public override void Down()
         {
             DropIndex("dbo.Evaluations", new[] { "Student_Id" });

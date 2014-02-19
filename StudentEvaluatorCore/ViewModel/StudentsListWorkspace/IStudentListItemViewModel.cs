@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 namespace Zcu.StudentEvaluator.ViewModel
 {
+    /// <summary>
+    /// This interface represents information of a student to be presented in lists of students.
+    /// </summary>
 	public interface IStudentListItemViewModel : IStudentViewModel, ISelectableViewModel
 	{
 		/// <summary>

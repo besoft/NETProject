@@ -24,11 +24,12 @@ namespace Zcu.StudentEvaluator.DAL
 		/// The collection containing the data for TEntity
 		/// </summary>
 		protected DbSet<TEntity> Items {get; private set; }
-		
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DbRepository"/> class.
-		/// </summary>
-		/// <param name="context">The context of this repository.</param>
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbRepository{TEntity}"/> class.
+        /// </summary>        
+        /// <param name="context">The context of this repository.</param>
 		public DbRepository(DbStudentEvaluationContext context)
 		{
             Contract.Requires(context != null);

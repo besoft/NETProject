@@ -22,10 +22,10 @@ namespace Zcu.StudentEvaluator.ViewModel
 		/// </summary>		
 		protected IStudentEvaluationUnitOfWork UnitOfWork { get; private set; }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="StudentViewModel" /> class with a new model.
-		/// </summary>
-		/// <param name="modelRepository">The model repository.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StudentViewModel" /> class with a new model.
+        /// </summary>
+        /// <param name="unitOfWork">The unit of work.</param>
 		public StudentListItemViewModel(IStudentEvaluationUnitOfWork unitOfWork = null) : base()
 		{			
 			this.UnitOfWork = unitOfWork;
@@ -47,13 +47,13 @@ namespace Zcu.StudentEvaluator.ViewModel
 				this.ModelRepository = this.UnitOfWork.Students;
 		}
 
-			/// <summary>
-		/// Initializes a new instance of the <see cref="StudentViewModel"/> class.
-		/// </summary>
-		/// <param name="model">The model to be wrapped.</param>
-		/// <param name="modelRepository">The model repository.</param>
-		/// <param name="modelState">State of the model.</param>
-		/// <exception cref="System.ArgumentNullException">model cannot be null</exception>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StudentViewModel" /> class.
+        /// </summary>
+        /// <param name="model">The model to be wrapped.</param>
+        /// <param name="modelState">State of the model.</param>
+        /// <param name="unitOfWork">The unit of work.</param>
+        /// <exception cref="System.ArgumentNullException">model cannot be null</exception>
 		protected StudentListItemViewModel(Student model, ModelStates modelState, IStudentEvaluationUnitOfWork unitOfWork = null) 
 			: base(model, modelState)
 		{

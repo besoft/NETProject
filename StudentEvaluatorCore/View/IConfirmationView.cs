@@ -1,32 +1,109 @@
 ﻿using System.Diagnostics.Contracts;
 namespace Zcu.StudentEvaluator.View
-{	
+{
+    /// <summary>
+    /// Contains values that identify the way in which the confirmation dialog box was closed.
+    /// </summary>
 	[System.Flags]
 	public enum ConfirmationResult
-	{	
-		Ask = 0,		//Unknown - must ask user differently (error)
-		OK = 1,			//The dialog box return value is OK (usually sent from a button labeled OK). 
-		Cancel = 2,		//The dialog box return value is Cancel (usually sent from a button labeled Cancel). 
-		Abort = 4,		//The dialog box return value is Abort (usually sent from a button labeled Abort). 
-		Retry = 8,		//The dialog box return value is Retry (usually sent from a button labeled Retry). 
-		Ignore = 16,	//The dialog box return value is Ignore (usually sent from a button labeled Ignore). 
-		Yes = 32,		//The dialog box return value is Yes (usually sent from a button labeled Yes). 
-		No = 64,		//The dialog box return value is No (usually sent from a button labeled No). 
+	{
+        /// <summary>
+        /// Unknown - must ask user differently (error)
+        /// </summary>
+		Ask = 0,
+
+        /// <summary>
+        /// The dialog box return value is OK (usually sent from a button labeled OK). 
+        /// </summary>
+        OK = 1,
+
+        /// <summary>
+        /// The dialog box return value is Cancel (usually sent from a button labeled Cancel). 
+        /// </summary>
+		Cancel = 2,
+
+        /// <summary>
+        /// The dialog box return value is Abort (usually sent from a button labeled Abort). 
+        /// </summary>
+		Abort = 4,
+
+        /// <summary>
+        /// The dialog box return value is Retry (usually sent from a button labeled Retry). 
+        /// </summary>
+		Retry = 8,
+
+        /// <summary>
+        /// The dialog box return value is Ignore (usually sent from a button labeled Ignore). 
+        /// </summary>
+		Ignore = 16,
+
+        /// <summary>
+        /// The dialog box return value is Yes (usually sent from a button labeled Yes). 
+        /// </summary>
+		Yes = 32,
+
+        /// <summary>
+        /// The dialog box return value is No (usually sent from a button labeled No). 
+        /// </summary>
+		No = 64,
+
+        /// <summary>
+        /// The dialog box return value is Yes (usually sent from a button labeled Yes To All). 
+        /// "Yes" should be returned automatically to all other successive confirmation requests of the same kind.
+        /// </summary>
 		YesToAll = 128,
+
+        /// <summary>
+        /// The dialog box return value is No (usually sent from a button labeled No To All). 
+        /// "No" should be returned automatically to all other successive confirmation requests of the same kind.
+        /// </summary>
 		NoToAll = 256,
 	}
 
+    /// <summary>
+    /// Contains options that may be used in confirmation requests <see cref="IConfirmationView" />
+    /// </summary>
 	public enum ConfirmationOptions
 	{
-		OK = ConfirmationResult.OK,											// The message box contains an OK button. 
+
+        /// <summary>
+        /// The message box contains an OK button. 
+        /// </summary>
+        OK = ConfirmationResult.OK,
+
+        /// <summary>
+        /// The ok cancel
+        /// </summary>
 		OKCancel = ConfirmationResult.OK | ConfirmationResult.Cancel,		//The message box contains OK and Cancel buttons. 
-		AbortRetryIgnore = ConfirmationResult.Abort | ConfirmationResult.Retry | ConfirmationResult.Ignore,	
-				//The message box contains Abort, Retry, and Ignore buttons. 
+
+        /// <summary>
+        /// The message box contains Abort, Retry, and Ignore buttons. 
+        /// </summary>
+        AbortRetryIgnore = ConfirmationResult.Abort | ConfirmationResult.Retry | ConfirmationResult.Ignore,	
+
+        /// <summary>
+        /// The message box contains Yes, No, and Cancel buttons. 
+        /// </summary>
 		YesNoCancel = ConfirmationResult.Yes | ConfirmationResult.No | ConfirmationResult.Cancel,		
-				//The message box contains Yes, No, and Cancel buttons. 
-		YesNo = ConfirmationResult.Yes | ConfirmationResult.No,				//The message box contains Yes and No buttons. 
-		RetryCancel = ConfirmationResult.Retry | ConfirmationResult.Cancel,	//The message box contains Retry and Cancel buttons.
+
+        /// <summary>
+        /// The message box contains Yes and No buttons. 
+        /// </summary>
+		YesNo = ConfirmationResult.Yes | ConfirmationResult.No,
+        
+        /// <summary>
+        /// The message box contains Retry and Cancel buttons.
+        /// </summary>
+		RetryCancel = ConfirmationResult.Retry | ConfirmationResult.Cancel,
+        
+        /// <summary>
+        /// The message box contains Yes, No, Yes To All and No To All buttons. 
+        /// </summary>
 		YesYesoAllNoTNoToAll = YesNo | ConfirmationResult.YesToAll | ConfirmationResult.NoToAll,
+
+        /// <summary>
+        /// The message box contains Yes, No, Yes To All, No To All, and Cancel buttons. 
+        /// </summary>
 		YesYesoAllNoTNoToAllCancel = YesNoCancel | ConfirmationResult.YesToAll | ConfirmationResult.NoToAll,
 	}	
 

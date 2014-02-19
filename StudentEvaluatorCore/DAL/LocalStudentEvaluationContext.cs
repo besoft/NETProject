@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using Zcu.StudentEvaluator.Model;
 
-/// <summary>
-/// Data Abstract Layer
-/// </summary>
 namespace Zcu.StudentEvaluator.DAL
 {
 	/// <summary>
@@ -14,8 +11,28 @@ namespace Zcu.StudentEvaluator.DAL
 	/// </remarks>
 	public class LocalStudentEvaluationContext
 	{
+        /// <summary>
+        /// Gets or sets the repository of students.
+        /// </summary>
+        /// <value>
+        /// The students repository.
+        /// </value>
 		public ICollection<Student> Students { get; set; }
+
+        /// <summary>
+        /// Gets or sets the repository of student evaluations.
+        /// </summary>
+        /// <value>
+        /// The evaluations repository.
+        /// </value>
 		public ICollection<Evaluation> Evaluations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the repository of categories for the evaluation.
+        /// </summary>
+        /// <value>
+        /// The categories repository.
+        /// </value>
 		public ICollection<Category> Categories { get; set; }
 
 		/// <summary>

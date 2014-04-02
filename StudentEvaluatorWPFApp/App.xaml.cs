@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Zcu.StudentEvaluator.DAL;
+using Zcu.StudentEvaluator.DesktopApp.View;
 using Zcu.StudentEvaluator.View;
 using Zcu.StudentEvaluator.ViewModel;
 
@@ -50,7 +51,7 @@ namespace Zcu.StudentEvaluator.DesktopApp
 
             //Register Views
             DialogService.DialogService.Default.Register<IConfirmationView, ConfirmationView>(DialogService.DialogConstants.ConfirmationView);
-            //DialogService.DialogService.Default.Register<IWindowView, StudentView>(DialogService.DialogConstants.EditStudentView);
+            DialogService.DialogService.Default.Register<IWindowView, StudentView>(DialogService.DialogConstants.EditStudentView);
 
             //DialogService.DialogService.Default.Register<IWindowView, StudentListView>();	//main View
 

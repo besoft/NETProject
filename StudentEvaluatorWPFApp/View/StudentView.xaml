@@ -1,0 +1,38 @@
+﻿<Window x:Class="Zcu.StudentEvaluator.DesktopApp.View.StudentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vmd="clr-namespace:Zcu.StudentEvaluator.DesignData;assembly=StudentEvaluatorCoreDesignData"
+        mc:Ignorable="d" 
+        
+        Title="Student Editor" Height="228" Width="300">
+    <Window.Resources>
+        <vmd:DesignDataContext x:Key="DesignDataContext"/>
+    </Window.Resources>
+    <Grid d:DataContext="{Binding Students.Items[0], Source={StaticResource DesignDataContext}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Personal Number:" Margin="10" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PersonalNumber, ValidatesOnDataErrors=True}" Margin="10" VerticalContentAlignment="Center"/>
+        <Label Grid.Row="1" Content="First Name:" Margin="10" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName}" Margin="10" VerticalContentAlignment="Center"/>
+        <Label Grid.Row="2" Content="Surname:" Margin="10" VerticalContentAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Surname}" Margin="10" VerticalContentAlignment="Center"/>
+        <StackPanel Margin="10"
+            Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Save" Width="75" Margin="10" Command="{Binding SaveCommand, Mode=OneWay}"/>
+            <Button Content="Cancel" Width="75" Margin="10" Command="{Binding CancelCommand, Mode=OneWay}"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
